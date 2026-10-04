@@ -1,0 +1,47 @@
+﻿{
+  "_comment": "硬视产线配置 - 由 Agent 根据实际环境生成",
+  "brand": {
+    "name": "言同学",
+    "one_liner": "复古纸墨风知识口播，讲人物、品牌与社会话题",
+    "audience": "对历史、商业、人物故事感兴趣的中青年观众",
+    "platforms": ["douyin", "bilibili", "wechat_channels", "xiaohongshu"],
+    "first_topic": "汽车品牌系列（已完成丰田/本田/福特/雪佛兰/日产/凯迪拉克等）"
+  },
+  "voice": {
+    "sample_path": "assets-customer/voice-sample.wav",
+    "style_notes": "娓娓道来讲故事风，沉稳有磁性"
+  },
+  "visual": {
+    "style_ref_paths": ["assets-customer/style-ref.png"],
+    "palette_preference": "复古做旧纸感，米黄旧纸底(#f2e8d3)，墨色线条，朱红点缀",
+    "default_style_suffix": "复古中国风插图，老报纸与宣纸质感，米黄色旧纸底，墨色线条，朱红点缀，拙朴木刻版画与淡彩水墨结合，画面留白，无任何文字。内容："
+  },
+  "llm_api_key": "TODO",
+  "llm_api_provider": "TODO",
+  "publish": {
+    "enabled": false,
+    "mediacrawler_dir": "TODO"
+  },
+  "paths": {
+    "projects_root": "Y:\\Projects\\自媒体",
+    "indextts_dir_wsl": "~/projects/j-indexctts2",
+    "zimage_dir_wsl": "~/projects/Z-Image",
+    "zimage_model_wsl": "/mnt/e/ai-models/ltxdesktop/Z-Image-Turbo",
+    "esrgan_exe": "Y:\\Projects\\自媒体\\_本地出图实验\\tools\\realesrgan-ncnn-vulkan.exe",
+    "conda_env": "wan2gp",
+    "npm_cache": "D:\\workspace\\tmp\\npm-cache",
+    "temp_dir": "D:\\workspace\\tmp",
+    "wsl_temp": "/mnt/c/Users/jonny/AppData/Local/Temp"
+  },
+  "fixed_copy": {
+    "opening_line": "欢迎回来，我是言同学。",
+    "ending_line": "今天的故事先讲到这,你顺手点的一个关注赞,是对我极致的肯定,有更新你会第一时间收到提醒,我是认真讲故事的言同学,咱们下期再见~"
+  },
+  "render": {
+    "horizontal_res": "1920x1080",
+    "vertical_res": "1080x1920",
+    "fps": 30,
+    "quality": "draft",
+    "extra_args": "--low-memory-mode --gpu"
+  }
+}

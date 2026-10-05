@@ -11,6 +11,54 @@
    已存在的 PartN.wav 自动跳过（中断可续跑）。
 """
 import argparse, json, os, shutil, subprocess, sys, time
+import urllib.request
+
+try:
+    from yingshi_config import load_config, cfg_get, expand
+    _CFG = load_config()
+except Exception:
+    _CFG = {}
+
+
+def _cf(key, default):
+    return cfg_get(_CFG, key, default) if _CFG else default
+
+
+def ensure_tts_alive(host, timeout=240):
+    """TTS 服务自愈：先 curl 健康检查，死了就尝试用 wsl 拉起，最多等 timeout 秒。
+
+    返回 True=可用，False=仍然不可用（调用方应中止并提示人工检查）。
+    """
+    health = host.rstrip("/") + "/"
+    try:
+        urllib.request.urlopen(health, timeout=5)
+        return True
+    except Exception as e:
+        print("TTS not responding (%s), trying to start it..." % e, flush=True)
+    tts_dir = expand(_cf("tts.dir", "~/projects/j-indextts2"))
+    run_sh = _cf("tts.run_script", "./run_optimized.sh")
+    start_cmd = (
+        "wsl -d Ubuntu -e bash -lc 'cd %s && exec %s'" % (tts_dir, run_sh)
+    )
+    print("starting TTS (background):", start_cmd, flush=True)
+    try:
+        subprocess.Popen(start_cmd, shell=True,
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except Exception as e:
+        print("failed to launch TTS: %s" % e, file=sys.stderr)
+        return False
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        time.sleep(10)
+        try:
+            urllib.request.urlopen(health, timeout=5)
+            print("TTS is back.", flush=True)
+            return True
+        except Exception:
+            pass
+    print("TTS still down after %ds, abort. Check webui_run.log in %s" % (timeout, tts_dir),
+          file=sys.stderr)
+    return False
 
 
 def main():
@@ -18,10 +66,17 @@ def main():
     ap.add_argument("--chapters", required=True, help="章节 JSON: [{idx,title,text}]")
     ap.add_argument("--ref", required=True, help="参考口播音频（音色克隆）")
     ap.add_argument("--base", default=".", help="项目根目录（输出到 <base>/audio）")
-    ap.add_argument("--host", default="http://127.0.0.1:7860")
+    ap.add_argument("--host", default=None, help="TTS 服务地址（默认读配置 tts.health_url）")
     ap.add_argument("--num-beams", type=float, default=2)
     ap.add_argument("--max-tokens", type=float, default=200)
+    ap.add_argument("--no-auto-start", action="store_true", help="服务挂了也不自动拉起")
     args = ap.parse_args()
+    if not args.host:
+        args.host = _cf("tts.health_url", "http://127.0.0.1:7860/").rstrip("/")
+
+    if not args.no_auto_start:
+        if not ensure_tts_alive(args.host):
+            sys.exit(2)
 
     audio_dir = os.path.join(args.base, "audio")
     os.makedirs(audio_dir, exist_ok=True)

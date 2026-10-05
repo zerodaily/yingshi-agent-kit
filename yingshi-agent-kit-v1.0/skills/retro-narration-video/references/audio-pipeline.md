@@ -2,10 +2,10 @@
 
 ## IndexTTS2 服务
 
-部署目录（WSL）：`~/projects/j-indexctts2`。服务没起就启动，不问用户：
+部署目录（WSL）：`~/projects/j-indextts2`。服务没起就启动，不问用户：
 
 ```bash
-wsl -d Ubuntu -e bash -lc 'cd ~/projects/j-indexctts2 && nohup ./run_optimized.sh > webui_run.log 2>&1 &'
+wsl -d Ubuntu -e bash -lc 'cd ~/projects/j-indextts2 && nohup ./run_optimized.sh > webui_run.log 2>&1 &'
 ```
 
 健康检查：`http://127.0.0.1:7860/` 返回 200。加载约 2–3 分钟。
@@ -13,9 +13,9 @@ wsl -d Ubuntu -e bash -lc 'cd ~/projects/j-indexctts2 && nohup ./run_optimized.s
 
 > 启动方式坑（实测）：`wsl -d Ubuntu -e bash -lc 'nohup ... &'` 的后台进程会随会话退出被杀
 > （日志为空、进程消失）。改用 **exec 前台方式挂宿主后台任务**：
-> `wsl -d Ubuntu -e bash -lc 'cd ~/projects/j-indexctts2 && exec ./run_optimized.sh'`（run_in_background）。
-> 另外 TTS 刚才还 200 不代表现在活着——每次跑 indextts2_speak.py 前先 curl 一次，
-> 连接拒绝 `[WinError 10061]` 就是服务掉了，直接拉起再跑。
+> `wsl -d Ubuntu -e bash -lc 'cd ~/projects/j-indextts2 && exec ./run_optimized.sh'`（run_in_background）。
+> 另外 TTS 刚才还 200 不代表现在活着——`indextts2_speak.py` 开头已内置健康检查与
+> 自动拉起（`--no-auto-start` 可关闭），无需每次手动 curl。
 
 ## 分章生成
 

@@ -73,6 +73,21 @@ def main() -> None:
     cjk = len(re.findall(r"[\u4e00-\u9fff]", flat))
     print(f"{len(chapters)} chapters, {cjk} CJK chars")
 
+    # TTS 前硬校验：有硬错误直接失败，逼停流程
+    try:
+        from validate_script import validate
+        errors, warnings = validate(chapters)
+        for w in warnings:
+            print("WARN " + w)
+        for e in errors:
+            print("ERROR " + e)
+        print(f"硬校验：{len(errors)} 个硬错误，{len(warnings)} 个警告")
+        if errors:
+            print("有硬错误未修，停在这里。请修完口播稿再跑 TTS。")
+            sys.exit(1)
+    except ImportError:
+        print("(validate_script.py 不可用，跳过硬校验)")
+
 
 if __name__ == "__main__":
     main()

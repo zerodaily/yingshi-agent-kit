@@ -10,11 +10,16 @@
 
 ## 单批出图
 
-先在项目写 `prompts.json`（Win 或 WSL 均可），然后：
+先在项目写 `prompts.json`（Win 或 WSL 均可），**先跑 `reuse_illustrations.py <项目> --apply`
+查共享配图库**：通用场景直接复用，只把 `still_needed.json` 里的场景拿来出图。
+然后：
 
 ```bash
-wsl -d Ubuntu -e bash -lc 'cd ~/projects/Z-Image && ~/miniconda3/envs/wan2gp/bin/python <skill>/scripts/zimage_gen.py <prompts.json>'
+wsl -d Ubuntu -e bash -lc 'cd ~/projects/Z-Image && ~/miniconda3/envs/wan2gp/bin/python <skill>/scripts/zimage_gen.py <prompts.json> --project <项目名>'
 ```
+
+`--project` 让输出隔离到 `outputs/<项目>/batch_01/`（自动递增），不再和旧工程
+文件混在一起。
 
 规格固定：
 
@@ -39,13 +44,14 @@ wsl -d Ubuntu -e bash -lc 'cd ~/projects/Z-Image && ~/miniconda3/envs/wan2gp/bin
 ## 放大与归位
 
 ```powershell
-& "Y:\Projects\自媒体\_本地出图实验\tools\realesrgan-ncnn-vulkan.exe" `
-  -i <512.png> -o <2048.png> -n realesrgan-x4plus -s 4
+python <skill>/scripts/esrgan_batch.py <项目目录>
 ```
 
-每张约 10–20 秒。若工具不存在，从
+批量把 `assets/illustrations/*_512.png` 放大为 `*_2048.png`（已存在且未变更的
+自动跳过，中断可续跑）。底层调用 config 里 `esrgan_exe` 指定的
+realesrgan-ncnn-vulkan.exe。若工具不存在，从
 `github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesrgan-ncnn-vulkan-20220424-windows.zip`
-解压即可。放大后的 2048 图复制到 `<项目>/assets/illustrations/`。
+解压即可。
 
 ## 无参考图（重要）
 
@@ -57,13 +63,18 @@ Z-Image-Turbo 是文生图，不接受参考图/垫图。要复刻既有画风�
 
 ## Y 盘项目与 WSL 的文件交换（重要）
 
-WSL **没有挂载 Y 盘**（Windows 网络映射盘），`/mnt/y` 不存在。prompts.json 要先复制到
-`C:/Users/jonny/AppData/Local/Temp/` 再 `cp` 进 WSL；出图产出在
-`~/projects/Z-Image/outputs/`，同样经 Temp 拷回 Windows。
-注意 `~/projects/Z-Image/outputs/` 里混着**旧参考工程的同编号文件**，
-拷贝时按场景 key 精确匹配（如 `_s13_ingredients_`），别用宽泛 glob。
-多批次出图时每批编号都从 01 重新开始，回填 index.html 引用前要**重编号**
-（如第二批 01→12），并逐张校验 index.html 引用的图在磁盘上都存在（防黑屏）。
+WSL **没有挂载 Y 盘**（Windows 网络映射盘），`/mnt/y` 不存在。
+**不要手拷**，用 `scripts/sync_assets.py`：
+
+```powershell
+python <skill>/scripts/sync_assets.py push <项目目录>     # prompts.json -> WSL
+python <skill>/scripts/sync_assets.py pull <项目目录> --project <项目名> --batch batch_01
+python <skill>/scripts/sync_assets.py verify <项目目录>   # 回填后必跑：校验 index.html 引用的图全在
+```
+
+pull 会按场景 key 自动重编号归位（`zimg_NN_<key>_512.png` → `<key>_512.png`）；
+verify 逐张检查引用，缺图直接失败——**缺图会静默渲染成黑屏，这是最高频事故**，
+回填后必须跑 verify 通过了再 render。
 
 ## 每画面一张
 

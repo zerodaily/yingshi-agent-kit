@@ -1,0 +1,1772 @@
+From f3da052d22dc1fd88adf4513732aec7a81f7a94d Mon Sep 17 00:00:00 2001
+From: yanxuesheng <jonny@yingshi.local>
+Date: Mon, 5 Oct 2026 20:58:13 +0800
+Subject: [PATCH] =?UTF-8?q?feat:=2014=20=E9=A1=B9=E4=BA=A7=E7=BA=BF?=
+ =?UTF-8?q?=E4=BC=98=E5=8C=96=EF=BC=88=E5=8F=A3=E6=92=AD=E7=A1=AC=E6=A0=A1?=
+ =?UTF-8?q?=E9=AA=8C/=E7=AB=96=E5=B1=8F=E4=B8=80=E9=94=AE=E8=BD=AC?=
+ =?UTF-8?q?=E6=8D=A2/=E5=90=8C=E6=AD=A5=E6=A0=A1=E9=AA=8C/=E5=B0=81?=
+ =?UTF-8?q?=E9=9D=A2=E6=A8=A1=E6=9D=BF/=E9=85=8D=E7=BD=AE=E6=94=B6?=
+ =?UTF-8?q?=E6=95=9B=EF=BC=89?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+- 修文档 bug：TTS 目录名 j-indexctts2 -> j-indextts2；开场白规则明确 钩子->欢迎语 顺序
+- 新增 validate_script.py：口播稿硬规则校验，parse_script 跑完自动执行
+- 新增 vertical_transform.py：横屏→竖屏一键转换（含抖音安全区参考线）
+- 新增 sync_assets.py：Y盘↔WSL 同步 push/pull/verify，回填后必校验防黑屏
+- 新增 esrgan_batch.py：批量放大可续跑；new_project.py：项目脚手架
+- 新增 teaser_cut.py：60秒引流片段；bgm_history.py：BGM 历史 JSON 避重
+- 新增 reuse_illustrations.py：共享配图库复用
+- 新增 bilibili_publish_verify.js：投稿页控制台一键 8 项校验
+- 新增 assets/covers/：4 套封面排版模板
+- 配置收敛：config.template.json + yingshi_config.py，脚本统一读取
+- zimage_gen.py 支持 --project 输出隔离；indextts2_speak.py 内置 TTS 自愈
+- B站发布流程新增第 0 步：先查草稿箱余量（30 条硬上限）
+---
+ .../skills/retro-narration-video/SKILL.md     |  72 ++++++++-
+ .../assets/covers/README.md                   |  20 +++
+ .../assets/covers/common.css                  |  41 +++++
+ .../assets/covers/template1_classic.html      |  34 +++++
+ .../assets/covers/template2_side_text.html    |  31 ++++
+ .../assets/covers/template3_immersive.html    |  25 +++
+ .../assets/covers/template4_compare.html      |  47 ++++++
+ .../assets/library_index.template.json        |   1 +
+ .../config.template.json                      |   1 +
+ .../references/audio-pipeline.md              |  10 +-
+ .../references/composition-and-render.md      |  19 +--
+ .../references/image-pipeline.md              |  37 +++--
+ .../scripts/bgm_history.py                    | 105 +++++++++++++
+ .../scripts/bilibili_publish_verify.js        |  37 +++++
+ .../scripts/esrgan_batch.py                   |  55 +++++++
+ .../scripts/indextts2_speak.py                |  57 ++++++-
+ .../scripts/new_project.py                    |  80 ++++++++++
+ .../scripts/parse_script.py                   |  15 ++
+ .../scripts/reuse_illustrations.py            |  98 ++++++++++++
+ .../scripts/sync_assets.py                    | 144 ++++++++++++++++++
+ .../scripts/teaser_cut.py                     |  83 ++++++++++
+ .../scripts/transcribe_wsl.py                 |  35 ++++-
+ .../scripts/validate_script.py                |  89 +++++++++++
+ .../scripts/vertical_transform.py             | 129 ++++++++++++++++
+ .../scripts/yingshi_config.py                 |  61 ++++++++
+ .../scripts/zimage_gen.py                     |  44 ++++--
+ 26 files changed, 1319 insertions(+), 51 deletions(-)
+ create mode 100644 yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/README.md
+ create mode 100644 yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/common.css
+ create mode 100644 yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/template1_classic.html
+ create mode 100644 yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/template2_side_text.html
+ create mode 100644 yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/template3_immersive.html
+ create mode 100644 yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/template4_compare.html
+ create mode 100644 yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/library_index.template.json
+ create mode 100644 yingshi-agent-kit-v1.0/skills/retro-narration-video/config.template.json
+ create mode 100644 yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/bgm_history.py
+ create mode 100644 yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/bilibili_publish_verify.js
+ create mode 100644 yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/esrgan_batch.py
+ create mode 100644 yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/new_project.py
+ create mode 100644 yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/reuse_illustrations.py
+ create mode 100644 yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/sync_assets.py
+ create mode 100644 yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/teaser_cut.py
+ create mode 100644 yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/validate_script.py
+ create mode 100644 yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/vertical_transform.py
+ create mode 100644 yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/yingshi_config.py
+
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/SKILL.md b/yingshi-agent-kit-v1.0/skills/retro-narration-video/SKILL.md
+index 1d0c877..987525c 100644
+--- a/yingshi-agent-kit-v1.0/skills/retro-narration-video/SKILL.md
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/SKILL.md
+@@ -27,15 +27,38 @@ description: >-
+ ## 产线总览
+ 
+ ```text
+-① 选题研究(web/笔记) → ② 口播稿(硬规则校验) → ③ IndexTTS2 分章配音
+-→ ④ 词级转写 → ⑤ Z-Image 批量出图 + Real-ESRGAN 放大
+-→ ⑥ HyperFrames 复古合成(横/竖) → ⑦ check+渲染 → ⑧ 竖屏套图/交付
++① 选题研究(web/笔记) → ② 口播稿(硬规则自动校验) → ③ IndexTTS2 分章配音(自愈)
++→ ④ 词级转写 → ⑤ 配图库复用 + Z-Image 批量出图 + ESRGAN 放大
++→ ⑥ HyperFrames 复古合成(横屏) → vertical_transform 一键转竖屏
++→ ⑦ check+渲染 → ⑧ 60秒引流片段 + 竖屏套图/交付
+ ```
+ 
++## 工具脚本（scripts/）
++
++| 脚本 | 用途 | 典型调用 |
++|---|---|---|
++| `new_project.py` | 新项目脚手架，一键搭目录+BRIEF | `python new_project.py "20261005-丰田"` |
++| `parse_script.py` | 口播稿切分（**末尾自动跑硬校验**） | `python parse_script.py <项目>` |
++| `validate_script.py` | 口播稿硬规则校验（〇/括号/破折号/开场白/结尾/AI味） | `python validate_script.py <项目>` |
++| `indextts2_speak.py` | 分章 TTS（开头自动健康检查+拉起服务） | 见 audio-pipeline |
++| `transcribe_wsl.py` | WSL faster-whisper 词级转写 | `python transcribe_wsl.py <项目>` |
++| `zimage_gen.py` | Z-Image 批量出图（`--project` 按项目隔离输出） | `python zimage_gen.py prompts.json --project 丰田` |
++| `reuse_illustrations.py` | 共享配图库复用，输出 still_needed.json | `python reuse_illustrations.py <项目> --apply` |
++| `sync_assets.py` | Y盘↔WSL 同步（push/pull/verify，防黑屏） | `python sync_assets.py verify <项目>` |
++| `esrgan_batch.py` | 批量 Real-ESRGAN x4 放大 | `python esrgan_batch.py <项目>` |
++| `vertical_transform.py` | 横屏→抖音竖屏一键转换（`?guide=1` 看安全区） | `python vertical_transform.py <项目>` |
++| `teaser_cut.py` | 60秒引流片段截段拼接 | `python teaser_cut.py 成片.mp4 引流.mp4 --segs "12.5-28.3,..."` |
++| `bgm_history.py` | BGM 使用历史（record/recent/pick） | `python bgm_history.py pick --category 怀旧` |
++| `bilibili_publish_verify.js` | B站投稿页控制台一键校验（8项） | 粘贴到浏览器控制台运行 |
++| `yingshi_config.py` | 统一配置读取（模块，被其他脚本引用） | — |
++
++全局配置：复制 `config.template.json` 为 `config.json` 按本机修改；
++或用环境变量 `YINGSHI_CONFIG` 指向配置文件。未配置时自动用模板默认值。
++
+ ## 开工前必读
+ 
+-- 每个项目建议复制一个已验收工程再改（首例参照
+-  `Y:\Projects\自媒体\在外互助父母协议_试片`）。
++- 每个项目建议用 `scripts/new_project.py "<项目名>"` 一键搭好目录再开工
++  （替代原来"复制一个已验收工程再改"的手工做法）。
+ - 环境硬性依赖见对应参考，跑哪步前读哪份：
+   - [references/script-rules.md](references/script-rules.md)：口播稿格式、年份、
+     去 AI 味与硬校验。
+@@ -56,6 +79,10 @@ description: >-
+ 3. 第 1 章 hook 后必须一字不差出现：
+    `欢迎回来，我是言同学。`
+    结尾必须一字不差以固定句收尾（见 script-rules）。
++   > **与抖音钩子规则的衔接（必读）**：抖音版要求"前3秒必须是炸弹钩子，
++   > 禁止用欢迎语开头"——两条不冲突：顺序永远是 **炸弹钩子 → 欢迎语**。
++   > 即第一句抛钩子，第二句一字不差接"欢迎回来，我是言同学。"，两个版本
++   > 都按这个顺序写，TTS 和字幕都用同一份口播稿。
+ 4. 文字/排版页不得交文生图模型渲染：AI 只画“画面内容”，文字全部由 HTML/CSS
+    叠在卡片上，保证字形清晰。
+ 5. 本地 Z-Image 在 2080 Ti 上用 512×512、4 步；单张约 20–50 秒。不得直接跑
+@@ -80,7 +107,9 @@ description: >-
+ 基于抖音汽车知识类爆款调研，以下规则直接影响完播率和推流。
+ 
+ ### 脚本结构
+-1. **前3秒必须是炸弹钩子**：禁止用"欢迎回来我是言同学"开头。先用最炸的数字/反差/揭秘抓住人，再自我介绍。
++1. **前3秒必须是炸弹钩子**：禁止用"欢迎回来我是言同学"**作为第一句**。顺序固定为
++   "钩子 → 欢迎语"（见上文"开场白规则衔接"）：先用最炸的数字/反差/揭秘抓住人，
++   第二句一字不差接"欢迎回来，我是言同学。"
+    - 错误："欢迎回来，我是言同学，今天我们来讲迈凯伦F1"
+    - 正确："1998年它跑出391km/h，这个纪录保持了12年，法拉利都追不上。欢迎回来，我是言同学。"
+ 2. **钩子5选1**（每集至少用1个）：数字冲击 / 反常识 / 揭秘式 / 情绪共鸣 / 对比反差。
+@@ -158,6 +187,9 @@ description: >-
+ **禁止再用Playwright脚本自动发布！** 有风控风险，全部改用Browser Use操作用户自己的Chrome浏览器，和真人操作无差别。
+ 
+ ### Browser Use发布操作步骤（严格按顺序，不要跳步）
++0. **先查草稿箱余量**：B站草稿箱硬上限 30 条。打开创作中心 → 内容管理 → 草稿箱，
++   数一下当前草稿数；≥28 条时先停下来告诉用户手动发布/删除旧稿腾位置，
++   不要等到上传一半才发现传不上去。
+ 1. 保持浏览器窗口宽度≥1200px，窄窗口会导致封面弹窗布局错位
+ 2. 打开B站上传页，上传横屏final.mp4（上传是异步的！不用等上传完成，传完文件句柄立刻继续下一步）
+ 3. **立刻去传封面**：封面优先级最高，等封面弹窗加载3秒后，用`input[accept*='image']`上传4:3 png封面；弹出"是否同步4:3到16:9"弹窗时点"确认同步"，自动完成16:9封面，不用单独再传一次
+@@ -169,6 +201,10 @@ description: >-
+    - **粉丝动态必写（不能漏！）**：100字以内，简短有趣，结合本期内容写一个车迷共鸣的小问题/冷知识/钩子，引导评论互动。**必须通过placeholder="有趣的动态描述"文本精确定位contenteditable元素，填完后JS读取innerText验证内容真的存在，再点存草稿**
+ 7. 点"存草稿"，不要点"立即投稿"，用户自己最后点发布
+ 
++**发布前一键校验**：点存草稿之前，把 `scripts/bilibili_publish_verify.js`
++粘贴到浏览器控制台运行，8 项全 PASS 再提交（标题/简介/标签/封面/更多设置
++展开/粉丝动态/字数/创作声明）。
++
+ ### 踩过的坑
+ - ❌ 更多设置默认折叠，不展开直接往下填粉丝动态=白填
+ - ❌ B站标签不要逗号不要#号，每个标签单独一行，用户直接整段粘贴，B站会自动按回车逐个添加
+@@ -258,6 +294,30 @@ Y:\Projects\自媒体\_BGM库\Select-BGM.ps1 -ProjectDir "<项目目录>"
+ 
+ ---
+ 
++## 产线优化（2026-10-04 更新）
++
++### 修的文档 bug
++- audio-pipeline 里 TTS 目录名 `j-indexctts2` → `j-indextts2`（与所有命令一致）
++- 开场白规则明确衔接顺序：**炸弹钩子 → 欢迎语**，横竖屏同一份口播稿
++
++### 新增工具（scripts/，详见上表）
++- `validate_script.py`：口播稿硬校验，parse_script.py 跑完自动执行，有硬错误直接逼停
++- `vertical_transform.py`：横屏→竖屏一键转换，`?guide=1` 看抖音安全区参考线
++- `sync_assets.py`：Y盘↔WSL 同步 push/pull/verify，回填后必跑 verify 防黑屏
++- `esrgan_batch.py`：批量放大 *_512.png → *_2048.png，可续跑
++- `new_project.py`：项目脚手架；`teaser_cut.py`：60秒引流片段；`bgm_history.py`：BGM 历史 JSON
++- `reuse_illustrations.py`：共享配图库复用（库目录见 config illustration_library）
++- `bilibili_publish_verify.js`：投稿页控制台一键 8 项校验
++
++### 配置收敛
++- 新增 `config.template.json` + `scripts/yingshi_config.py`：所有路径收敛到一处，
++  复制为 `config.json` 按本机修改；脚本未配置时自动用模板默认值
++- zimage_gen.py 支持 `--project`：输出隔离到 `outputs/<项目>/batch_NN/`
++- indextts2_speak.py 开头自动健康检查+拉起 TTS（`--no-auto-start` 关闭）
++- B站发布流程新增第 0 步：先查草稿箱余量（硬上限 30 条）
++
++---
++
+ ## 脚本去AI味规则（2026-10-04 新增）
+ 写完口播稿后必须按以下规则去AI味，再进TTS：
+ 1. 删掉所有"值得一提的是""总而言之""综上所述""不仅...而且"这种书面AI套话
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/README.md b/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/README.md
+new file mode 100644
+index 0000000..0f82c16
+--- /dev/null
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/README.md
+@@ -0,0 +1,20 @@
++# 封面模板使用说明
++
++4 套排版轮换使用，保证系列感但不单调（SKILL.md 封面规范）：
++
++| 模板 | 文件 | 适用 |
++|---|---|---|
++| 经典款 | template1_classic.html | 常规品牌介绍，顶部巨字+车+IP |
++| 左图右文款 | template2_side_text.html | 竖排品牌名，适合名字短的品牌 |
++| 沉浸款 | template3_immersive.html | 有故事感的单品/事件 |
++| 对比款 | template4_compare.html | 老车 vs 新车、换代对比 |
++
++用法：
++1. 复制一份模板到项目目录（如 `<项目>/封面/cover_丰田.html`）。
++2. 把 `.ph` 占位 div 换成实际出图 `<img src="...">`：
++   - 主车图：按 Z-Image 风格前缀出，车+言同学互动动作
++   - 言同学 IP：黑框**方**眼镜、炸毛短发、山羊胡、黑 T 恤，木刻版画风
++3. 改品牌名/英文副标题/钩子文案。
++4. 浏览器打开截图，或用 hyperframes 渲染出 4:3 PNG（B 站封面先传 4:3）。
++
++铁律：每次封面必须出现言同学 IP；禁止深绿底+米白字（配色反了）；印章"言同学"放右下角（模板2 放左下角）。
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/common.css b/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/common.css
+new file mode 100644
+index 0000000..f9c4249
+--- /dev/null
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/common.css
+@@ -0,0 +1,41 @@
++/* 言同学封面公共样式：米黄旧纸底 #f2e8d3 / 深绿 #2d5a3d / 朱红印章 */
++@font-face { font-family: "ChineseKai"; src: local("KaiTi"); }
++@font-face { font-family: "ChineseSerif"; src: local("SimSun"); }
++* { margin: 0; padding: 0; box-sizing: border-box; }
++html, body { width: 1600px; height: 1200px; overflow: hidden; background: #101010; }
++.cover {
++  position: relative; width: 1600px; height: 1200px; overflow: hidden;
++  background: #f2e8d3;
++  font-family: "ChineseKai", "ChineseSerif", serif; color: #2d5a3d;
++}
++/* 旧纸磨损边缘 */
++.cover::before {
++  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 5;
++  background:
++    radial-gradient(ellipse at 8% 12%, rgba(120,90,40,.14), transparent 42%),
++    radial-gradient(ellipse at 92% 88%, rgba(120,90,40,.16), transparent 46%),
++    radial-gradient(ellipse at 85% 8%, rgba(90,60,25,.10), transparent 38%);
++}
++/* 纸纹颗粒 */
++.cover::after {
++  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 6; opacity: .12;
++  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='240' height='240' filter='url(%23n)' opacity='0.55'/></svg>");
++  mix-blend-mode: multiply;
++}
++/* 朱红印章"言同学"：右下角默认位置，可用 .seal.bl 等改位置 */
++.seal {
++  position: absolute; width: 150px; height: 150px; z-index: 10;
++  background: #b03a2a; color: #f2e8d3;
++  display: flex; align-items: center; justify-content: center;
++  font-size: 44px; line-height: 1.25; text-align: center; font-weight: bold;
++  /* 做旧磨损 */
++  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150'><filter id='w'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 6 -2.4'/></filter><rect width='150' height='150' filter='url(%23w)'/></svg>");
++  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150'><filter id='w'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 6 -2.4'/></filter><rect width='150' height='150' filter='url(%23w)'/></svg>");
++}
++.seal.br { right: 70px; bottom: 70px; }
++.seal.bl { left: 70px; bottom: 70px; }
++/* 双线装饰 */
++.rule-double { border-top: 6px solid #2d5a3d; border-bottom: 2px solid #2d5a3d; height: 14px; }
++/* 图片占位：替换为实际出图 */
++.ph { background: #e2d3ac; border: 3px dashed #7a5c33; display: flex; align-items: center; justify-content: center;
++      color: #7a5c33; font-size: 30px; text-align: center; }
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/template1_classic.html b/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/template1_classic.html
+new file mode 100644
+index 0000000..60dc5f2
+--- /dev/null
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/template1_classic.html
+@@ -0,0 +1,34 @@
++<!doctype html>
++<!-- 封面模板1 · 经典款（日产模板）：顶部巨字品牌名 → 横线+英文副标题 → 车+言同学互动 → 右下角红印章 -->
++<html lang="zh">
++<head><meta charset="UTF-8"><link rel="stylesheet" href="common.css">
++<style>
++  .brand { position: absolute; top: 40px; left: 0; right: 0; text-align: center;
++           font-size: 200px; font-weight: bold; letter-spacing: 30px; }
++  .sub { position: absolute; top: 330px; left: 0; right: 0; text-align: center; }
++  .sub .en { font-size: 54px; letter-spacing: 12px; margin-bottom: 18px; }
++  .sub .rule-double { width: 1100px; margin: 0 auto; }
++  .hero { position: absolute; top: 470px; left: 130px; right: 130px; bottom: 120px;
++          display: flex; gap: 40px; align-items: stretch; }
++  .hero .car { flex: 3; }
++  .hero .yctx { flex: 1; }
++  .hero img { width: 100%; height: 100%; object-fit: cover; display: block;
++              border: 6px solid #2d5a3d; }
++</style></head>
++<body>
++<div class="cover">
++  <div class="brand">丰田</div>
++  <div class="sub">
++    <div class="en">TOYOTA · 汽车帝国</div>
++    <div class="rule-double"></div>
++  </div>
++  <div class="hero">
++    <!-- 主车图：换成 cover_car.png（言同学与车互动：坐车上看书 / 靠车门 / 蹲车头修车） -->
++    <div class="car ph">主车图<br>cover_car.png</div>
++    <!-- 言同学IP：黑框方眼镜、炸毛短发、山羊胡、黑T恤，木刻版画风，占画面约1/4 -->
++    <div class="yctx ph">言同学IP<br>cover_yantongxue.png</div>
++  </div>
++  <div class="seal br">言同学</div>
++</div>
++</body>
++</html>
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/template2_side_text.html b/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/template2_side_text.html
+new file mode 100644
+index 0000000..e76d05d
+--- /dev/null
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/template2_side_text.html
+@@ -0,0 +1,31 @@
++<!doctype html>
++<!-- 封面模板2 · 左图右文款：左侧2/3 车+言同学，右侧1/3 竖排品牌名+副标题，印章左下角 -->
++<html lang="zh">
++<head><meta charset="UTF-8"><link rel="stylesheet" href="common.css">
++<style>
++  .left { position: absolute; top: 70px; bottom: 70px; left: 70px; width: 990px;
++          display: flex; flex-direction: column; gap: 24px; }
++  .left .car { flex: 3; }
++  .left .yctx { flex: 1; }
++  .left img { width: 100%; height: 100%; object-fit: cover; display: block;
++              border: 6px solid #2d5a3d; }
++  .right { position: absolute; top: 70px; bottom: 70px; right: 70px; width: 400px;
++           display: flex; flex-direction: row-reverse; gap: 30px; justify-content: center; }
++  .brand-v { writing-mode: vertical-rl; font-size: 150px; font-weight: bold; letter-spacing: 24px; }
++  .sub-v { writing-mode: vertical-rl; font-size: 44px; letter-spacing: 10px; color: #5a6b52;
++           padding-top: 30px; }
++</style></head>
++<body>
++<div class="cover">
++  <div class="left">
++    <div class="car ph">主车图<br>cover_car.png</div>
++    <div class="yctx ph">言同学IP（与车互动）<br>cover_yantongxue.png</div>
++  </div>
++  <div class="right">
++    <div class="brand-v">本田</div>
++    <div class="sub-v">HONDA · 技研魂</div>
++  </div>
++  <div class="seal bl">言同学</div>
++</div>
++</body>
++</html>
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/template3_immersive.html b/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/template3_immersive.html
+new file mode 100644
+index 0000000..51c3431
+--- /dev/null
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/template3_immersive.html
+@@ -0,0 +1,25 @@
++<!doctype html>
++<!-- 封面模板3 · 沉浸款：言同学和车占满画面，品牌名小字放顶部角落，印章右下角 -->
++<html lang="zh">
++<head><meta charset="UTF-8"><link rel="stylesheet" href="common.css">
++<style>
++  .full { position: absolute; inset: 50px; border: 8px solid #2d5a3d; }
++  .full img { width: 100%; height: 100%; object-fit: cover; display: block; }
++  .brand-mini { position: absolute; top: 90px; left: 110px; z-index: 10;
++                background: #2d5a3d; color: #f2e8d3;
++                font-size: 64px; font-weight: bold; letter-spacing: 14px;
++                padding: 14px 34px; }
++  .caption { position: absolute; bottom: 110px; left: 110px; z-index: 10;
++             background: rgba(242,232,211,.92); border: 3px solid #2d5a3d;
++             font-size: 44px; padding: 12px 30px; max-width: 900px; }
++</style></head>
++<body>
++<div class="cover">
++  <!-- 整张沉浸图：言同学 + 车同框互动，占满画面 -->
++  <div class="full ph">沉浸主视觉<br>cover_hero.png<br>（言同学与车互动，占满画面）</div>
++  <div class="brand-mini">福特 FORD</div>
++  <div class="caption">一句话钩子：比如"它曾差点杀死法拉利"</div>
++  <div class="seal br">言同学</div>
++</div>
++</body>
++</html>
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/template4_compare.html b/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/template4_compare.html
+new file mode 100644
+index 0000000..9f4648b
+--- /dev/null
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/covers/template4_compare.html
+@@ -0,0 +1,47 @@
++<!doctype html>
++<!-- 封面模板4 · 对比款：左右分屏 老车 vs 新车，言同学在中间指着两边，品牌名放中间 -->
++<html lang="zh">
++<head><meta charset="UTF-8"><link rel="stylesheet" href="common.css">
++<style>
++  .split { position: absolute; top: 70px; bottom: 70px; left: 70px; right: 70px;
++           display: flex; gap: 0; border: 8px solid #2d5a3d; }
++  .pane { flex: 1; position: relative; }
++  .pane + .pane { border-left: 8px solid #2d5a3d; }
++  .pane img { width: 100%; height: 100%; object-fit: cover; display: block; }
++  .pane .tag { position: absolute; top: 24px; left: 24px; z-index: 5;
++               background: #2d5a3d; color: #f2e8d3; font-size: 44px;
++               padding: 8px 26px; letter-spacing: 8px; }
++  .mid { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
++         z-index: 10; text-align: center; }
++  .mid .vs { background: #b03a2a; color: #f2e8d3; font-size: 72px; font-weight: bold;
++             width: 150px; height: 150px; border-radius: 50%;
++             display: flex; align-items: center; justify-content: center;
++             border: 6px solid #f2e8d3; box-shadow: 0 6px 24px rgba(0,0,0,.3); }
++  .mid .brand { margin-top: 18px; background: #f2e8d3; border: 4px solid #2d5a3d;
++                font-size: 56px; font-weight: bold; letter-spacing: 10px;
++                padding: 10px 28px; white-space: nowrap; }
++  .yctx-note { position: absolute; bottom: 100px; left: 0; right: 0; text-align: center;
++               font-size: 34px; color: #5a6b52; }
++</style></head>
++<body>
++<div class="cover">
++  <div class="split">
++    <div class="pane">
++      <div class="tag">1967 · 老车</div>
++      <div class="ph" style="width:100%;height:100%;border:none;">老车图<br>cover_old.png</div>
++    </div>
++    <div class="pane">
++      <div class="tag">2024 · 新车</div>
++      <div class="ph" style="width:100%;height:100%;border:none;">新车图<br>cover_new.png</div>
++    </div>
++  </div>
++  <div class="mid">
++    <div class="vs">VS</div>
++    <div class="brand">日产 NISSAN</div>
++  </div>
++  <!-- 言同学IP放在中间区域：指着两边做对比手势，单独出图后叠在中间 -->
++  <div class="yctx-note">言同学IP（指着两边）：cover_yantongxue_point.png 叠放在中间</div>
++  <div class="seal br">言同学</div>
++</div>
++</body>
++</html>
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/library_index.template.json b/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/library_index.template.json
+new file mode 100644
+index 0000000..2e86c64
+--- /dev/null
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/assets/library_index.template.json
+@@ -0,0 +1 @@
++[{"file":"street_old_shanghai_2048.png","key":"street_old","style":"default","tags":["老街道","弄堂","街景","市集"],"used_in":[]},{"file":"factory_1980s_2048.png","key":"factory_1980s","style":"default","tags":["工厂","车间","流水线","工人"],"used_in":[]},{"file":"newspaper_stack_2048.png","key":"newspaper_stack","style":"default","tags":["报纸","旧报纸","新闻","头条"],"used_in":[]}]
+\ No newline at end of file
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/config.template.json b/yingshi-agent-kit-v1.0/skills/retro-narration-video/config.template.json
+new file mode 100644
+index 0000000..c714b28
+--- /dev/null
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/config.template.json
+@@ -0,0 +1 @@
++{"_comment":"硬视产线全局配置。复制为 config.json 后按本机修改。所有脚本优先读 YINGSHI_CONFIG 环境变量指定的文件，其次读本目录 config.json，最后回退到本模板的默认值。","bgm_library":"Y:/Projects/自媒体/_BGM库","esrgan_exe":"Y:/Projects/自媒体/_本地出图实验/tools/realesrgan-ncnn-vulkan.exe","hyperframes":{"extra_flags":["--low-memory-mode","--gpu"],"quality":"draft"},"illustration_library":"Y:/Projects/自媒体/_配图库","projects_root":"Y:/Projects/自媒体","tts":{"dir":"~/projects/j-indextts2","health_url":"http://127.0.0.1:7860/","port":7860,"run_script":"./run_optimized.sh"},"voice_sample":"assets/口播样本_小强.wav","whisper":{"compute_type":"float16","conda_env":"whisper","model":"medium"},"wsl_temp":"C:/Users/jonny/AppData/Local/Temp","wsl_user":"zerodaily","zimage":{"conda_env":"wan2gp","hf_home":"/mnt/e/ai-models","model_dir":"/mnt/e/ai-models/ltxdesktop/Z-Image-Turbo","python":"python3.11","workdir":"~/projects/Z-Image"}}
+\ No newline at end of file
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/references/audio-pipeline.md b/yingshi-agent-kit-v1.0/skills/retro-narration-video/references/audio-pipeline.md
+index 282469f..e351e45 100644
+--- a/yingshi-agent-kit-v1.0/skills/retro-narration-video/references/audio-pipeline.md
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/references/audio-pipeline.md
+@@ -2,10 +2,10 @@
+ 
+ ## IndexTTS2 服务
+ 
+-部署目录（WSL）：`~/projects/j-indexctts2`。服务没起就启动，不问用户：
++部署目录（WSL）：`~/projects/j-indextts2`。服务没起就启动，不问用户：
+ 
+ ```bash
+-wsl -d Ubuntu -e bash -lc 'cd ~/projects/j-indexctts2 && nohup ./run_optimized.sh > webui_run.log 2>&1 &'
++wsl -d Ubuntu -e bash -lc 'cd ~/projects/j-indextts2 && nohup ./run_optimized.sh > webui_run.log 2>&1 &'
+ ```
+ 
+ 健康检查：`http://127.0.0.1:7860/` 返回 200。加载约 2–3 分钟。
+@@ -13,9 +13,9 @@ wsl -d Ubuntu -e bash -lc 'cd ~/projects/j-indexctts2 && nohup ./run_optimized.s
+ 
+ > 启动方式坑（实测）：`wsl -d Ubuntu -e bash -lc 'nohup ... &'` 的后台进程会随会话退出被杀
+ > （日志为空、进程消失）。改用 **exec 前台方式挂宿主后台任务**：
+-> `wsl -d Ubuntu -e bash -lc 'cd ~/projects/j-indexctts2 && exec ./run_optimized.sh'`（run_in_background）。
+-> 另外 TTS 刚才还 200 不代表现在活着——每次跑 indextts2_speak.py 前先 curl 一次，
+-> 连接拒绝 `[WinError 10061]` 就是服务掉了，直接拉起再跑。
++> `wsl -d Ubuntu -e bash -lc 'cd ~/projects/j-indextts2 && exec ./run_optimized.sh'`（run_in_background）。
++> 另外 TTS 刚才还 200 不代表现在活着——`indextts2_speak.py` 开头已内置健康检查与
++> 自动拉起（`--no-auto-start` 可关闭），无需每次手动 curl。
+ 
+ ## 分章生成
+ 
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/references/composition-and-render.md b/yingshi-agent-kit-v1.0/skills/retro-narration-video/references/composition-and-render.md
+index e376adc..8b9c3f0 100644
+--- a/yingshi-agent-kit-v1.0/skills/retro-narration-video/references/composition-and-render.md
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/references/composition-and-render.md
+@@ -36,15 +36,16 @@
+ 
+ ## 竖屏工程
+ 
+-不要直接改横屏工程；建独立子目录 `vertical_douyin/`：
+-
+-1. 复制横屏 HTML 为 `vertical_douyin/index.html`；
+-2. 复制 `assets/illustrations` 与根目录 `口播拼接.wav`；
+-3. 文本变换要点（用脚本做，不要手改 20 处）：
+-   - root/meta/body 改为 `1080×1920`；
+-   - 所有 `font-size` 乘约 0.62；
+-   - 横向宽度容器（timeline/comment/grid4）压到 ~940–960px；
+-   - `inner` 横向 padding 压到 ~54px。
++不要直接改横屏工程；用脚本一键生成独立子目录 `vertical_douyin/`：
++
++```powershell
++python <skill>/scripts/vertical_transform.py <项目目录>
++```
++
++脚本自动做：root/meta/body 改 1080×1920、所有 font-size ×0.62、宽容器压到
++950px、inner 横向 padding 压到 54px、复制 `assets/illustrations` 与根目录
++`口播拼接.wav`。浏览器打开竖屏页加 `?guide=1` 可显示抖音安全区参考线
++（顶部10% / 底部25% / 右侧10% 遮挡区），排版时把核心内容放进安全区。
+ 
+ 在 `vertical_douyin/` 里 check 和 render，产物互不覆盖。
+ 
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/references/image-pipeline.md b/yingshi-agent-kit-v1.0/skills/retro-narration-video/references/image-pipeline.md
+index e209838..eb09059 100644
+--- a/yingshi-agent-kit-v1.0/skills/retro-narration-video/references/image-pipeline.md
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/references/image-pipeline.md
+@@ -10,12 +10,17 @@
+ 
+ ## 单批出图
+ 
+-先在项目写 `prompts.json`（Win 或 WSL 均可），然后：
++先在项目写 `prompts.json`（Win 或 WSL 均可），**先跑 `reuse_illustrations.py <项目> --apply`
++查共享配图库**：通用场景直接复用，只把 `still_needed.json` 里的场景拿来出图。
++然后：
+ 
+ ```bash
+-wsl -d Ubuntu -e bash -lc 'cd ~/projects/Z-Image && ~/miniconda3/envs/wan2gp/bin/python <skill>/scripts/zimage_gen.py <prompts.json>'
++wsl -d Ubuntu -e bash -lc 'cd ~/projects/Z-Image && ~/miniconda3/envs/wan2gp/bin/python <skill>/scripts/zimage_gen.py <prompts.json> --project <项目名>'
+ ```
+ 
++`--project` 让输出隔离到 `outputs/<项目>/batch_01/`（自动递增），不再和旧工程
++文件混在一起。
++
+ 规格固定：
+ 
+ - 512×512，`num_inference_steps=4`，`guidance_scale=0.0`，bf16；
+@@ -39,13 +44,14 @@ wsl -d Ubuntu -e bash -lc 'cd ~/projects/Z-Image && ~/miniconda3/envs/wan2gp/bin
+ ## 放大与归位
+ 
+ ```powershell
+-& "Y:\Projects\自媒体\_本地出图实验\tools\realesrgan-ncnn-vulkan.exe" `
+-  -i <512.png> -o <2048.png> -n realesrgan-x4plus -s 4
++python <skill>/scripts/esrgan_batch.py <项目目录>
+ ```
+ 
+-每张约 10–20 秒。若工具不存在，从
++批量把 `assets/illustrations/*_512.png` 放大为 `*_2048.png`（已存在且未变更的
++自动跳过，中断可续跑）。底层调用 config 里 `esrgan_exe` 指定的
++realesrgan-ncnn-vulkan.exe。若工具不存在，从
+ `github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesrgan-ncnn-vulkan-20220424-windows.zip`
+-解压即可。放大后的 2048 图复制到 `<项目>/assets/illustrations/`。
++解压即可。
+ 
+ ## 无参考图（重要）
+ 
+@@ -57,13 +63,18 @@ Z-Image-Turbo 是文生图，不接受参考图/垫图。要复刻既有画风
+ 
+ ## Y 盘项目与 WSL 的文件交换（重要）
+ 
+-WSL **没有挂载 Y 盘**（Windows 网络映射盘），`/mnt/y` 不存在。prompts.json 要先复制到
+-`C:/Users/jonny/AppData/Local/Temp/` 再 `cp` 进 WSL；出图产出在
+-`~/projects/Z-Image/outputs/`，同样经 Temp 拷回 Windows。
+-注意 `~/projects/Z-Image/outputs/` 里混着**旧参考工程的同编号文件**，
+-拷贝时按场景 key 精确匹配（如 `_s13_ingredients_`），别用宽泛 glob。
+-多批次出图时每批编号都从 01 重新开始，回填 index.html 引用前要**重编号**
+-（如第二批 01→12），并逐张校验 index.html 引用的图在磁盘上都存在（防黑屏）。
++WSL **没有挂载 Y 盘**（Windows 网络映射盘），`/mnt/y` 不存在。
++**不要手拷**，用 `scripts/sync_assets.py`：
++
++```powershell
++python <skill>/scripts/sync_assets.py push <项目目录>     # prompts.json -> WSL
++python <skill>/scripts/sync_assets.py pull <项目目录> --project <项目名> --batch batch_01
++python <skill>/scripts/sync_assets.py verify <项目目录>   # 回填后必跑：校验 index.html 引用的图全在
++```
++
++pull 会按场景 key 自动重编号归位（`zimg_NN_<key>_512.png` → `<key>_512.png`）；
++verify 逐张检查引用，缺图直接失败——**缺图会静默渲染成黑屏，这是最高频事故**，
++回填后必须跑 verify 通过了再 render。
+ 
+ ## 每画面一张
+ 
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/bgm_history.py b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/bgm_history.py
+new file mode 100644
+index 0000000..01ef6ce
+--- /dev/null
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/bgm_history.py
+@@ -0,0 +1,105 @@
++#!/usr/bin/env python3
++# -*- coding: utf-8 -*-
++"""BGM 使用历史（JSON），替代"扫描项目目录避重"的手工逻辑。
++
++历史文件：<bgm_library>/bgm_history.json
++    {"records": [{"project": "xxx", "track": "xxx.mp3", "category": "怀旧", "date": "2026-10-04"}]}
++
++用法：
++    python bgm_history.py record --project <项目名> --track <文件名> --category <分类>
++    python bgm_history.py recent [--n 5]            # 最近 N 个项目用过的曲目
++    python bgm_history.py pick --category <分类> --library <BGM库目录> [--n 5]
++        # 从库里按分类随机挑一首，自动避开最近 N 个项目用过的
++Select-BGM.ps1 选曲后调 record 登记；选曲前调 pick 拿候选。
++"""
++import argparse
++import json
++import os
++import random
++import sys
++import time
++
++try:
++    from yingshi_config import load_config, cfg_get, expand
++    _CFG = load_config()
++except Exception:
++    _CFG = {}
++
++
++def lib_dir():
++    return expand(cfg_get(_CFG, "bgm_library", "") if _CFG else "")
++
++
++def hist_path():
++    return os.path.join(lib_dir(), "bgm_history.json")
++
++
++def load_hist():
++    p = hist_path()
++    if os.path.exists(p):
++        with open(p, encoding="utf-8") as f:
++            return json.load(f)
++    return {"records": []}
++
++
++def save_hist(h):
++    os.makedirs(os.path.dirname(hist_path()), exist_ok=True)
++    with open(hist_path(), "w", encoding="utf-8") as f:
++        json.dump(h, f, ensure_ascii=False, indent=1)
++
++
++def main():
++    ap = argparse.ArgumentParser()
++    sub = ap.add_subparsers(dest="cmd", required=True)
++
++    r = sub.add_parser("record")
++    r.add_argument("--project", required=True)
++    r.add_argument("--track", required=True)
++    r.add_argument("--category", default="")
++
++    rn = sub.add_parser("recent")
++    rn.add_argument("--n", type=int, default=5)
++
++    p = sub.add_parser("pick")
++    p.add_argument("--category", required=True)
++    p.add_argument("--n", type=int, default=5)
++
++    args = ap.parse_args()
++    h = load_hist()
++
++    if args.cmd == "record":
++        h["records"] = [x for x in h["records"] if x.get("track") != args.track]
++        h["records"].append({
++            "project": args.project,
++            "track": args.track,
++            "category": args.category,
++            "date": time.strftime("%Y-%m-%d"),
++        })
++        save_hist(h)
++        print("已登记：", args.track)
++
++    elif args.cmd == "recent":
++        for x in h["records"][-args.n:]:
++            print(x["date"], x["project"], x["track"], x.get("category", ""))
++
++    elif args.cmd == "pick":
++        libd = lib_dir()
++        cands = []
++        for root, _, files in os.walk(libd):
++            for fn in files:
++                if fn.lower().endswith((".mp3", ".wav", ".flac", ".m4a")):
++                    rel = os.path.relpath(os.path.join(root, fn), libd)
++                    # 分类：按子目录名或文件名关键词匹配
++                    if args.category in rel:
++                        cands.append(rel)
++        if not cands:
++            print(f"库里没有分类「{args.category}」的曲目", file=sys.stderr)
++            sys.exit(1)
++        recent_tracks = {x["track"] for x in h["records"][-args.n:]}
++        fresh = [c for c in cands if os.path.basename(c) not in recent_tracks] or cands
++        pick = random.choice(fresh)
++        print(pick)
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/bilibili_publish_verify.js b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/bilibili_publish_verify.js
+new file mode 100644
+index 0000000..b07f254
+--- /dev/null
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/bilibili_publish_verify.js
+@@ -0,0 +1,37 @@
++/* B站投稿页发布前一键校验（粘贴到浏览器控制台运行）。
++ * 按 SKILL.md 里的 placeholder 定位法检查所有必填项，全部通过再点"存草稿"。
++ * 有任何一项 FAIL 就先修，不要强行提交。
++ */
++(function () {
++  const out = [];
++  const ok = (name, cond, hint) => out.push(`${cond ? "PASS" : "FAIL"}  ${name}${cond ? "" : "  <- " + hint}`);
++
++  const byPh = (ph) => document.querySelector(`[placeholder="${ph}"]`);
++  const titleEl = document.querySelector('input[placeholder*="标题"]') ||
++                  document.querySelector('.video-title input, input[maxlength="80"]');
++  ok("标题已填", titleEl && titleEl.value.trim().length > 0, "标题是空的");
++
++  const desc = byPh("填写更全面的相关信息");
++  ok("简介已填", desc && desc.innerText.trim().length > 0, "简介 contenteditable 为空");
++
++  const tags = document.querySelectorAll(".tag-item, .label-item");
++  ok("标签≥1个", tags.length >= 1, "一个标签都没加");
++
++  const coverImg = document.querySelector('.cover-preview img, [class*="cover"] img');
++  ok("封面已上传", !!coverImg, "封面区域没有图片");
++
++  const moreBtn = [...document.querySelectorAll("div,span")].find(e => e.textContent.trim() === "更多设置");
++  const moreOpen = moreBtn && moreBtn.closest("[class]") &&
++    !!document.querySelector('[placeholder="有趣的动态描述"]');
++  ok("更多设置已展开", !!moreOpen, "先点开展开更多设置");
++
++  const moment = byPh("有趣的动态描述");
++  ok("粉丝动态已填", moment && moment.innerText.trim().length > 0, "粉丝动态为空（100字以内写一个钩子）");
++  ok("粉丝动态≤100字", !moment || moment.innerText.trim().length <= 100, "超100字会被截断");
++
++  const aiDecl = [...document.querySelectorAll("label,span")].find(e => /AI生成|含AI/.test(e.textContent));
++  ok("创作声明含AI生成内容", !!aiDecl, "更多设置里把创作声明选成含AI生成内容");
++
++  console.log(out.join("\n"));
++  return out.every(l => l.startsWith("PASS"));
++})();
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/esrgan_batch.py b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/esrgan_batch.py
+new file mode 100644
+index 0000000..8d2f3ab
+--- /dev/null
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/esrgan_batch.py
+@@ -0,0 +1,55 @@
++#!/usr/bin/env python3
++# -*- coding: utf-8 -*-
++"""批量 Real-ESRGAN x4 放大：<项目>/assets/illustrations/*_512.png -> *_2048.png。
++
++用法（Windows）：
++    python esrgan_batch.py <项目目录> [--model realesrgan-x4plus] [--force]
++已有 *_2048.png 且源文件未变更时自动跳过（中断可续跑）。
++"""
++import argparse
++import glob
++import os
++import subprocess
++import sys
++
++try:
++    from yingshi_config import load_config, cfg_get, expand
++    _CFG = load_config()
++except Exception:
++    _CFG = {}
++
++
++def main():
++    ap = argparse.ArgumentParser()
++    ap.add_argument("project")
++    ap.add_argument("--model", default="realesrgan-x4plus")
++    ap.add_argument("--force", action="store_true")
++    args = ap.parse_args()
++
++    exe = expand(cfg_get(_CFG, "esrgan_exe", "") if _CFG else "")
++    if not exe or not os.path.exists(exe):
++        print(f"找不到 ESRGAN 可执行文件：{exe}\n请在 skill config.json 里配置 esrgan_exe", file=sys.stderr)
++        sys.exit(1)
++
++    ill = os.path.join(args.project, "assets", "illustrations")
++    srcs = sorted(glob.glob(os.path.join(ill, "*_512.png")))
++    if not srcs:
++        print(f"{ill} 里没有 *_512.png", file=sys.stderr)
++        sys.exit(1)
++    print(f"共 {len(srcs)} 张待放大")
++    for s in srcs:
++        d = s[:-8] + "_2048.png"  # *_512.png -> *_2048.png
++        if os.path.exists(d) and not args.force and os.path.getmtime(d) >= os.path.getmtime(s):
++            print("skip", os.path.basename(d))
++            continue
++        r = subprocess.run([exe, "-i", s, "-o", d, "-n", args.model, "-s", "4"],
++                           capture_output=True, text=True)
++        if r.returncode != 0 or not os.path.exists(d):
++            print("FAILED", os.path.basename(s), (r.stderr or "")[-200:], file=sys.stderr)
++            sys.exit(1)
++        print("done", os.path.basename(d))
++    print("全部放大完成")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/indextts2_speak.py b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/indextts2_speak.py
+index 3a6b0b5..3a7a3d8 100644
+--- a/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/indextts2_speak.py
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/indextts2_speak.py
+@@ -11,6 +11,54 @@
+    已存在的 PartN.wav 自动跳过（中断可续跑）。
+ """
+ import argparse, json, os, shutil, subprocess, sys, time
++import urllib.request
++
++try:
++    from yingshi_config import load_config, cfg_get, expand
++    _CFG = load_config()
++except Exception:
++    _CFG = {}
++
++
++def _cf(key, default):
++    return cfg_get(_CFG, key, default) if _CFG else default
++
++
++def ensure_tts_alive(host, timeout=240):
++    """TTS 服务自愈：先 curl 健康检查，死了就尝试用 wsl 拉起，最多等 timeout 秒。
++
++    返回 True=可用，False=仍然不可用（调用方应中止并提示人工检查）。
++    """
++    health = host.rstrip("/") + "/"
++    try:
++        urllib.request.urlopen(health, timeout=5)
++        return True
++    except Exception as e:
++        print("TTS not responding (%s), trying to start it..." % e, flush=True)
++    tts_dir = expand(_cf("tts.dir", "~/projects/j-indextts2"))
++    run_sh = _cf("tts.run_script", "./run_optimized.sh")
++    start_cmd = (
++        "wsl -d Ubuntu -e bash -lc 'cd %s && exec %s'" % (tts_dir, run_sh)
++    )
++    print("starting TTS (background):", start_cmd, flush=True)
++    try:
++        subprocess.Popen(start_cmd, shell=True,
++                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
++    except Exception as e:
++        print("failed to launch TTS: %s" % e, file=sys.stderr)
++        return False
++    deadline = time.time() + timeout
++    while time.time() < deadline:
++        time.sleep(10)
++        try:
++            urllib.request.urlopen(health, timeout=5)
++            print("TTS is back.", flush=True)
++            return True
++        except Exception:
++            pass
++    print("TTS still down after %ds, abort. Check webui_run.log in %s" % (timeout, tts_dir),
++          file=sys.stderr)
++    return False
+ 
+ 
+ def main():
+@@ -18,10 +66,17 @@ def main():
+     ap.add_argument("--chapters", required=True, help="章节 JSON: [{idx,title,text}]")
+     ap.add_argument("--ref", required=True, help="参考口播音频（音色克隆）")
+     ap.add_argument("--base", default=".", help="项目根目录（输出到 <base>/audio）")
+-    ap.add_argument("--host", default="http://127.0.0.1:7860")
++    ap.add_argument("--host", default=None, help="TTS 服务地址（默认读配置 tts.health_url）")
+     ap.add_argument("--num-beams", type=float, default=2)
+     ap.add_argument("--max-tokens", type=float, default=200)
++    ap.add_argument("--no-auto-start", action="store_true", help="服务挂了也不自动拉起")
+     args = ap.parse_args()
++    if not args.host:
++        args.host = _cf("tts.health_url", "http://127.0.0.1:7860/").rstrip("/")
++
++    if not args.no_auto_start:
++        if not ensure_tts_alive(args.host):
++            sys.exit(2)
+ 
+     audio_dir = os.path.join(args.base, "audio")
+     os.makedirs(audio_dir, exist_ok=True)
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/new_project.py b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/new_project.py
+new file mode 100644
+index 0000000..147be73
+--- /dev/null
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/new_project.py
+@@ -0,0 +1,80 @@
++#!/usr/bin/env python3
++# -*- coding: utf-8 -*-
++"""新项目脚手架：一键搭好硬视产线项目目录（替代"复制已验收工程再改"）。
++
++用法：
++    python new_project.py "20261005-丰田-第一集" [--brief "目标时长8分钟，5章"]
++目录建在 config projects_root 下：
++    <项目>/
++      BRIEF.md  notes/研究笔记.md  scripts/  audio/
++      assets/illustrations/  renders/  vertical_douyin/  抖音竖屏图集_9x16/
++      index.html（从 skill assets/starter_index_16x9.html 复制的横屏起点）
++"""
++import argparse
++import datetime
++import os
++import shutil
++import sys
++
++try:
++    from yingshi_config import load_config, cfg_get, expand, skill_root
++    _CFG = load_config()
++except Exception:
++    _CFG = {}
++
++BRIEF_TMPL = """# {name} · BRIEF
++
++- 创建日期：{date}
++- 目标时长：{duration}（先定死，再写口播稿）
++- 章节结构：
++  1. （hook 章：炸弹钩子 → 欢迎语）
++  2.
++  3.
++  4.
++  5. （结尾：固定话术 + 互动引导）
++- 选题来源/核心资料：
++- 封面模板：templateN（1经典 / 2左图右文 / 3沉浸 / 4对比）
++- BGM 分类：怀旧 / 史诗感 / 紧张 / 悲伤 / 轻松 / 激昂热血 / 悬疑揭秘
++- 备注：
++
++> 流程顺序：研究 → 口播稿（parse_script.py 自动硬校验）→ 配音 → 出图 →
++> vertical_transform.py 转竖屏 → hyperframes check → render → teaser_cut.py 引流片段
++"""
++
++
++def main():
++    ap = argparse.ArgumentParser()
++    ap.add_argument("name", help="项目目录名，如 20261005-丰田-第一集")
++    ap.add_argument("--brief", default="8分钟，5章", help="目标时长与章节")
++    ap.add_argument("--root", default=None, help="覆盖 projects_root")
++    args = ap.parse_args()
++
++    root = expand(args.root or (cfg_get(_CFG, "projects_root", ".") if _CFG else "."))
++    proj = os.path.join(root, args.name)
++    if os.path.exists(proj):
++        print(f"项目已存在：{proj}", file=sys.stderr)
++        sys.exit(1)
++
++    for d in ["scripts", "audio", "assets/illustrations", "notes",
++              "renders", "vertical_douyin", "抖音竖屏图集_9x16"]:
++        os.makedirs(os.path.join(proj, d), exist_ok=True)
++
++    with open(os.path.join(proj, "BRIEF.md"), "w", encoding="utf-8") as f:
++        f.write(BRIEF_TMPL.format(
++            name=args.name,
++            date=datetime.date.today().isoformat(),
++            duration=args.brief,
++        ))
++    with open(os.path.join(proj, "notes", "研究笔记.md"), "w", encoding="utf-8") as f:
++        f.write(f"# {args.name} · 研究笔记\n\n（品牌/车型历史调研贴这里，写口播稿前先沉淀事实）\n")
++
++    tpl = os.path.join(skill_root(), "assets", "starter_index_16x9.html")
++    if os.path.exists(tpl):
++        shutil.copy2(tpl, os.path.join(proj, "index.html"))
++
++    print("项目已创建：", proj)
++    print("下一步：填 BRIEF.md 的目标时长与章节结构，然后写 scripts/视频脚本_版本A.md")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/parse_script.py b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/parse_script.py
+index 2ffa617..cbfd482 100644
+--- a/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/parse_script.py
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/parse_script.py
+@@ -73,6 +73,21 @@ def main() -> None:
+     cjk = len(re.findall(r"[\u4e00-\u9fff]", flat))
+     print(f"{len(chapters)} chapters, {cjk} CJK chars")
+ 
++    # TTS 前硬校验：有硬错误直接失败，逼停流程
++    try:
++        from validate_script import validate
++        errors, warnings = validate(chapters)
++        for w in warnings:
++            print("WARN " + w)
++        for e in errors:
++            print("ERROR " + e)
++        print(f"硬校验：{len(errors)} 个硬错误，{len(warnings)} 个警告")
++        if errors:
++            print("有硬错误未修，停在这里。请修完口播稿再跑 TTS。")
++            sys.exit(1)
++    except ImportError:
++        print("(validate_script.py 不可用，跳过硬校验)")
++
+ 
+ if __name__ == "__main__":
+     main()
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/reuse_illustrations.py b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/reuse_illustrations.py
+new file mode 100644
+index 0000000..aeafe31
+--- /dev/null
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/reuse_illustrations.py
+@@ -0,0 +1,98 @@
++#!/usr/bin/env python3
++# -*- coding: utf-8 -*-
++"""共享配图库复用：通用场景（老报纸/旧工厂/街道…）跨项目复用，只给新场景出图。
++
++库目录：config illustration_library（默认 Y:/Projects/自媒体/_配图库）
++库结构：
++    _配图库/
++      library_index.json   # [{key, tags:[...], file, style, used_in:[...]}]
++      <key>_2048.png       # 2048 成图
++
++用法：
++    python reuse_illustrations.py <项目目录> --prompts prompts.json [--apply]
++不加 --apply 只打印匹配报告；加 --apply 把命中的图拷进 <项目>/assets/illustrations/，
++并输出 still_needed.json（只剩这些场景需要出图）。
++"""
++import argparse
++import json
++import os
++import shutil
++import sys
++
++try:
++    from yingshi_config import load_config, cfg_get, expand
++    _CFG = load_config()
++except Exception:
++    _CFG = {}
++
++
++def load_index(lib):
++    idx_path = os.path.join(lib, "library_index.json")
++    if not os.path.exists(idx_path):
++        return []
++    with open(idx_path, encoding="utf-8") as f:
++        return json.load(f)
++
++
++def score(spec, entry):
++    """简单匹配：key 相同得 2 分；tags 命中 prompt 文本每个得 1 分。"""
++    s = 0
++    if spec.get("key") == entry.get("key"):
++        s += 2
++    text = (spec.get("prompt") or "") + (spec.get("scene") or "")
++    for t in entry.get("tags", []):
++        if t and t in text:
++            s += 1
++    return s
++
++
++def main():
++    ap = argparse.ArgumentParser()
++    ap.add_argument("project")
++    ap.add_argument("--prompts", default="prompts.json")
++    ap.add_argument("--apply", action="store_true")
++    ap.add_argument("--min-score", type=int, default=2)
++    args = ap.parse_args()
++
++    lib = expand(cfg_get(_CFG, "illustration_library", "") if _CFG else "")
++    index = load_index(lib)
++    if not index:
++        print(f"配图库为空或不存在：{lib}\n先按 library_index.template.json 建索引。", file=sys.stderr)
++        sys.exit(1)
++
++    with open(os.path.join(args.project, args.prompts), encoding="utf-8") as f:
++        specs = json.load(f)
++
++    hits, needed = [], []
++    for spec in specs:
++        ranked = sorted(((score(spec, e), e) for e in index), reverse=True)
++        if ranked and ranked[0][0] >= args.min_score:
++            hits.append((spec, ranked[0][1], ranked[0][0]))
++        else:
++            needed.append(spec)
++
++    print(f"共 {len(specs)} 个场景：库命中 {len(hits)}，仍需出图 {len(needed)}")
++    for spec, entry, sc in hits:
++        print(f"  HIT[{sc}] {spec.get('key')} <- {entry['file']}  (tags={entry.get('tags')})")
++    for spec in needed:
++        print(f"  NEW  {spec.get('key')}")
++
++    if args.apply and hits:
++        ill = os.path.join(args.project, "assets", "illustrations")
++        os.makedirs(ill, exist_ok=True)
++        for spec, entry, _ in hits:
++            src = os.path.join(lib, entry["file"])
++            dst = os.path.join(ill, f"{spec['key']}_2048.png")
++            if os.path.exists(src):
++                shutil.copy2(src, dst)
++                entry.setdefault("used_in", []).append(os.path.basename(args.project.rstrip("/\\")))
++        # 回写 used_in
++        with open(os.path.join(lib, "library_index.json"), "w", encoding="utf-8") as f:
++            json.dump(index, f, ensure_ascii=False, indent=1)
++        with open(os.path.join(args.project, "still_needed.json"), "w", encoding="utf-8") as f:
++            json.dump(needed, f, ensure_ascii=False, indent=1)
++        print(f"已复用 {len(hits)} 张；剩余 {len(needed)} 个场景写到 still_needed.json，直接拿去出图")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/sync_assets.py b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/sync_assets.py
+new file mode 100644
+index 0000000..78a4728
+--- /dev/null
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/sync_assets.py
+@@ -0,0 +1,144 @@
++#!/usr/bin/env python3
++# -*- coding: utf-8 -*-
++"""Y 盘项目 <-> WSL 出图工作目录的文件同步 + 引用校验。
++
++解决 image-pipeline.md 里最高频的事故：
++  - WSL 没有挂载 Y 盘，prompts.json / 出图产物全靠手拷，容易拷错、拷漏；
++  - 多批次编号都从 01 开始，回填 index.html 前必须重编号；
++  - 缺图会静默渲染成黑屏——本脚本在回填后逐张校验引用。
++
++配置来自 yingshi_config（wsl_temp / zimage.workdir）。
++
++用法（Windows 上跑）：
++    python sync_assets.py push <项目目录> [--batch 01]
++        # <项目>/prompts.json -> wsl_temp -> WSL ~/projects/Z-Image/prompts/<项目>/
++    python sync_assets.py pull <项目目录> --project <项目名> [--batch batch_01]
++        # WSL outputs/<项目>/<批次>/*.png -> wsl_temp -> <项目>/assets/illustrations/<key>_2048.png
++        # （假定已在 Windows 侧用 Real-ESRGAN 放大为 *_2048.png；见 esrgan_batch 模式）
++    python sync_assets.py verify <项目目录> [--html index.html]
++        # 解析 index.html 里所有 img src，逐张检查磁盘上存在
++"""
++import glob
++import os
++import re
++import shutil
++import subprocess
++import sys
++
++try:
++    from yingshi_config import load_config, cfg_get, expand
++    _CFG = load_config()
++except Exception:
++    _CFG = {}
++
++
++def _cf(key, default):
++    return cfg_get(_CFG, key, default) if _CFG else default
++
++
++def wsl_run(cmd):
++    r = subprocess.run(["wsl", "-d", "Ubuntu", "-e", "bash", "-lc", cmd],
++                       capture_output=True, text=True)
++    return r
++
++
++def to_wsl_mnt(win_path):
++    p = win_path.replace("\\", "/")
++    return "/mnt/" + p[0].lower() + p[2:]
++
++
++def cmd_push(project):
++    src = os.path.join(project, "prompts.json")
++    if not os.path.exists(src):
++        print(f"找不到 {src}", file=sys.stderr)
++        sys.exit(1)
++    proj_name = os.path.basename(os.path.normpath(project))
++    tmp = expand(_cf("wsl_temp", r"C:\Users\jonny\AppData\Local\Temp"))
++    os.makedirs(tmp, exist_ok=True)
++    staged = os.path.join(tmp, f"prompts_{proj_name}.json")
++    shutil.copy2(src, staged)
++    wsl_work = _cf("zimage.workdir", "~/projects/Z-Image").rstrip("/")
++    wsl_run(f"mkdir -p {wsl_work}/prompts/{proj_name}")
++    r = wsl_run(f"cp {to_wsl_mnt(staged)} {wsl_work}/prompts/{proj_name}/prompts.json && ls -la {wsl_work}/prompts/{proj_name}/")
++    print(r.stdout[-500:] or r.stderr[-500:])
++    print(f"已推送 prompts.json -> WSL {wsl_work}/prompts/{proj_name}/")
++    print(f"出图命令：wsl … python zimage_gen.py {wsl_work}/prompts/{proj_name}/prompts.json --project {proj_name}")
++
++
++def cmd_pull(project, proj_name, batch):
++    """把 WSL 侧出图拷回。期望 WSL 侧已按 outputs/<项目>/<批次>/ 隔离（zimage_gen.py --project）。"""
++    tmp = expand(_cf("wsl_temp", r"C:\Users\jonny\AppData\Local\Temp"))
++    os.makedirs(tmp, exist_ok=True)
++    wsl_work = _cf("zimage.workdir", "~/projects/Z-Image").rstrip("/")
++    wsl_out = f"{wsl_work}/outputs/{proj_name}/{batch}"
++    r = wsl_run(f"ls {wsl_out}/*.png 2>/dev/null | head -40")
++    files = [x.strip() for x in r.stdout.splitlines() if x.strip().endswith(".png")]
++    if not files:
++        print(f"WSL 侧没有出图：{wsl_out}", file=sys.stderr)
++        sys.exit(1)
++    dest_dir = os.path.join(tmp, f"zimg_{proj_name}_{batch}")
++    os.makedirs(dest_dir, exist_ok=True)
++    for f in files:
++        wsl_run(f"cp {f} {to_wsl_mnt(dest_dir)}/")
++    got = sorted(glob.glob(os.path.join(dest_dir, "*.png")))
++    print(f"拷回 {len(got)} 张 -> {dest_dir}")
++    # 重编号归位：zimg_NN_<key>_512.png -> <项目>/assets/illustrations/<key>_2048.png
++    # （ESRGAN 放大后改名；若还没放大，先按 <key>_512.png 归位，放大脚本再改名）
++    ill = os.path.join(project, "assets", "illustrations")
++    os.makedirs(ill, exist_ok=True)
++    for g in got:
++        m = re.search(r"zimg_\d+_(.+?)_512\.png$", os.path.basename(g))
++        key = m.group(1) if m else os.path.splitext(os.path.basename(g))[0]
++        shutil.copy2(g, os.path.join(ill, f"{key}_512.png"))
++    print(f"已按场景 key 归位到 {ill}（*_512.png，放大后改名为 *_2048.png）")
++
++
++def cmd_verify(project, html_name="index.html"):
++    html_path = os.path.join(project, html_name)
++    if not os.path.exists(html_path):
++        print(f"找不到 {html_path}", file=sys.stderr)
++        sys.exit(1)
++    with open(html_path, encoding="utf-8") as f:
++        html = f.read()
++    refs = sorted(set(re.findall(r'<img[^>]+src="([^"]+)"', html)))
++    missing = [s for s in refs
++               if s.startswith(("http", "data:"))
++               or not os.path.exists(os.path.join(project, s))]
++    # data: 与 http 视为外部资源，不判缺失
++    missing = [s for s in missing if not s.startswith(("http", "data:"))]
++    print(f"index.html 引用图片 {len(refs)} 张，缺失 {len(missing)} 张")
++    for s in missing:
++        print("  MISSING:", s)
++    if missing:
++        print("有缺失！渲染会出黑屏，先补图再 render。", file=sys.stderr)
++        sys.exit(1)
++    print("全部存在，可以渲染。")
++
++
++def main():
++    if len(sys.argv) < 3:
++        print(__doc__)
++        sys.exit(1)
++    mode, project = sys.argv[1], sys.argv[2]
++    if mode == "push":
++        cmd_push(project)
++    elif mode == "pull":
++        import argparse
++        ap = argparse.ArgumentParser()
++        ap.add_argument("--project", required=True)
++        ap.add_argument("--batch", default="batch_01")
++        a = ap.parse_args([x for x in sys.argv[3:] ])
++        cmd_pull(project, a.project, a.batch)
++    elif mode == "verify":
++        html = "index.html"
++        for i, x in enumerate(sys.argv):
++            if x == "--html" and i + 1 < len(sys.argv):
++                html = sys.argv[i + 1]
++        cmd_verify(project, html)
++    else:
++        print("mode 必须是 push / pull / verify", file=sys.stderr)
++        sys.exit(1)
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/teaser_cut.py b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/teaser_cut.py
+new file mode 100644
+index 0000000..276b22e
+--- /dev/null
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/teaser_cut.py
+@@ -0,0 +1,83 @@
++#!/usr/bin/env python3
++# -*- coding: utf-8 -*-
++"""60 秒抖音引流片段：一键从成片里按时间戳截段拼接。
++
++用法：
++    python teaser_cut.py <成片mp4> <输出mp4> --segs "12.5-28.3,95.0-139.2" [--srt 字幕.srt]
++    --segs 里各段时间加起来建议 55-65 秒；超了自动按比例截尾，少了会警告。
++    --srt 可选：把对应时间段的字幕烧进片段（需要字幕文件与成片时间轴一致）。
++"""
++import argparse
++import os
++import subprocess
++import sys
++import tempfile
++
++
++def run(cmd):
++    r = subprocess.run(cmd, capture_output=True, text=True)
++    if r.returncode != 0:
++        print("FAILED:", " ".join(cmd), file=sys.stderr)
++        print((r.stderr or "")[-500:], file=sys.stderr)
++        sys.exit(1)
++    return r
++
++
++def parse_segs(s):
++    segs = []
++    for part in s.split(","):
++        a, b = part.strip().split("-")
++        segs.append((float(a), float(b)))
++    return segs
++
++
++def main():
++    ap = argparse.ArgumentParser()
++    ap.add_argument("src")
++    ap.add_argument("dst")
++    ap.add_argument("--segs", required=True, help='"开始-结束,开始-结束"，秒')
++    ap.add_argument("--srt", default="")
++    args = ap.parse_args()
++
++    segs = parse_segs(args.segs)
++    total = sum(b - a for a, b in segs)
++    print(f"片段 {len(segs)} 段，共 {total:.1f} 秒")
++    if total > 65:
++        print("WARN 超过 65 秒，抖音完播率会掉，建议精简到 60 秒以内")
++    if total < 45:
++        print("WARN 不到 45 秒，信息量可能不够")
++
++    tmp = tempfile.mkdtemp(prefix="teaser_")
++    parts = []
++    for i, (a, b) in enumerate(segs):
++        p = os.path.join(tmp, f"p{i}.mp4")
++        run(["ffmpeg", "-y", "-ss", str(a), "-to", str(b), "-i", args.src,
++             "-c:v", "libx264", "-preset", "fast", "-crf", "20",
++             "-c:a", "aac", "-b:a", "128k", p])
++        parts.append(p)
++
++    lst = os.path.join(tmp, "list.txt")
++    with open(lst, "w", encoding="utf-8") as f:
++        for p in parts:
++            f.write(f"file '{p}'\n")
++    run(["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", lst,
++         "-c", "copy", args.dst])
++
++    if args.srt and os.path.exists(args.srt):
++        # 烧字幕（保留原文件，输出 _sub 版）
++        base, ext = os.path.splitext(args.dst)
++        subbed = f"{base}_sub{ext}"
++        srt = args.srt.replace("\\", "/").replace(":", "\\:")
++        run(["ffmpeg", "-y", "-i", args.dst, "-vf", f"subtitles={srt}",
++             "-c:a", "copy", subbed])
++        print("已烧字幕：", subbed)
++
++    dur = subprocess.run(
++        ["ffprobe", "-v", "error", "-show_entries", "format=duration",
++         "-of", "default=noprint_wrappers=1:nokey=1", args.dst],
++        capture_output=True, text=True).stdout.strip()
++    print(f"引流片段已生成：{args.dst}（{dur} 秒）")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/transcribe_wsl.py b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/transcribe_wsl.py
+index 209066a..9533059 100644
+--- a/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/transcribe_wsl.py
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/transcribe_wsl.py
+@@ -1,6 +1,17 @@
+ """WSL faster-whisper transcribe. Run on Windows."""
+ import os, shutil, subprocess, sys
+ 
++try:
++    from yingshi_config import load_config, cfg_get, expand
++    _CFG = load_config()
++except Exception:
++    _CFG = {}
++
++
++def _cf(key, default):
++    return cfg_get(_CFG, key, default) if _CFG else default
++
++
+ project = sys.argv[1] if len(sys.argv) > 1 else r"Y:\Projects\自媒体\20260905-丰田-审核"
+ audio_wav = os.path.join(project, "audio", "口播拼接.wav")
+ transcript = os.path.join(project, "audio", "transcript.json")
+@@ -10,16 +21,18 @@ if os.path.exists(transcript) and os.path.getsize(transcript) > 1000:
+     sys.exit(0)
+ 
+ # Copy audio to WSL-accessible Windows temp
+-win_tmp = r"C:\Users\jonny\AppData\Local\Temp"
++win_tmp = expand(_cf("wsl_temp", r"C:\Users\jonny\AppData\Local\Temp"))
+ os.makedirs(win_tmp, exist_ok=True)
+ win_path = os.path.join(win_tmp, "audio.wav")
+ shutil.copyfile(audio_wav, win_path)
+ 
+ # Write whisper script
++w_model = _cf("whisper.model", "medium")
++w_compute = _cf("whisper.compute_type", "float16")
+ script_text = (
+     "import json\n"
+     "from faster_whisper import WhisperModel\n"
+-    "m = WhisperModel('medium', device='cuda', compute_type='float16')\n"
++    f"m = WhisperModel('{w_model}', device='cuda', compute_type='{w_compute}')\n"
+     "segs, info = m.transcribe('/tmp/audio.wav', language='zh', word_timestamps=True, beam_size=5)\n"
+     "out = {'segments': [], 'words': []}\n"
+     "for s in segs:\n"
+@@ -33,17 +46,23 @@ script_path = os.path.join(win_tmp, "_whisper_run.py")
+ with open(script_path, "w", encoding="utf-8") as f:
+     f.write(script_text)
+ 
++wsl_user = _cf("wsl_user", "zerodaily")
++wsl_tmp_win = win_tmp.replace("\\", "/")
++wsl_mnt = "/mnt/" + wsl_tmp_win[0].lower() + wsl_tmp_win[2:]
+ # Copy to WSL
+-subprocess.run(["wsl", "-e", "bash", "-c", "cp /mnt/c/Users/jonny/AppData/Local/Temp/audio.wav /tmp/audio.wav"], check=False)
+-subprocess.run(["wsl", "-e", "bash", "-c", "cp /mnt/c/Users/jonny/AppData/Local/Temp/_whisper_run.py /tmp/_whisper_run.py"], check=False)
++subprocess.run(["wsl", "-e", "bash", "-c", f"cp {wsl_mnt}/audio.wav /tmp/audio.wav"], check=False)
++subprocess.run(["wsl", "-e", "bash", "-c", f"cp {wsl_mnt}/_whisper_run.py /tmp/_whisper_run.py"], check=False)
+ 
+ # Run whisper
+-ld = "/home/zerodaily/miniconda3/envs/whisper/lib/python3.10/site-packages/nvidia/cublas/lib:"
+-ld += "/home/zerodaily/miniconda3/envs/whisper/lib/python3.10/site-packages/nvidia/cuda_runtime/lib:"
+-ld += "/home/zerodaily/miniconda3/envs/whisper/lib/python3.10/site-packages/nvidia/cuda_nvrtc/lib"
++w_env = _cf("whisper.conda_env", "whisper")
++py_bin = f"~/miniconda3/envs/{w_env}/bin/python"
++nvidia_base = f"/home/{wsl_user}/miniconda3/envs/{w_env}/lib/python3.10/site-packages/nvidia"
++ld = nvidia_base + "/cublas/lib:"
++ld += nvidia_base + "/cuda_runtime/lib:"
++ld += nvidia_base + "/cuda_nvrtc/lib"
+ cmd = ["wsl", "-e", "bash", "-c",
+        f"export LD_LIBRARY_PATH={ld}:$LD_LIBRARY_PATH && "
+-       f"cd /tmp && ~/miniconda3/envs/whisper/bin/python /tmp/_whisper_run.py"]
++       f"cd /tmp && {py_bin} /tmp/_whisper_run.py"]
+ print("running:", " ".join(cmd[:5]) + " ...")
+ r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=1800)
+ print("rc:", r.returncode)
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/validate_script.py b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/validate_script.py
+new file mode 100644
+index 0000000..40f368b
+--- /dev/null
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/validate_script.py
+@@ -0,0 +1,89 @@
++#!/usr/bin/env python3
++# -*- coding: utf-8 -*-
++"""口播稿硬规则校验（TTS 之前的最后一道闸）。
++
++检查 audio/chapters.json，规则来源：SKILL.md 关键规则 + 脚本去AI味规则。
++硬错误 -> exit 1（必须修完才能进 TTS）；警告 -> exit 0（建议修）。
++
++用法：
++    python validate_script.py <项目目录> [--strict]
++    --strict：警告也视为失败
++"""
++import json
++import os
++import re
++import sys
++
++HARD_PATTERNS = [
++    ("〇", "年份用了「〇」，必须改成「零」（如二零二四），否则 TTS 读错"),
++    (r"[#*_`>]", "正文含 Markdown 符号（# * _ ` >）"),
++    (r"[（）()【】\[\]]", "正文含括号（中/英文/方括号全禁）"),
++    (r"[—–]", "正文含破折号（一律删掉或改写）"),
++]
++
++AI_CLICHES = [
++    "值得一提的是", "总而言之", "综上所述", "不仅", "而且",
++    "众所周知", "毋庸置疑", "换句话说",
++]
++
++GREETING = "欢迎回来，我是言同学。"
++ENDING_1 = "好了，今天的故事就到这里。我是言同学，我们下辆车再见。"
++ENDING_2 = "对了，你最想让我讲哪台车？评论区告诉我。"
++
++
++def sentences(text):
++    parts = re.split(r"[。！？…～\n]+", text)
++    return [s.strip() for s in parts if s.strip()]
++
++
++def validate(chapters):
++    errors = []
++    warnings = []
++    for pat, msg in HARD_PATTERNS:
++        for c in chapters:
++            m = re.search(pat, c["text"])
++            if m:
++                ctx = c["text"][max(0, m.start() - 12):m.end() + 12]
++                errors.append("[第%d章] %s：…%s…" % (c["idx"], msg, ctx))
++    if chapters:
++        ch1 = chapters[0]["text"].strip()
++        if ch1.startswith(GREETING):
++            errors.append("[第1章] 禁止用欢迎语开头：第一句必须是炸弹钩子，第二句再一字不差接" + GREETING)
++        elif GREETING not in ch1:
++            errors.append("[第1章] hook 之后必须一字不差出现：" + GREETING)
++        tail = chapters[-1]["text"].replace(" ", "")
++        if ENDING_1.replace(" ", "") not in tail:
++            warnings.append("[结尾] 建议以固定话术收尾：" + ENDING_1)
++        if ENDING_2.replace(" ", "") not in tail:
++            warnings.append("[结尾] 建议加一句互动引导：" + ENDING_2)
++    for c in chapters:
++        for s in sentences(c["text"]):
++            if len(s) > 15:
++                warnings.append("[第%d章] 长句 %d 字（建议≤15字拆短）：%s…" % (c["idx"], len(s), s[:22]))
++        for cl in AI_CLICHES:
++            if cl in c["text"]:
++                warnings.append("[第%d章] AI 套话「%s」，建议删掉或改口语" % (c["idx"], cl))
++    return errors, warnings
++
++
++def main():
++    project = sys.argv[1] if len(sys.argv) > 1 else "."
++    strict = "--strict" in sys.argv
++    ch_path = os.path.join(project, "audio", "chapters.json")
++    if not os.path.exists(ch_path):
++        print("找不到 %s，先跑 parse_script.py" % ch_path, file=sys.stderr)
++        sys.exit(2)
++    with open(ch_path, encoding="utf-8") as f:
++        chapters = json.load(f)
++    errors, warnings = validate(chapters)
++    for w in warnings:
++        print("WARN " + w)
++    for e in errors:
++        print("ERROR " + e)
++    print("\n校验完成：%d 个硬错误，%d 个警告" % (len(errors), len(warnings)))
++    if errors or (strict and warnings):
++        sys.exit(1)
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/vertical_transform.py b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/vertical_transform.py
+new file mode 100644
+index 0000000..219ad28
+--- /dev/null
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/vertical_transform.py
+@@ -0,0 +1,129 @@
++#!/usr/bin/env python3
++# -*- coding: utf-8 -*-
++"""横屏 index.html -> 抖音竖屏工程（一键转换，不手改）。
++
++规则来源：references/composition-and-render.md 竖屏工程 + SKILL.md 抖音安全区排版。
++  - root/meta/body 1920x1080 -> 1080x1920
++  - 所有 font-size x 0.62（round）
++  - 横向宽容器（>=1200px 的 width/max-width）压到 950px
++  - .inner 横向 padding 压到 54px
++  - 复制 assets/illustrations 与根目录 口播拼接.wav
++  - 注入安全区参考线（?guide=1 显示：顶部10% / 底部25% / 右侧10% 遮挡区）
++
++用法：
++    python vertical_transform.py <项目目录> [--src index.html] [--dst vertical_douyin/index.html]
++"""
++import argparse
++import os
++import re
++import shutil
++import sys
++
++FONT_SCALE = 0.62
++WIDE_CONTAINER = 950  # px，文档要求 940-960
++INNER_PAD_X = 54      # px
++
++SAFEZONE_CSS = """
++.safezone-guide { display:none; position:fixed; inset:0; z-index:9999; pointer-events:none; }
++body.guide .safezone-guide { display:block; }
++.safezone-guide .top { position:absolute; top:0; left:0; right:0; height:10%; background:rgba(255,0,0,.18); }
++.safezone-guide .bottom { position:absolute; bottom:0; left:0; right:0; height:25%; background:rgba(255,0,0,.18); }
++.safezone-guide .right { position:absolute; top:10%; bottom:25%; right:0; width:10%; background:rgba(255,0,0,.18); }
++.safezone-guide .label { position:absolute; color:#c00; font-size:28px; font-family:sans-serif; }
++"""
++SAFEZONE_HTML = """
++<div class="safezone-guide">
++  <div class="top"></div><div class="bottom"></div><div class="right"></div>
++  <div class="label" style="top:11%;left:20px;">安全区：核心内容放中间 15%-70% 高度</div>
++</div>
++<script>
++if (new URLSearchParams(location.search).get('guide') === '1') document.body.classList.add('guide');
++</script>
++"""
++
++
++def scale_fontsize(css):
++    def repl(m):
++        v = float(m.group(1))
++        return "font-size:%dpx" % round(v * FONT_SCALE)
++    return re.sub(r"font-size:\s*([\d.]+)px", repl, css)
++
++
++def narrow_wide(css):
++    def repl(m):
++        prop, v = m.group(1), float(m.group(2))
++        if v >= 1200:
++            return f"{prop}:{WIDE_CONTAINER}px"
++        return m.group(0)
++    return re.sub(r"((?:max-)?width):\s*([\d.]+)px", repl, css)
++
++
++def fix_inner_padding(css):
++    # .inner { ... padding: 110px 170px; ... } -> 横向压到 54px，纵向按比例
++    def repl(m):
++        top, right = float(m.group(1)), float(m.group(2))
++        return "padding:%dpx %dpx" % (round(top * 0.55), INNER_PAD_X)
++    return re.sub(r"padding:\s*([\d.]+)px\s+([\d.]+)px", repl, css)
++
++
++def transform(html):
++    # 1. 尺寸：1920x1080 -> 1080x1920（meta / css / data 属性）
++    html = html.replace("width=1920, height=1080", "width=1080, height=1920")
++    html = re.sub(r"width:\s*1920px", "width:1080px", html)
++    html = re.sub(r"height:\s*1080px", "height:1920px", html)
++    html = html.replace('data-width="1920"', 'data-width="1080"')
++    html = html.replace('data-height="1080"', 'data-height="1920"')
++
++    # 2. 字号 x0.62
++    html = scale_fontsize(html)
++    # 3. 宽容器压到 950
++    html = narrow_wide(html)
++    # 4. inner padding
++    html = fix_inner_padding(html)
++
++    # 5. 安全区参考线（默认隐藏，?guide=1 显示）
++    if "safezone-guide" not in html:
++        html = html.replace("</style>", SAFEZONE_CSS + "</style>")
++        html = html.replace("</body>", SAFEZONE_HTML + "\n</body>")
++    return html
++
++
++def main():
++    ap = argparse.ArgumentParser()
++    ap.add_argument("project", help="项目根目录（含横屏 index.html）")
++    ap.add_argument("--src", default="index.html")
++    ap.add_argument("--dst", default=os.path.join("vertical_douyin", "index.html"))
++    args = ap.parse_args()
++
++    src = os.path.join(args.project, args.src)
++    dst = os.path.join(args.project, args.dst)
++    if not os.path.exists(src):
++        print(f"找不到横屏工程：{src}", file=sys.stderr)
++        sys.exit(1)
++
++    with open(src, encoding="utf-8") as f:
++        html = f.read()
++    out = transform(html)
++    os.makedirs(os.path.dirname(dst), exist_ok=True)
++    with open(dst, "w", encoding="utf-8") as f:
++        f.write(out)
++
++    # 复制配图与音频
++    for rel in ["assets/illustrations", "口播拼接.wav"]:
++        s, d = os.path.join(args.project, rel), os.path.join(args.project, "vertical_douyin", rel)
++        if os.path.exists(s):
++            if os.path.isdir(s):
++                shutil.copytree(s, d, dirs_exist_ok=True)
++            else:
++                os.makedirs(os.path.dirname(d), exist_ok=True)
++                shutil.copy2(s, d)
++            print("copied", rel)
++        else:
++            print("WARN 缺少", rel)
++
++    print("竖屏工程已生成：", dst)
++    print("浏览器打开加 ?guide=1 可看抖音安全区参考线")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/yingshi_config.py b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/yingshi_config.py
+new file mode 100644
+index 0000000..5ced3b6
+--- /dev/null
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/yingshi_config.py
+@@ -0,0 +1,61 @@
++#!/usr/bin/env python3
++# -*- coding: utf-8 -*-
++"""硬视产线统一配置读取。
++
++查找顺序：
++  1. 环境变量 YINGSHI_CONFIG 指向的 JSON 文件
++  2. skill 根目录下的 config.json
++  3. config.template.json 的默认值（只读回退，不要求用户先建文件）
++
++用法：
++    from yingshi_config import load_config, cfg_get
++    cfg = load_config()
++    model_dir = cfg_get(cfg, "zimage.model_dir")
++"""
++import json
++import os
++
++_SKILL_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
++_TEMPLATE = os.path.join(_SKILL_ROOT, "config.template.json")
++_CONFIG = os.path.join(_SKILL_ROOT, "config.json")
++
++
++def _deep_merge(base, over):
++    out = dict(base)
++    for k, v in (over or {}).items():
++        if isinstance(v, dict) and isinstance(out.get(k), dict):
++            out[k] = _deep_merge(out[k], v)
++        else:
++            out[k] = v
++    return out
++
++
++def load_config(path=None):
++    """返回合并后的配置 dict（含模板默认值）。"""
++    with open(_TEMPLATE, encoding="utf-8") as f:
++        cfg = json.load(f)
++    cfg_path = path or os.environ.get("YINGSHI_CONFIG") or _CONFIG
++    if cfg_path and os.path.exists(cfg_path):
++        with open(cfg_path, encoding="utf-8") as f:
++            cfg = _deep_merge(cfg, json.load(f))
++    return cfg
++
++
++def cfg_get(cfg, dotted, default=None):
++    cur = cfg
++    for part in dotted.split("."):
++        if not isinstance(cur, dict) or part not in cur:
++            return default
++        cur = cur[part]
++    return cur
++
++
++def expand(p):
++    """展开 ~ 与环境变量；保持 Windows 盘符写法。"""
++    if not p:
++        return p
++    return os.path.expandvars(os.path.expanduser(p))
++
++
++def skill_root():
++    return _SKILL_ROOT
+diff --git a/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/zimage_gen.py b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/zimage_gen.py
+index 01dcc53..b4a3764 100644
+--- a/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/zimage_gen.py
++++ b/yingshi-agent-kit-v1.0/skills/retro-narration-video/scripts/zimage_gen.py
+@@ -14,10 +14,18 @@ Output: outputs/zimg_<NN>_<key>_512.png  (same dir as the model repo outputs/)
+ """
+ import json, os, sys, time, torch
+ 
+-os.environ.setdefault("HF_HOME", "/mnt/e/ai-models")
+-os.environ.setdefault("TRANSFORMERS_CACHE", "/mnt/e/ai-models/transformers_cache")
++try:
++    from yingshi_config import load_config, cfg_get, expand
++    _CFG = load_config()
++except Exception:
++    _CFG = {}
+ 
+-MODEL = "/mnt/e/ai-models/ltxdesktop/Z-Image-Turbo"
++os.environ.setdefault("HF_HOME", expand(cfg_get(_CFG, "zimage.hf_home", "/mnt/e/ai-models")))
++os.environ.setdefault("TRANSFORMERS_CACHE", os.path.join(
++    expand(cfg_get(_CFG, "zimage.hf_home", "/mnt/e/ai-models")), "transformers_cache"))
++
++MODEL = expand(cfg_get(_CFG, "zimage.model_dir", "/mnt/e/ai-models/ltxdesktop/Z-Image-Turbo"))
++OUT_ROOT = "outputs"  # 可被 --out-root 覆盖；建议按项目隔离见下方
+ STYLE = (
+     "复古中国风插图，老报纸与宣纸质感，米黄色旧纸底，墨色线条，朱红点缀，"
+     "拙朴木刻版画与淡彩水墨结合，画面留白，无任何文字。内容："
+@@ -25,7 +33,16 @@ STYLE = (
+ 
+ 
+ def main() -> None:
+-    spec_path = sys.argv[1] if len(sys.argv) > 1 else "prompts.json"
++    import argparse
++    ap = argparse.ArgumentParser()
++    ap.add_argument("spec", nargs="?", default="prompts.json", help="prompts.json 路径")
++    ap.add_argument("--project", default="", help="项目名：输出隔离到 outputs/<项目>/<批次>/")
++    ap.add_argument("--batch", default="", help="批次名（默认按时间生成 batch_01…）")
++    ap.add_argument("--out-root", default=OUT_ROOT, help="输出根目录")
++    ap.add_argument("--seed", type=int, default=20260910)
++    args = ap.parse_args()
++
++    spec_path = args.spec
+     with open(spec_path, encoding="utf-8") as f:
+         specs = json.load(f)
+     print("loading model...", flush=True)
+@@ -36,8 +53,17 @@ def main() -> None:
+     )
+     pipe.to("cuda")
+     print("loaded, start batch", flush=True)
+-    os.makedirs("outputs", exist_ok=True)
+-    seed = 20260910
++    out_dir = args.out_root
++    if args.project:
++        batch = args.batch or "batch_01"
++        # 同项目已有批次时自动递增，避免同名覆盖
++        n = 1
++        while os.path.exists(os.path.join(args.out_root, args.project, "batch_%02d" % n)):
++            n += 1
++        batch = args.batch or ("batch_%02d" % n)
++        out_dir = os.path.join(args.out_root, args.project, batch)
++    os.makedirs(out_dir, exist_ok=True)
++    seed = args.seed
+     for i, spec in enumerate(specs, 1):
+         prompt = (spec.get("style") or "") + spec["prompt"]
+         if not spec.get("custom_style"):
+@@ -52,10 +78,10 @@ def main() -> None:
+             guidance_scale=0.0,
+             generator=gen,
+         ).images[0]
+-        out = f"outputs/zimg_{i:02d}_{spec['key']}_512.png"
++        out = os.path.join(out_dir, "zimg_%02d_%s_512.png" % (i, spec['key']))
+         img.save(out)
+-        print(f"[{i}/{len(specs)}] {spec['key']} saved {time.time() - t0:.1f}s", flush=True)
+-    print("BATCH DONE", flush=True)
++        print(f"[{i}/{len(specs)}] {spec['key']} saved {time.time() - t0:.1f}s -> {out}", flush=True)
++    print("BATCH DONE ->", out_dir, flush=True)
+ 
+ 
+ if __name__ == "__main__":
+-- 
+2.43.0
+

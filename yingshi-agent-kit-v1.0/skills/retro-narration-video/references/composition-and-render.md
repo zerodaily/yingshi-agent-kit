@@ -36,15 +36,16 @@
 
 ## 竖屏工程
 
-不要直接改横屏工程；建独立子目录 `vertical_douyin/`：
+不要直接改横屏工程；用脚本一键生成独立子目录 `vertical_douyin/`：
 
-1. 复制横屏 HTML 为 `vertical_douyin/index.html`；
-2. 复制 `assets/illustrations` 与根目录 `口播拼接.wav`；
-3. 文本变换要点（用脚本做，不要手改 20 处）：
-   - root/meta/body 改为 `1080×1920`；
-   - 所有 `font-size` 乘约 0.62；
-   - 横向宽度容器（timeline/comment/grid4）压到 ~940–960px；
-   - `inner` 横向 padding 压到 ~54px。
+```powershell
+python <skill>/scripts/vertical_transform.py <项目目录>
+```
+
+脚本自动做：root/meta/body 改 1080×1920、所有 font-size ×0.62、宽容器压到
+950px、inner 横向 padding 压到 54px、复制 `assets/illustrations` 与根目录
+`口播拼接.wav`。浏览器打开竖屏页加 `?guide=1` 可显示抖音安全区参考线
+（顶部10% / 底部25% / 右侧10% 遮挡区），排版时把核心内容放进安全区。
 
 在 `vertical_douyin/` 里 check 和 render，产物互不覆盖。
 

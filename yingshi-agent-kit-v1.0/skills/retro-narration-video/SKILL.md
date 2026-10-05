@@ -27,15 +27,38 @@ description: >-
 ## 产线总览
 
 ```text
-① 选题研究(web/笔记) → ② 口播稿(硬规则校验) → ③ IndexTTS2 分章配音
-→ ④ 词级转写 → ⑤ Z-Image 批量出图 + Real-ESRGAN 放大
-→ ⑥ HyperFrames 复古合成(横/竖) → ⑦ check+渲染 → ⑧ 竖屏套图/交付
+① 选题研究(web/笔记) → ② 口播稿(硬规则自动校验) → ③ IndexTTS2 分章配音(自愈)
+→ ④ 词级转写 → ⑤ 配图库复用 + Z-Image 批量出图 + ESRGAN 放大
+→ ⑥ HyperFrames 复古合成(横屏) → vertical_transform 一键转竖屏
+→ ⑦ check+渲染 → ⑧ 60秒引流片段 + 竖屏套图/交付
 ```
+
+## 工具脚本（scripts/）
+
+| 脚本 | 用途 | 典型调用 |
+|---|---|---|
+| `new_project.py` | 新项目脚手架，一键搭目录+BRIEF | `python new_project.py "20261005-丰田"` |
+| `parse_script.py` | 口播稿切分（**末尾自动跑硬校验**） | `python parse_script.py <项目>` |
+| `validate_script.py` | 口播稿硬规则校验（〇/括号/破折号/开场白/结尾/AI味） | `python validate_script.py <项目>` |
+| `indextts2_speak.py` | 分章 TTS（开头自动健康检查+拉起服务） | 见 audio-pipeline |
+| `transcribe_wsl.py` | WSL faster-whisper 词级转写 | `python transcribe_wsl.py <项目>` |
+| `zimage_gen.py` | Z-Image 批量出图（`--project` 按项目隔离输出） | `python zimage_gen.py prompts.json --project 丰田` |
+| `reuse_illustrations.py` | 共享配图库复用，输出 still_needed.json | `python reuse_illustrations.py <项目> --apply` |
+| `sync_assets.py` | Y盘↔WSL 同步（push/pull/verify，防黑屏） | `python sync_assets.py verify <项目>` |
+| `esrgan_batch.py` | 批量 Real-ESRGAN x4 放大 | `python esrgan_batch.py <项目>` |
+| `vertical_transform.py` | 横屏→抖音竖屏一键转换（`?guide=1` 看安全区） | `python vertical_transform.py <项目>` |
+| `teaser_cut.py` | 60秒引流片段截段拼接 | `python teaser_cut.py 成片.mp4 引流.mp4 --segs "12.5-28.3,..."` |
+| `bgm_history.py` | BGM 使用历史（record/recent/pick） | `python bgm_history.py pick --category 怀旧` |
+| `bilibili_publish_verify.js` | B站投稿页控制台一键校验（8项） | 粘贴到浏览器控制台运行 |
+| `yingshi_config.py` | 统一配置读取（模块，被其他脚本引用） | — |
+
+全局配置：复制 `config.template.json` 为 `config.json` 按本机修改；
+或用环境变量 `YINGSHI_CONFIG` 指向配置文件。未配置时自动用模板默认值。
 
 ## 开工前必读
 
-- 每个项目建议复制一个已验收工程再改（首例参照
-  `Y:\Projects\自媒体\在外互助父母协议_试片`）。
+- 每个项目建议用 `scripts/new_project.py "<项目名>"` 一键搭好目录再开工
+  （替代原来"复制一个已验收工程再改"的手工做法）。
 - 环境硬性依赖见对应参考，跑哪步前读哪份：
   - [references/script-rules.md](references/script-rules.md)：口播稿格式、年份、
     去 AI 味与硬校验。
@@ -56,6 +79,10 @@ description: >-
 3. 第 1 章 hook 后必须一字不差出现：
    `欢迎回来，我是言同学。`
    结尾必须一字不差以固定句收尾（见 script-rules）。
+   > **与抖音钩子规则的衔接（必读）**：抖音版要求"前3秒必须是炸弹钩子，
+   > 禁止用欢迎语开头"——两条不冲突：顺序永远是 **炸弹钩子 → 欢迎语**。
+   > 即第一句抛钩子，第二句一字不差接"欢迎回来，我是言同学。"，两个版本
+   > 都按这个顺序写，TTS 和字幕都用同一份口播稿。
 4. 文字/排版页不得交文生图模型渲染：AI 只画“画面内容”，文字全部由 HTML/CSS
    叠在卡片上，保证字形清晰。
 5. 本地 Z-Image 在 2080 Ti 上用 512×512、4 步；单张约 20–50 秒。不得直接跑
@@ -80,7 +107,9 @@ description: >-
 基于抖音汽车知识类爆款调研，以下规则直接影响完播率和推流。
 
 ### 脚本结构
-1. **前3秒必须是炸弹钩子**：禁止用"欢迎回来我是言同学"开头。先用最炸的数字/反差/揭秘抓住人，再自我介绍。
+1. **前3秒必须是炸弹钩子**：禁止用"欢迎回来我是言同学"**作为第一句**。顺序固定为
+   "钩子 → 欢迎语"（见上文"开场白规则衔接"）：先用最炸的数字/反差/揭秘抓住人，
+   第二句一字不差接"欢迎回来，我是言同学。"
    - 错误："欢迎回来，我是言同学，今天我们来讲迈凯伦F1"
    - 正确："1998年它跑出391km/h，这个纪录保持了12年，法拉利都追不上。欢迎回来，我是言同学。"
 2. **钩子5选1**（每集至少用1个）：数字冲击 / 反常识 / 揭秘式 / 情绪共鸣 / 对比反差。
@@ -158,6 +187,9 @@ description: >-
 **禁止再用Playwright脚本自动发布！** 有风控风险，全部改用Browser Use操作用户自己的Chrome浏览器，和真人操作无差别。
 
 ### Browser Use发布操作步骤（严格按顺序，不要跳步）
+0. **先查草稿箱余量**：B站草稿箱硬上限 30 条。打开创作中心 → 内容管理 → 草稿箱，
+   数一下当前草稿数；≥28 条时先停下来告诉用户手动发布/删除旧稿腾位置，
+   不要等到上传一半才发现传不上去。
 1. 保持浏览器窗口宽度≥1200px，窄窗口会导致封面弹窗布局错位
 2. 打开B站上传页，上传横屏final.mp4（上传是异步的！不用等上传完成，传完文件句柄立刻继续下一步）
 3. **立刻去传封面**：封面优先级最高，等封面弹窗加载3秒后，用`input[accept*='image']`上传4:3 png封面；弹出"是否同步4:3到16:9"弹窗时点"确认同步"，自动完成16:9封面，不用单独再传一次
@@ -168,6 +200,10 @@ description: >-
    - 互动设置勾选"开启精选评论"（用文本查找label元素点，不要靠坐标）
    - **粉丝动态必写（不能漏！）**：100字以内，简短有趣，结合本期内容写一个车迷共鸣的小问题/冷知识/钩子，引导评论互动。**必须通过placeholder="有趣的动态描述"文本精确定位contenteditable元素，填完后JS读取innerText验证内容真的存在，再点存草稿**
 7. 点"存草稿"，不要点"立即投稿"，用户自己最后点发布
+
+**发布前一键校验**：点存草稿之前，把 `scripts/bilibili_publish_verify.js`
+粘贴到浏览器控制台运行，8 项全 PASS 再提交（标题/简介/标签/封面/更多设置
+展开/粉丝动态/字数/创作声明）。
 
 ### 踩过的坑
 - ❌ 更多设置默认折叠，不展开直接往下填粉丝动态=白填
@@ -255,6 +291,30 @@ Y:\Projects\自媒体\_BGM库\Select-BGM.ps1 -ProjectDir "<项目目录>"
 
 ### 5. GitHub开源仓库
 硬视Agent Kit完整产线已开源：https://github.com/zerodaily/yingshi-agent-kit
+
+---
+
+## 产线优化（2026-10-04 更新）
+
+### 修的文档 bug
+- audio-pipeline 里 TTS 目录名 `j-indexctts2` → `j-indextts2`（与所有命令一致）
+- 开场白规则明确衔接顺序：**炸弹钩子 → 欢迎语**，横竖屏同一份口播稿
+
+### 新增工具（scripts/，详见上表）
+- `validate_script.py`：口播稿硬校验，parse_script.py 跑完自动执行，有硬错误直接逼停
+- `vertical_transform.py`：横屏→竖屏一键转换，`?guide=1` 看抖音安全区参考线
+- `sync_assets.py`：Y盘↔WSL 同步 push/pull/verify，回填后必跑 verify 防黑屏
+- `esrgan_batch.py`：批量放大 *_512.png → *_2048.png，可续跑
+- `new_project.py`：项目脚手架；`teaser_cut.py`：60秒引流片段；`bgm_history.py`：BGM 历史 JSON
+- `reuse_illustrations.py`：共享配图库复用（库目录见 config illustration_library）
+- `bilibili_publish_verify.js`：投稿页控制台一键 8 项校验
+
+### 配置收敛
+- 新增 `config.template.json` + `scripts/yingshi_config.py`：所有路径收敛到一处，
+  复制为 `config.json` 按本机修改；脚本未配置时自动用模板默认值
+- zimage_gen.py 支持 `--project`：输出隔离到 `outputs/<项目>/batch_NN/`
+- indextts2_speak.py 开头自动健康检查+拉起 TTS（`--no-auto-start` 关闭）
+- B站发布流程新增第 0 步：先查草稿箱余量（硬上限 30 条）
 
 ---
 

@@ -1,0 +1,67 @@
+# 包 B 动效词汇表：卡纸与色块的节奏比包 A 快，允许一次 back.out 弹位
+version: 1
+style: collage-design
+units: seconds
+
+global:
+  entry_ease: "steps(6)"
+  entry_duration: 0.6
+  step_size: 2
+  camera_push:
+    property: scale
+    from: 1.0
+    to: 1.012
+    ease: "power1.inOut"
+    duration: 3.7
+
+actions:
+  field_settle:
+    tween: { autoAlpha: [0, 1], scale: [1.03, 1] }
+    ease: "power2.out"
+    duration: 0.7
+  card_rise:
+    tween: { autoAlpha: [0, 1], y: [130, 0] }
+    ease: "steps(6)"
+    duration: 0.6
+  strip_draw:
+    tween: { scaleX: [0, 1] }
+    transformOrigin: "0% 50%"
+    ease: "steps(4)"
+    duration: 0.28
+  chip_snap:
+    tween: { autoAlpha: [0, 1], scale: [1.6, 1], rotation: [-8, 0] }
+    transformOrigin: "50% 50%"
+    ease: "back.out(1.5)"      # 全片只允许这一处弹位
+    duration: 0.34
+  cutout_land:
+    tween: { autoAlpha: [0, 1], x: [230, 0], scale: [1.06, 1] }
+    ease: "steps(8)"
+    duration: 0.7
+  cutout_drop:
+    tween: { autoAlpha: [0, 1], y: [-170, 0] }
+    ease: "steps(7)"
+    duration: 0.6
+  word_in:
+    tween: { autoAlpha: [0, 1], y: [70, 0] }
+    ease: "steps(5)"
+    duration: 0.45
+  label_slide:
+    tween: { autoAlpha: [0, 1], x: [-110, 0] }
+    ease: "steps(5)"
+    duration: 0.5
+  rule_draw:
+    tween: { scaleX: [0, 1] }
+    transformOrigin: "0% 50%"
+    ease: "steps(4)"
+    duration: 0.4
+  mark_pop:
+    tween: { autoAlpha: [0, 1], scale: [1.5, 1] }
+    ease: "steps(3)"
+    duration: 0.25
+
+constraints:
+  max_color_blocks: 3
+  max_headline_words: 3
+  min_line_height: 1.15
+  banned_eases: ["bounce.out", "elastic.out"]
+  banned: [repeat_infinite, idle_float, glow_pulse, large_border_radius]

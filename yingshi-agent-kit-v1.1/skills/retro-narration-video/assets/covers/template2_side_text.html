@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- 封面模板2 · 左图右文款：左侧2/3 车+言同学，右侧1/3 竖排品牌名+副标题，印章左下角 -->
+<html lang="zh">
+<head><meta charset="UTF-8"><link rel="stylesheet" href="common.css">
+<style>
+  .left { position: absolute; top: 70px; bottom: 70px; left: 70px; width: 990px;
+          display: flex; flex-direction: column; gap: 24px; }
+  .left .car { flex: 3; }
+  .left .yctx { flex: 1; }
+  .left img { width: 100%; height: 100%; object-fit: cover; display: block;
+              border: 6px solid #2d5a3d; }
+  .right { position: absolute; top: 70px; bottom: 70px; right: 70px; width: 400px;
+           display: flex; flex-direction: row-reverse; gap: 30px; justify-content: center; }
+  .brand-v { writing-mode: vertical-rl; font-size: 150px; font-weight: bold; letter-spacing: 24px; }
+  .sub-v { writing-mode: vertical-rl; font-size: 44px; letter-spacing: 10px; color: #5a6b52;
+           padding-top: 30px; }
+</style></head>
+<body>
+<div class="cover">
+  <div class="left">
+    <div class="car ph">主车图<br>cover_car.png</div>
+    <div class="yctx ph">言同学IP（与车互动）<br>cover_yantongxue.png</div>
+  </div>
+  <div class="right">
+    <div class="brand-v">本田</div>
+    <div class="sub-v">HONDA · 技研魂</div>
+  </div>
+  <div class="seal bl">言同学</div>
+</div>
+</body>
+</html>

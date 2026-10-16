@@ -1,0 +1,47 @@
+<!doctype html>
+<!-- 封面模板4 · 对比款：左右分屏 老车 vs 新车，言同学在中间指着两边，品牌名放中间 -->
+<html lang="zh">
+<head><meta charset="UTF-8"><link rel="stylesheet" href="common.css">
+<style>
+  .split { position: absolute; top: 70px; bottom: 70px; left: 70px; right: 70px;
+           display: flex; gap: 0; border: 8px solid #2d5a3d; }
+  .pane { flex: 1; position: relative; }
+  .pane + .pane { border-left: 8px solid #2d5a3d; }
+  .pane img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pane .tag { position: absolute; top: 24px; left: 24px; z-index: 5;
+               background: #2d5a3d; color: #f2e8d3; font-size: 44px;
+               padding: 8px 26px; letter-spacing: 8px; }
+  .mid { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+         z-index: 10; text-align: center; }
+  .mid .vs { background: #b03a2a; color: #f2e8d3; font-size: 72px; font-weight: bold;
+             width: 150px; height: 150px; border-radius: 50%;
+             display: flex; align-items: center; justify-content: center;
+             border: 6px solid #f2e8d3; box-shadow: 0 6px 24px rgba(0,0,0,.3); }
+  .mid .brand { margin-top: 18px; background: #f2e8d3; border: 4px solid #2d5a3d;
+                font-size: 56px; font-weight: bold; letter-spacing: 10px;
+                padding: 10px 28px; white-space: nowrap; }
+  .yctx-note { position: absolute; bottom: 100px; left: 0; right: 0; text-align: center;
+               font-size: 34px; color: #5a6b52; }
+</style></head>
+<body>
+<div class="cover">
+  <div class="split">
+    <div class="pane">
+      <div class="tag">1967 · 老车</div>
+      <div class="ph" style="width:100%;height:100%;border:none;">老车图<br>cover_old.png</div>
+    </div>
+    <div class="pane">
+      <div class="tag">2024 · 新车</div>
+      <div class="ph" style="width:100%;height:100%;border:none;">新车图<br>cover_new.png</div>
+    </div>
+  </div>
+  <div class="mid">
+    <div class="vs">VS</div>
+    <div class="brand">日产 NISSAN</div>
+  </div>
+  <!-- 言同学IP放在中间区域：指着两边做对比手势，单独出图后叠在中间 -->
+  <div class="yctx-note">言同学IP（指着两边）：cover_yantongxue_point.png 叠放在中间</div>
+  <div class="seal br">言同学</div>
+</div>
+</body>
+</html>

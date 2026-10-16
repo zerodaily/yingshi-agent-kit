@@ -1,0 +1,9 @@
+[submodule "yingshi-agent-kit-v1.0/skills/gbro-collage-broll"]
+	path = yingshi-agent-kit-v1.0/skills/gbro-collage-broll
+	url = https://github.com/pyang5166/gbro-collage-broll.git
+[submodule "yingshi-agent-kit-v1.0/skills/minimax-h3-vox"]
+	path = yingshi-agent-kit-v1.0/skills/minimax-h3-vox
+	url = https://github.com/panxxpan/Minimax-H3-Vox.git
+[submodule "yingshi-agent-kit-v1.0/skills/huashu-art-motion"]
+	path = yingshi-agent-kit-v1.0/skills/huashu-art-motion
+	url = https://github.com/alchaincyf/huashu-art-motion.git

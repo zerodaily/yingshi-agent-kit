@@ -1,6 +1,13 @@
-# 硬视 Agent Kit v1.0
+# 硬视 Agent Kit
 
-「言同学」复古纸墨风汽车知识口播视频自动化产线。从选题到B站草稿全流程本地闭环，无需在线API，22GB显存单卡跑完全部流程。
+「言同学」知识口播视频自动化产线。从选题到 B站草稿全流程本地闭环，无需在线 API。
+
+仓库里有两个版本目录：
+
+| 目录 | 说明 |
+|---|---|
+| `yingshi-agent-kit-v1.0/` | 初版。只有复古纸墨一个画风，8 步产线 + B站发布 |
+| `yingshi-agent-kit-v1.1/` | **当前版本**。多画风 × 多领域，新增分层舞台与本地元素引擎 |
 
 ## 核心能力
 
@@ -10,6 +17,31 @@
 7. 自动按新规范上传B站草稿（封面同步、简介、粉丝动态、精选评论）
 
 最终产出：横屏1920×1080 + 抖音竖屏1080×1920 两个版本，6尺寸封面，23张复古插画，发布物料齐全。
+
+## v1.1 新增能力
+
+v1.1 把产线从「单一画风」改成**两个正交维度**：
+
+```
+画风（styles/） × 领域（domains/） = 一条片子
+看起来怎样          讲的是什么
+```
+
+- **画风包**：`00-retro-paper`（复古纸墨，默认）、`10-collage-archive`（档案调查拼贴）、`20-collage-design`（设计拼贴）
+- **领域包**：`automotive`、`ai`、`history`；新领域只需写一份 `DOMAIN.md`
+
+**分层舞台**是 v1.1 的核心：一个画面由多个图层按时间轴逐件组装，
+替代 AI 视频模型的镜头动画，不依赖任何视频生成模型。
+
+- **本地元素引擎**：`photo_to_cutout.py` 把真实照片变成半调剪影纸片
+  （抠图 → 半调网点 → 双色调上纸 → 撕边 → 透明 PNG），纯 CPU，7 个元素约 12 秒，不占显存
+- **分镜构建器**：`build_film.py` 读一份 `film.json` 自动生成横竖两个工程，
+  自动排节拍、长场景补第二波、左出右进、红绳自动连线；`build_film_split.py` 按章拆子合成
+- **镜头语言**：`shotgram.py` 控制景别 / 机位 / 运动 / 构图 / 转场分布，避免「一个模子切 150 次」
+- **音频**：`mix_bgm.py` 按响度对齐 + 侧带闪避 + 限幅，输出单轨混音
+- **四个分层舞台模板**（包 A/B × 横竖）+ 4 套封面模板
+
+详见 `yingshi-agent-kit-v1.1/CHANGELOG-v1.1.md`。
 
 ## 已完成案例
 
@@ -43,27 +75,46 @@ cd yingshi-agent-kit
 ## 目录结构
 
 ```
-yingshi-agent-kit-v1.0/
-├── AGENT_INSTALL.md           # 部署指南
-├── START_HERE.md              # 快速上手指引
-├── config/                    # 全局配置文件
-│   ├── config.json
-│   ├── config.template.json
-│   └── onboarding.md
-├── references/                # 通用参考文档
-│   ├── FAQ-高频问题解答.md
-│   └── 选题库模板.md
+yingshi-agent-kit-v1.1/          # 当前版本
+├── AGENT_INSTALL.md             # 部署指南
+├── START_HERE.md                # 快速上手指引
+├── CHANGELOG-v1.1.md            # 版本变更
+├── config/                      # 全局配置
+├── styles/                      # 画风包（00 复古纸墨 / 10 档案拼贴 / 20 设计拼贴）
+├── domains/                     # 领域包（automotive / ai / history）
+└── skills/
+    └── retro-narration-video/   # 核心产线skill
+        ├── SKILL.md
+        ├── scripts/             # 33 个自动化脚本
+        ├── references/          # 10 份步骤规范
+        └── assets/              # 分层舞台模板 + 封面模板
+
+yingshi-agent-kit-v1.0/          # 初版（仅复古纸墨）
+├── AGENT_INSTALL.md
+├── START_HERE.md
+├── config/
+├── references/
 ├── skills/
-│   └── retro-narration-video/ # 核心产线skill
-│       ├── SKILL.md           # 8步产线规范 + B站发布流程
-│       ├── scripts/           # 自动化脚本
-│       │   ├── parse_script.py
-│       │   ├── indextts2_speak.py
-│       │   ├── zimage_gen.py
-│       │   └── transcribe_wsl.py
-│       ├── references/        # 各步骤详细规范
-│       └── assets/            # 模板素材
-└── assets-customer/           # 客户侧素材说明
+│   └── retro-narration-video/
+└── assets-customer/
+```
+
+### 外部 skill（git 子模块）
+
+`yingshi-agent-kit-v1.0/skills/` 下的 3 个第三方 skill 以 **git 子模块**形式引入。
+克隆时必须带 `--recurse-submodules`，否则这三个目录是空的：
+
+| 目录 | 上游 |
+|---|---|
+| `gbro-collage-broll` | https://github.com/pyang5166/gbro-collage-broll.git |
+| `minimax-h3-vox` | https://github.com/panxxpan/Minimax-H3-Vox.git |
+| `huashu-art-motion` | https://github.com/alchaincyf/huashu-art-motion.git（约 284MB） |
+
+```bash
+git clone --recurse-submodules https://github.com/zerodaily/yingshi-agent-kit.git
+
+# 已经克隆过的话：
+git submodule update --init --recursive
 ```
 
 ## 关键规范（踩坑沉淀）

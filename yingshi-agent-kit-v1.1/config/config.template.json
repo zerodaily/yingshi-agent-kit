@@ -1,0 +1,45 @@
+{
+  "_comment": "由 Agent 在 onboarding 访谈后填写，另存为 config.json",
+  "brand": {
+    "name": "",
+    "one_liner": "",
+    "audience": "",
+    "platforms": ["douyin", "wechat_channels", "xiaohongshu", "bilibili"],
+    "first_topic": ""
+  },
+  "voice": {
+    "sample_path": "assets-customer/voice-sample.wav",
+    "style_notes": ""
+  },
+  "visual": {
+    "active_style": "00-retro-paper",
+    "styles_root": "styles",
+    "style_notes": {
+      "00-retro-paper": "复古纸墨。米黄旧纸底 + 木刻插画 + 文字卡，默认",
+      "10-collage-archive": "档案调查拼贴。真实照片半调剪影 + 旧新闻纸/海图 + 红绳图钉",
+      "20-collage-design": "设计拼贴。平色场 + 彩色卡纸 + 大号字，9:16 竖屏原生"
+    },
+    "style_ref_paths": ["assets-customer/style-ref.png"],
+    "palette_preference": "",
+    "default_style_suffix": "复古做旧纸感，risograph 双色印刷质感，与风格参考图一致"
+  },
+  "llm_api_key": "TODO",
+  "llm_api_provider": "TODO",
+  "publish": {
+    "enabled": false,
+    "mediacrawler_dir": "TODO"
+  },
+  "paths": {
+    "projects_root": "D:\\yingshi-projects",
+    "indextts_dir_wsl": "~/j-indextts2",
+    "zimage_dir_wsl": "~/Z-Image",
+    "zimage_model_wsl": "~/models/Z-Image-Turbo",
+    "esrgan_exe": "C:\\yingshi\\tools\\realesrgan-ncnn-vulkan.exe",
+    "conda_env": "zimage",
+    "npm_cache": ""
+  },
+  "fixed_copy": {
+    "opening_line": "欢迎回来，我是言同学。",
+    "ending_line": "今天的故事先讲到这,你顺手点的一个关注赞,是对我极致的肯定,有更新你会第一时间收到提醒,我是认真讲故事的言同学,咱们下期再见~"
+  }
+}

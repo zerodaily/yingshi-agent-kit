@@ -1,0 +1,2721 @@
+{
+ "title": "捷豹 Jaguar · 档案拼贴版 auto",
+ "audio": "口播拼接.wav",
+ "element_shadow": "baked",
+ "duration": 705.96,
+ "canvas": {
+  "land": [
+   1920,
+   1080
+  ],
+  "port": [
+   1080,
+   1920
+  ]
+ },
+ "type": {
+  "land": {
+   "big": 92,
+   "small": 38,
+   "cn": 42,
+   "stamp_cn": 34,
+   "stamp_en": 28
+  },
+  "port": {
+   "big": 70,
+   "small": 30,
+   "cn": 34,
+   "stamp_cn": 26,
+   "stamp_en": 22
+  }
+ },
+ "plate": {
+  "land": {
+   "map": "assets/plate_uk_geo.jpg",
+   "pos": "48% 46%",
+   "opacity": 0.3
+  },
+  "port": {
+   "map": "assets/plate_uk_geo.jpg",
+   "pos": "50% 42%",
+   "opacity": 0.28
+  }
+ },
+ "slots": {
+  "land": {
+   "scrap": {
+    "x": 0.005,
+    "y": 0.44,
+    "w": 0.28,
+    "rot": -3.5
+   },
+   "scrap2": {
+    "x": 0.74,
+    "y": -0.1,
+    "w": 0.26,
+    "rot": 2.5
+   },
+   "scrap1": {
+    "x": 0.005,
+    "y": 0.44,
+    "w": 0.28,
+    "rot": -3.5
+   },
+   "scrap3": {
+    "x": 0.7,
+    "y": 0.62,
+    "w": 0.3,
+    "rot": 3.0
+   },
+   "hero": {
+    "x": 0.3,
+    "y": 0.3,
+    "w": 0.46
+   },
+   "hero1": {
+    "x": 0.3,
+    "y": 0.3,
+    "w": 0.46
+   },
+   "hero2": {
+    "x": 0.34,
+    "y": 0.24,
+    "w": 0.42
+   },
+   "hero3": {
+    "x": 0.22,
+    "y": 0.34,
+    "w": 0.56
+   },
+   "hero_l": {
+    "x": 0.06,
+    "y": 0.32,
+    "w": 0.46
+   },
+   "hero_b": {
+    "x": 0.6,
+    "y": 0.52,
+    "w": 0.34
+   },
+   "portrait": {
+    "x": 0.035,
+    "y": 0.08,
+    "w": 0.145,
+    "rot": -1.5
+   },
+   "portrait1": {
+    "x": 0.035,
+    "y": 0.08,
+    "w": 0.145,
+    "rot": -1.5
+   },
+   "portrait2": {
+    "x": 0.8,
+    "y": 0.1,
+    "w": 0.15,
+    "rot": 1.5
+   },
+   "mini": {
+    "x": 0.5,
+    "y": 0.05,
+    "w": 0.17,
+    "rot": 1.2
+   },
+   "mini1": {
+    "x": 0.5,
+    "y": 0.05,
+    "w": 0.17,
+    "rot": 1.2
+   },
+   "mini2": {
+    "x": 0.62,
+    "y": 0.6,
+    "w": 0.2,
+    "rot": -1.2
+   },
+   "photo1": {
+    "x": 0.08,
+    "y": 0.52,
+    "w": 0.24
+   },
+   "photo2": {
+    "x": 0.7,
+    "y": 0.55,
+    "w": 0.26
+   },
+   "label1": {
+    "x": 0.295,
+    "y": 0.12
+   },
+   "label2": {
+    "x": 0.055,
+    "y": 0.8
+   },
+   "stamp": {
+    "x": 0.845,
+    "y": 0.1,
+    "rot": -6
+   },
+   "tape0": {
+    "x": 0.335,
+    "y": 0.255,
+    "w": 0.075,
+    "h": 0.045
+   },
+   "tape1": {
+    "x": 0.06,
+    "y": 0.075,
+    "w": 0.08,
+    "h": 0.045
+   },
+   "pinA": {
+    "x": 0.115,
+    "y": 0.55,
+    "w": 0.03
+   },
+   "pinB": {
+    "x": 0.44,
+    "y": 0.46,
+    "w": 0.03
+   },
+   "pinC": {
+    "x": 0.79,
+    "y": 0.3,
+    "w": 0.03
+   }
+  },
+  "port": {
+   "scrap": {
+    "x": -0.22,
+    "y": 0.62,
+    "w": 0.66,
+    "rot": -3.5
+   },
+   "scrap2": {
+    "x": 0.64,
+    "y": -0.05,
+    "w": 0.44,
+    "rot": 2.5
+   },
+   "scrap1": {
+    "x": -0.22,
+    "y": 0.62,
+    "w": 0.66,
+    "rot": -3.5
+   },
+   "scrap3": {
+    "x": 0.3,
+    "y": 0.66,
+    "w": 0.72,
+    "rot": 3.0
+   },
+   "hero": {
+    "x": 0.03,
+    "y": 0.34,
+    "w": 0.94
+   },
+   "hero1": {
+    "x": 0.03,
+    "y": 0.34,
+    "w": 0.94
+   },
+   "hero2": {
+    "x": 0.08,
+    "y": 0.3,
+    "w": 0.84
+   },
+   "hero3": {
+    "x": -0.06,
+    "y": 0.36,
+    "w": 1.06
+   },
+   "hero_l": {
+    "x": 0.03,
+    "y": 0.4,
+    "w": 0.9
+   },
+   "hero_b": {
+    "x": 0.06,
+    "y": 0.56,
+    "w": 0.4
+   },
+   "portrait": {
+    "x": 0.05,
+    "y": 0.04,
+    "w": 0.3,
+    "rot": -1.5
+   },
+   "portrait1": {
+    "x": 0.05,
+    "y": 0.04,
+    "w": 0.3,
+    "rot": -1.5
+   },
+   "portrait2": {
+    "x": 0.62,
+    "y": 0.06,
+    "w": 0.3,
+    "rot": 1.5
+   },
+   "mini": {
+    "x": 0.58,
+    "y": 0.1,
+    "w": 0.36,
+    "rot": 1.2
+   },
+   "mini1": {
+    "x": 0.58,
+    "y": 0.1,
+    "w": 0.36,
+    "rot": 1.2
+   },
+   "mini2": {
+    "x": 0.1,
+    "y": 0.52,
+    "w": 0.42,
+    "rot": -1.2
+   },
+   "photo1": {
+    "x": 0.05,
+    "y": 0.58,
+    "w": 0.38
+   },
+   "photo2": {
+    "x": 0.52,
+    "y": 0.58,
+    "w": 0.42
+   },
+   "label1": {
+    "x": 0.32,
+    "y": 0.13
+   },
+   "label2": {
+    "x": 0.06,
+    "y": 0.66
+   },
+   "stamp": {
+    "x": 0.6,
+    "y": 0.64,
+    "rot": -6
+   },
+   "tape0": {
+    "x": 0.62,
+    "y": 0.4,
+    "w": 0.16,
+    "h": 0.026
+   },
+   "tape1": {
+    "x": 0.1,
+    "y": 0.05,
+    "w": 0.18,
+    "h": 0.026
+   },
+   "pinA": {
+    "x": 0.18,
+    "y": 0.3,
+    "w": 0.05
+   },
+   "pinB": {
+    "x": 0.55,
+    "y": 0.4,
+    "w": 0.05
+   },
+   "pinC": {
+    "x": 0.72,
+    "y": 0.62,
+    "w": 0.05
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "n000",
+   "start": 0.0,
+   "duration": 6.28,
+   "cast": {
+    "hero": "beetle",
+    "scrap": "beetle"
+   },
+   "label1": {
+    "big": "1963",
+    "small": "1963"
+   },
+   "label2": "1963年9月法兰克福车展保",
+   "stamp": "档案"
+  },
+  {
+   "id": "n001",
+   "start": 6.28,
+   "duration": 3.46,
+   "cast": {
+    "hero": "p901_1963",
+    "scrap": "boxster",
+    "mini": "factory"
+   },
+   "label1": {
+    "big": "901",
+    "small": "901"
+   },
+   "label2": "编号901车身很低前面两个圆"
+  },
+  {
+   "id": "n002",
+   "start": 9.74,
+   "duration": 3.82,
+   "cast": {
+    "hero": "butzi",
+    "scrap": "butzi"
+   },
+   "label1": {
+    "big": "0002",
+    "small": "ARCHIVE"
+   },
+   "label2": "尾巴上顶着一台发动机当时没人",
+   "underline": true
+  },
+  {
+   "id": "n003",
+   "start": 13.56,
+   "duration": 5.76,
+   "cast": {
+    "hero": "p356",
+    "scrap": "carrera_gt"
+   },
+   "label1": {
+    "big": "901",
+    "small": "901"
+   },
+   "label2": "因为保时捷一直是造小跑车的而",
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n004",
+   "start": 19.32,
+   "duration": 3.52,
+   "cast": {
+    "hero": "factory",
+    "scrap": "factory",
+    "mini": "p911_sc"
+   },
+   "label1": {
+    "big": "60",
+    "small": "60"
+   },
+   "label2": "可60年后回头看这台车卖了超",
+   "stamp": "档案"
+  },
+  {
+   "id": "n005",
+   "start": 22.84,
+   "duration": 4.8,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "factory2"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "它现在的名字全世界都知道91"
+  },
+  {
+   "id": "n006",
+   "start": 27.64,
+   "duration": 4.02,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "lemans_map"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "今天讲保时捷911一个60年"
+  },
+  {
+   "id": "n007",
+   "start": 31.66,
+   "duration": 4.96,
+   "cast": {
+    "hero": "p901_1963",
+    "scrap": "museum",
+    "mini": "p993_turbo"
+   },
+   "label1": {
+    "big": "901",
+    "small": "901"
+   },
+   "label2": "先说一个小插曲这台车本来叫9",
+   "underline": true
+  },
+  {
+   "id": "n008",
+   "start": 36.62,
+   "duration": 5.26,
+   "cast": {
+    "hero": "p356",
+    "scrap": "p356"
+   },
+   "label1": {
+    "big": "0008",
+    "small": "ARCHIVE"
+   },
+   "label2": "法国标志找上门来标志说我们家",
+   "stamp": "档案"
+  },
+  {
+   "id": "n009",
+   "start": 41.88,
+   "duration": 4.2,
+   "cast": {
+    "hero": "p901_1963",
+    "scrap": "p356_speedster"
+   },
+   "label1": {
+    "big": "1901",
+    "small": "1901"
+   },
+   "label2": "保时捷想了想把中间那个0改成",
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n010",
+   "start": 46.64,
+   "duration": 3.5,
+   "cast": {
+    "hero": "p901_1963",
+    "scrap": "p901_1963",
+    "mini": "factory2"
+   },
+   "label1": {
+    "big": "0010",
+    "small": "ARCHIVE"
+   },
+   "label2": "一个字母的改动成了汽车史上最"
+  },
+  {
+   "id": "n011",
+   "start": 50.14,
+   "duration": 4.7,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p911_1965"
+   },
+   "label1": {
+    "big": "0011",
+    "small": "ARCHIVE"
+   },
+   "label2": "有意思的是标志这个规矩救了自"
+  },
+  {
+   "id": "n012",
+   "start": 54.84,
+   "duration": 4.28,
+   "cast": {
+    "hero": "p911_1968",
+    "scrap": "p911_1968"
+   },
+   "label1": {
+    "big": "888",
+    "small": "888"
+   },
+   "label2": "如果当年改成888这台车的命",
+   "stamp": "档案",
+   "underline": true
+  },
+  {
+   "id": "n013",
+   "start": 59.12,
+   "duration": 6.84,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p911_sc",
+    "mini": "p917"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "那年法兰克福的展台上没人排队"
+  },
+  {
+   "id": "n014",
+   "start": 65.96,
+   "duration": 6.08,
+   "cast": {
+    "hero": "p356_speedster",
+    "scrap": "p917"
+   },
+   "label1": {
+    "big": "0014",
+    "small": "ARCHIVE"
+   },
+   "label2": "当时德国的跑车市场很小大家更"
+  },
+  {
+   "id": "n015",
+   "start": 72.04,
+   "duration": 4.16,
+   "cast": {
+    "hero": "p918",
+    "scrap": "p918"
+   },
+   "label1": {
+    "big": "0015",
+    "small": "ARCHIVE"
+   },
+   "label2": "一台后置发动机的小跑车听起来",
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n016",
+   "start": 76.2,
+   "duration": 6.4,
+   "cast": {
+    "hero": "p356_speedster",
+    "scrap": "p919",
+    "mini": "p996"
+   },
+   "label1": {
+    "big": "0016",
+    "small": "ARCHIVE"
+   },
+   "label2": "当时德国的跑车市场很小大家更",
+   "stamp": "档案"
+  },
+  {
+   "id": "n017",
+   "start": 82.6,
+   "duration": 3.58,
+   "cast": {
+    "hero": "p930_turbo",
+    "scrap": "p930_turbo"
+   },
+   "label1": {
+    "big": "0017",
+    "small": "ARCHIVE"
+   },
+   "label2": "一台后置发动机的小跑车听起来",
+   "underline": true
+  },
+  {
+   "id": "c018",
+   "start": 86.052,
+   "track": 2,
+   "duration": 3.0,
+   "chapter": {
+    "no": "02",
+    "title": "甲壳虫的儿子"
+   }
+  },
+  {
+   "id": "n019",
+   "start": 86.18,
+   "duration": 6.58,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p964",
+    "mini": "lemans_map"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "要讲911得先从甲殼虫说起1"
+  },
+  {
+   "id": "n020",
+   "start": 92.76,
+   "duration": 4.0,
+   "cast": {
+    "hero": "p992",
+    "scrap": "p992"
+   },
+   "label1": {
+    "big": "0020",
+    "small": "ARCHIVE"
+   },
+   "label2": "后来成了大众甲殼虫那台车发动",
+   "stamp": "档案"
+  },
+  {
+   "id": "n021",
+   "start": 96.76,
+   "duration": 3.84,
+   "cast": {
+    "hero": "p993",
+    "scrap": "p993"
+   },
+   "label1": {
+    "big": "0021",
+    "small": "ARCHIVE"
+   },
+   "label2": "所以保时捷家族对后置发动机这",
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n022",
+   "start": 101.3,
+   "duration": 6.3,
+   "cast": {
+    "hero": "p356",
+    "scrap": "p993_turbo",
+    "mini": "p918"
+   },
+   "label1": {
+    "big": "1948",
+    "small": "1948"
+   },
+   "label2": "二战之后费迪南德的儿子费里接",
+   "underline": true
+  },
+  {
+   "id": "n023",
+   "start": 108.12,
+   "duration": 8.16,
+   "cast": {
+    "hero": "p356",
+    "scrap": "p996"
+   },
+   "label1": {
+    "big": "356",
+    "small": "356"
+   },
+   "label2": "发动机是铝的车身很轻跑起来特"
+  },
+  {
+   "id": "n024",
+   "start": 116.28,
+   "duration": 6.36,
+   "cast": {
+    "hero": "p356",
+    "scrap": "panamera"
+   },
+   "label1": {
+    "big": "356",
+    "small": "356"
+   },
+   "label2": "但356有个问题他的零件太像",
+   "stamp": "档案"
+  },
+  {
+   "id": "n025",
+   "start": 122.64,
+   "duration": 3.78,
+   "cast": {
+    "hero": "peugeot",
+    "scrap": "peugeot",
+    "mini": "panamera"
+   },
+   "label1": {
+    "big": "0025",
+    "small": "ARCHIVE"
+   },
+   "label2": "费里心里清楚得有一台真正属于"
+  },
+  {
+   "id": "n026",
+   "start": 126.42,
+   "duration": 7.24,
+   "cast": {
+    "hero": "beetle",
+    "scrap": "beetle"
+   },
+   "label1": {
+    "big": "0026",
+    "small": "ARCHIVE"
+   },
+   "label2": "于是他让儿子费迪南德亚历山大"
+  },
+  {
+   "id": "n027",
+   "start": 133.66,
+   "duration": 3.68,
+   "cast": {
+    "hero": "boxster",
+    "scrap": "boxster"
+   },
+   "label1": {
+    "big": "1959",
+    "small": "1959"
+   },
+   "label2": "他要一台新的1959年布奇开",
+   "underline": true,
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n028",
+   "start": 137.34,
+   "duration": 4.9,
+   "cast": {
+    "hero": "p356",
+    "scrap": "butzi",
+    "mini": "museum"
+   },
+   "label1": {
+    "big": "356",
+    "small": "356"
+   },
+   "label2": "他要的不是更大更快而是把35",
+   "stamp": "档案"
+  },
+  {
+   "id": "n029",
+   "start": 142.24,
+   "duration": 4.5,
+   "cast": {
+    "hero": "carrera_gt",
+    "scrap": "carrera_gt"
+   },
+   "label1": {
+    "big": "0029",
+    "small": "ARCHIVE"
+   },
+   "label2": "这个过程花了四年四年里保时捷"
+  },
+  {
+   "id": "n030",
+   "start": 146.74,
+   "duration": 3.74,
+   "cast": {
+    "hero": "factory",
+    "scrap": "factory"
+   },
+   "label1": {
+    "big": "0030",
+    "small": "ARCHIVE"
+   },
+   "label2": "有人觉得新东西太冒险有人觉得"
+  },
+  {
+   "id": "n031",
+   "start": 150.48,
+   "duration": 6.98,
+   "cast": {
+    "hero": "p901_1963",
+    "scrap": "factory2",
+    "mini": "p919"
+   },
+   "label1": {
+    "big": "901",
+    "small": "901"
+   },
+   "label2": "最后费里拍了板他说就按布奇的"
+  },
+  {
+   "id": "n032",
+   "start": 157.46,
+   "duration": 4.52,
+   "cast": {
+    "hero": "p356",
+    "scrap": "lemans_map"
+   },
+   "label1": {
+    "big": "356",
+    "small": "356"
+   },
+   "label2": "一股是甲殼虫的实用一股是35",
+   "stamp": "档案",
+   "underline": true
+  },
+  {
+   "id": "c033",
+   "start": 161.922,
+   "track": 2,
+   "duration": 3.0,
+   "chapter": {
+    "no": "03",
+    "title": "为什么发动机在后面"
+   }
+  },
+  {
+   "id": "n034",
+   "start": 161.98,
+   "duration": 5.3,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p356",
+    "mini": "peugeot"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "911最怪的地方是发动机在后"
+  },
+  {
+   "id": "n035",
+   "start": 167.28,
+   "duration": 7.52,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p356_speedster"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "前面静气中间坐人后面装货91"
+  },
+  {
+   "id": "n036",
+   "start": 174.8,
+   "duration": 6.34,
+   "cast": {
+    "hero": "p901_1963",
+    "scrap": "p901_1963"
+   },
+   "label1": {
+    "big": "0036",
+    "small": "ARCHIVE"
+   },
+   "label2": "为什么这么干原因很实在后置发",
+   "stamp": "档案"
+  },
+  {
+   "id": "n037",
+   "start": 181.14,
+   "duration": 6.2,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p911_1965",
+    "mini": "p356"
+   },
+   "label1": {
+    "big": "0037",
+    "small": "ARCHIVE"
+   },
+   "label2": "后轮压得实起步不打滑对一台小",
+   "underline": true
+  },
+  {
+   "id": "n038",
+   "start": 187.34,
+   "duration": 4.18,
+   "cast": {
+    "hero": "p911_1968",
+    "scrap": "p911_1968"
+   },
+   "label1": {
+    "big": "0038",
+    "small": "ARCHIVE"
+   },
+   "label2": "代价也很明显重心偏后拐弯的时"
+  },
+  {
+   "id": "n039",
+   "start": 191.52,
+   "duration": 3.78,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p911_sc"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "开911需要一点技术不然就得",
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n040",
+   "start": 195.3,
+   "duration": 7.68,
+   "cast": {
+    "hero": "p917",
+    "scrap": "p917",
+    "mini": "p930_turbo"
+   },
+   "label1": {
+    "big": "70",
+    "small": "70"
+   },
+   "label2": "工程师想过改吗想过70年代就",
+   "stamp": "档案"
+  },
+  {
+   "id": "n041",
+   "start": 202.98,
+   "duration": 4.74,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p918"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "因为911的车主不接受他们要"
+  },
+  {
+   "id": "n042",
+   "start": 207.72,
+   "duration": 4.04,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p919"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "还有一个理由风冷911的发动",
+   "underline": true
+  },
+  {
+   "id": "n043",
+   "start": 211.76,
+   "duration": 6.46,
+   "cast": {
+    "hero": "p930_turbo",
+    "scrap": "p930_turbo",
+    "mini": "beetle"
+   },
+   "label1": {
+    "big": "0043",
+    "small": "ARCHIVE"
+   },
+   "label2": "靠风没有水箱没有防冻液没有水"
+  },
+  {
+   "id": "n044",
+   "start": 218.22,
+   "duration": 8.02,
+   "cast": {
+    "hero": "p956",
+    "scrap": "p956"
+   },
+   "label1": {
+    "big": "1998",
+    "small": "1998"
+   },
+   "label2": "这套东西一直用到1998年那",
+   "stamp": "档案"
+  },
+  {
+   "id": "n045",
+   "start": 226.24,
+   "duration": 5.46,
+   "cast": {
+    "hero": "p964",
+    "scrap": "p964"
+   },
+   "label1": {
+    "big": "0045",
+    "small": "ARCHIVE"
+   },
+   "label2": "因为水冷更安静排放更好过保时",
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n046",
+   "start": 231.7,
+   "duration": 7.94,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p992",
+    "mini": "p356_speedster"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "所以你去看911它每一代都在"
+  },
+  {
+   "id": "c047",
+   "start": 239.464,
+   "track": 2,
+   "duration": 3.0,
+   "chapter": {
+    "no": "04",
+    "title": "风冷的三十年"
+   }
+  },
+  {
+   "id": "n048",
+   "start": 239.64,
+   "duration": 3.78,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p993_turbo"
+   },
+   "label1": {
+    "big": "1963",
+    "small": "1963"
+   },
+   "label2": "从1963到1998是911",
+   "stamp": "档案"
+  },
+  {
+   "id": "n049",
+   "start": 243.42,
+   "duration": 5.16,
+   "cast": {
+    "hero": "p930_turbo",
+    "scrap": "p996",
+    "mini": "p956"
+   },
+   "label1": {
+    "big": "1974",
+    "small": "1974"
+   },
+   "label2": "这段历史里有三台车不能漏第一"
+  },
+  {
+   "id": "n050",
+   "start": 248.58,
+   "duration": 4.36,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "panamera"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "保时捷把涡轮增压器装到911"
+  },
+  {
+   "id": "n051",
+   "start": 252.94,
+   "duration": 5.8,
+   "cast": {
+    "hero": "p930_turbo",
+    "scrap": "peugeot"
+   },
+   "label1": {
+    "big": "0051",
+    "small": "ARCHIVE"
+   },
+   "label2": "车尾那个大尾翼就是为了压住后",
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n052",
+   "start": 258.74,
+   "duration": 4.56,
+   "cast": {
+    "hero": "beetle",
+    "scrap": "beetle",
+    "mini": "boxster"
+   },
+   "label1": {
+    "big": "0052",
+    "small": "ARCHIVE"
+   },
+   "label2": "脚一抖车就横过来但就是这台车",
+   "stamp": "档案",
+   "underline": true
+  },
+  {
+   "id": "n053",
+   "start": 263.3,
+   "duration": 5.4,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "boxster"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "911不只是好看它还能很快第"
+  },
+  {
+   "id": "n054",
+   "start": 268.7,
+   "duration": 3.64,
+   "cast": {
+    "hero": "butzi",
+    "scrap": "butzi"
+   },
+   "label1": {
+    "big": "0054",
+    "small": "ARCHIVE"
+   },
+   "label2": "这一代开始有了四驱有了助力转"
+  },
+  {
+   "id": "n055",
+   "start": 272.34,
+   "duration": 5.34,
+   "cast": {
+    "hero": "carrera_gt",
+    "scrap": "carrera_gt",
+    "mini": "p901_1963"
+   },
+   "label1": {
+    "big": "0055",
+    "small": "ARCHIVE"
+   },
+   "label2": "它比老车好开太多方向也稳了老"
+  },
+  {
+   "id": "n056",
+   "start": 277.68,
+   "duration": 4.36,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "factory"
+   },
+   "label1": {
+    "big": "1993",
+    "small": "1993"
+   },
+   "label2": "第三台是1993年的993这",
+   "stamp": "档案"
+  },
+  {
+   "id": "n057",
+   "start": 282.04,
+   "duration": 4.96,
+   "cast": {
+    "hero": "factory2",
+    "scrap": "factory2"
+   },
+   "label1": {
+    "big": "0057",
+    "small": "ARCHIVE"
+   },
+   "label2": "它的车身线条更圆发动机更干净",
+   "underline": true,
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n058",
+   "start": 287.0,
+   "duration": 5.98,
+   "cast": {
+    "hero": "p993",
+    "scrap": "lemans_map",
+    "mini": "p964"
+   },
+   "label1": {
+    "big": "1998",
+    "small": "1998"
+   },
+   "label2": "1998年993停产风冷的故"
+  },
+  {
+   "id": "n059",
+   "start": 292.98,
+   "duration": 3.98,
+   "cast": {
+    "hero": "museum",
+    "scrap": "museum"
+   },
+   "label1": {
+    "big": "0059",
+    "small": "ARCHIVE"
+   },
+   "label2": "因为风冷不只是一个技术方案它"
+  },
+  {
+   "id": "n060",
+   "start": 296.96,
+   "duration": 3.72,
+   "cast": {
+    "hero": "p356",
+    "scrap": "p356"
+   },
+   "label1": {
+    "big": "30",
+    "small": "30"
+   },
+   "label2": "30年里这台车从130马力做",
+   "stamp": "档案"
+  },
+  {
+   "id": "n061",
+   "start": 300.68,
+   "duration": 5.12,
+   "cast": {
+    "hero": "p356_speedster",
+    "scrap": "p356_speedster",
+    "mini": "butzi"
+   },
+   "label1": {
+    "big": "0061",
+    "small": "ARCHIVE"
+   },
+   "label2": "排量没大多少全靠一点点压榨风"
+  },
+  {
+   "id": "n062",
+   "start": 305.8,
+   "duration": 4.12,
+   "cast": {
+    "hero": "p901_1963",
+    "scrap": "p901_1963"
+   },
+   "label1": {
+    "big": "0062",
+    "small": "ARCHIVE"
+   },
+   "label2": "着车的时候像一台老风扇跑起来",
+   "underline": true
+  },
+  {
+   "id": "n063",
+   "start": 309.92,
+   "duration": 5.84,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p911_1965"
+   },
+   "label1": {
+    "big": "0063",
+    "small": "ARCHIVE"
+   },
+   "label2": "这个声音后来再也没了很多人以",
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "c064",
+   "start": 312.42,
+   "track": 2,
+   "duration": 3.0,
+   "chapter": {
+    "no": "05",
+    "title": "差点死掉"
+   }
+  },
+  {
+   "id": "n065",
+   "start": 315.76,
+   "duration": 6.1,
+   "cast": {
+    "hero": "p911_sc",
+    "scrap": "p911_sc"
+   },
+   "label1": {
+    "big": "90",
+    "small": "90"
+   },
+   "label2": "90年代初这家公司差一点就没"
+  },
+  {
+   "id": "n066",
+   "start": 321.86,
+   "duration": 5.72,
+   "cast": {
+    "hero": "p917",
+    "scrap": "p917"
+   },
+   "label1": {
+    "big": "0066",
+    "small": "ARCHIVE"
+   },
+   "label2": "为了多卖车它做过一些不像保时"
+  },
+  {
+   "id": "n067",
+   "start": 327.58,
+   "duration": 5.0,
+   "cast": {
+    "hero": "p918",
+    "scrap": "p918",
+    "mini": "p992"
+   },
+   "label1": {
+    "big": "0067",
+    "small": "ARCHIVE"
+   },
+   "label2": "但车迷觉得味道不对同时最大的",
+   "underline": true
+  },
+  {
+   "id": "n068",
+   "start": 332.58,
+   "duration": 4.0,
+   "cast": {
+    "hero": "p919",
+    "scrap": "p919"
+   },
+   "label1": {
+    "big": "0068",
+    "small": "ARCHIVE"
+   },
+   "label2": "美国经济放慢日本泡沫破裂买跑",
+   "stamp": "档案"
+  },
+  {
+   "id": "n069",
+   "start": 337.2,
+   "duration": 5.12,
+   "cast": {
+    "hero": "p930_turbo",
+    "scrap": "p930_turbo"
+   },
+   "label1": {
+    "big": "0069",
+    "small": "ARCHIVE"
+   },
+   "label2": "保时捷一年只卖出1万多台车这",
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n070",
+   "start": 342.32,
+   "duration": 3.88,
+   "cast": {
+    "hero": "p956",
+    "scrap": "p956",
+    "mini": "carrera_gt"
+   },
+   "label1": {
+    "big": "0070",
+    "small": "ARCHIVE"
+   },
+   "label2": "是很危险的工厂开工不足成本压"
+  },
+  {
+   "id": "n071",
+   "start": 346.2,
+   "duration": 4.4,
+   "cast": {
+    "hero": "p964",
+    "scrap": "p964"
+   },
+   "label1": {
+    "big": "0071",
+    "small": "ARCHIVE"
+   },
+   "label2": "账上越来越紧当时业内流传保时"
+  },
+  {
+   "id": "n072",
+   "start": 350.6,
+   "duration": 5.46,
+   "cast": {
+    "hero": "p992",
+    "scrap": "p992"
+   },
+   "label1": {
+    "big": "0072",
+    "small": "ARCHIVE"
+   },
+   "label2": "买家可能是奔驰也可能是别的集",
+   "stamp": "档案",
+   "underline": true
+  },
+  {
+   "id": "n073",
+   "start": 356.06,
+   "duration": 4.56,
+   "cast": {
+    "hero": "p993",
+    "scrap": "p993",
+    "mini": "p911_1968"
+   },
+   "label1": {
+    "big": "0073",
+    "small": "ARCHIVE"
+   },
+   "label2": "要不要做一台便宜点的保时捷要"
+  },
+  {
+   "id": "n074",
+   "start": 360.62,
+   "duration": 3.98,
+   "cast": {
+    "hero": "p993_turbo",
+    "scrap": "p993_turbo"
+   },
+   "label1": {
+    "big": "0074",
+    "small": "ARCHIVE"
+   },
+   "label2": "这在当时是犯忌讳的因为保时捷"
+  },
+  {
+   "id": "n075",
+   "start": 364.6,
+   "duration": 3.42,
+   "cast": {
+    "hero": "p996",
+    "scrap": "p996"
+   },
+   "label1": {
+    "big": "0075",
+    "small": "ARCHIVE"
+   },
+   "label2": "共用零件等于放弃性能但活下来",
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n076",
+   "start": 368.02,
+   "duration": 5.84,
+   "cast": {
+    "hero": "p993",
+    "scrap": "panamera",
+    "mini": "p993"
+   },
+   "label1": {
+    "big": "1993",
+    "small": "1993"
+   },
+   "label2": "1993年新的负责人上任开始",
+   "stamp": "档案"
+  },
+  {
+   "id": "n077",
+   "start": 373.86,
+   "duration": 4.46,
+   "cast": {
+    "hero": "peugeot",
+    "scrap": "peugeot"
+   },
+   "label1": {
+    "big": "0077",
+    "small": "ARCHIVE"
+   },
+   "label2": "同时下了两个决心第一做一台便",
+   "underline": true
+  },
+  {
+   "id": "n078",
+   "start": 378.32,
+   "duration": 3.7,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "beetle"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "第二911换代的时候跟这台入"
+  },
+  {
+   "id": "n079",
+   "start": 382.02,
+   "duration": 5.64,
+   "cast": {
+    "hero": "boxster",
+    "scrap": "boxster",
+    "mini": "factory"
+   },
+   "label1": {
+    "big": "0079",
+    "small": "ARCHIVE"
+   },
+   "label2": "这两个决定救了保时捷也直接导"
+  },
+  {
+   "id": "c080",
+   "start": 387.512,
+   "track": 2,
+   "duration": 3.0,
+   "chapter": {
+    "no": "06",
+    "title": "九九六的争议"
+   }
+  },
+  {
+   "id": "n081",
+   "start": 387.66,
+   "duration": 3.42,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "carrera_gt"
+   },
+   "label1": {
+    "big": "1997",
+    "small": "1997"
+   },
+   "label2": "1997年新911上市代号9",
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n082",
+   "start": 391.08,
+   "duration": 3.58,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "factory",
+    "mini": "p911_sc"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "这是第一台水冷的911风冷粉",
+   "underline": true
+  },
+  {
+   "id": "n083",
+   "start": 395.18,
+   "duration": 3.9,
+   "cast": {
+    "hero": "p996",
+    "scrap": "factory2"
+   },
+   "label1": {
+    "big": "996",
+    "small": "996"
+   },
+   "label2": "更让他们受不了的是两件事第一"
+  },
+  {
+   "id": "n084",
+   "start": 399.08,
+   "duration": 5.84,
+   "cast": {
+    "hero": "boxster",
+    "scrap": "lemans_map"
+   },
+   "label1": {
+    "big": "0084",
+    "small": "ARCHIVE"
+   },
+   "label2": "跟同时期的博克斯特是同一套基",
+   "stamp": "档案"
+  },
+  {
+   "id": "n085",
+   "start": 404.92,
+   "duration": 5.92,
+   "cast": {
+    "hero": "museum",
+    "scrap": "museum",
+    "mini": "p993_turbo"
+   },
+   "label1": {
+    "big": "0085",
+    "small": "ARCHIVE"
+   },
+   "label2": "这在保时捷历史上从没发生过第"
+  },
+  {
+   "id": "n086",
+   "start": 410.84,
+   "duration": 5.84,
+   "cast": {
+    "hero": "p356",
+    "scrap": "p356"
+   },
+   "label1": {
+    "big": "0086",
+    "small": "ARCHIVE"
+   },
+   "label2": "灯座成了不规则形状车迷叫它炒"
+  },
+  {
+   "id": "n087",
+   "start": 416.68,
+   "duration": 4.18,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p356_speedster"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "论坛上有人写过一句话这不是9",
+   "underline": true,
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n088",
+   "start": 420.86,
+   "duration": 5.8,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p901_1963",
+    "mini": "factory2"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "话说的很重论坛上有人写过一句",
+   "stamp": "档案"
+  },
+  {
+   "id": "n089",
+   "start": 426.66,
+   "duration": 5.1,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p911_1965"
+   },
+   "label1": {
+    "big": "0089",
+    "small": "ARCHIVE"
+   },
+   "label2": "话说的很重今天再看事情有两面"
+  },
+  {
+   "id": "n090",
+   "start": 431.76,
+   "duration": 3.74,
+   "cast": {
+    "hero": "p996",
+    "scrap": "p911_1968"
+   },
+   "label1": {
+    "big": "996",
+    "small": "996"
+   },
+   "label2": "买的最多的是新客户996比上"
+  },
+  {
+   "id": "n091",
+   "start": 435.5,
+   "duration": 4.1,
+   "cast": {
+    "hero": "p911_sc",
+    "scrap": "p911_sc",
+    "mini": "p917"
+   },
+   "label1": {
+    "big": "0091",
+    "small": "ARCHIVE"
+   },
+   "label2": "故障更少冬天不用热车空调也更"
+  },
+  {
+   "id": "n092",
+   "start": 439.6,
+   "duration": 4.56,
+   "cast": {
+    "hero": "p917",
+    "scrap": "p917"
+   },
+   "label1": {
+    "big": "0092",
+    "small": "ARCHIVE"
+   },
+   "label2": "销量回来了公司活下来了而且这",
+   "stamp": "档案",
+   "underline": true
+  },
+  {
+   "id": "n093",
+   "start": 444.16,
+   "duration": 4.76,
+   "cast": {
+    "hero": "carrera_gt",
+    "scrap": "p918"
+   },
+   "label1": {
+    "big": "2004",
+    "small": "2004"
+   },
+   "label2": "让保时捷有能力去做后面的事2",
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n094",
+   "start": 448.92,
+   "duration": 5.24,
+   "cast": {
+    "hero": "p918",
+    "scrap": "p919",
+    "mini": "p996"
+   },
+   "label1": {
+    "big": "2009",
+    "small": "2009"
+   },
+   "label2": "2009年的帕纳梅拉2013"
+  },
+  {
+   "id": "n095",
+   "start": 454.82,
+   "duration": 3.54,
+   "cast": {
+    "hero": "p930_turbo",
+    "scrap": "p930_turbo"
+   },
+   "label1": {
+    "big": "0095",
+    "small": "ARCHIVE"
+   },
+   "label2": "保时捷内部后来承认了一件事如"
+  },
+  {
+   "id": "n096",
+   "start": 458.36,
+   "duration": 5.82,
+   "cast": {
+    "hero": "p996",
+    "scrap": "p956"
+   },
+   "label1": {
+    "big": "996",
+    "small": "996"
+   },
+   "label2": "坚持不用共用零件公司很可能撑",
+   "stamp": "档案"
+  },
+  {
+   "id": "n097",
+   "start": 464.18,
+   "duration": 3.7,
+   "cast": {
+    "hero": "p964",
+    "scrap": "p964",
+    "mini": "lemans_map"
+   },
+   "label1": {
+    "big": "0097",
+    "small": "ARCHIVE"
+   },
+   "label2": "救了公司的车它不完美但它活下",
+   "underline": true
+  },
+  {
+   "id": "n098",
+   "start": 467.88,
+   "duration": 5.56,
+   "cast": {
+    "hero": "p992",
+    "scrap": "p992"
+   },
+   "label1": {
+    "big": "0098",
+    "small": "ARCHIVE"
+   },
+   "label2": "这句话对一台车来说已经够了要"
+  },
+  {
+   "id": "c099",
+   "start": 470.674,
+   "track": 2,
+   "duration": 3.0,
+   "chapter": {
+    "no": "07",
+    "title": "赛道上的十九次"
+   }
+  },
+  {
+   "id": "n100",
+   "start": 473.44,
+   "duration": 3.82,
+   "cast": {
+    "hero": "p993_turbo",
+    "scrap": "p993_turbo",
+    "mini": "p918"
+   },
+   "label1": {
+    "big": "0100",
+    "small": "ARCHIVE"
+   },
+   "label2": "这家公司从很早就开始跑比赛而",
+   "stamp": "档案"
+  },
+  {
+   "id": "n101",
+   "start": 477.26,
+   "duration": 4.42,
+   "cast": {
+    "hero": "p356",
+    "scrap": "p996"
+   },
+   "label1": {
+    "big": "1951",
+    "small": "1951"
+   },
+   "label2": "1951年356第一次去乐芒"
+  },
+  {
+   "id": "n102",
+   "start": 481.68,
+   "duration": 3.52,
+   "cast": {
+    "hero": "panamera",
+    "scrap": "panamera"
+   },
+   "label1": {
+    "big": "1970",
+    "small": "1970"
+   },
+   "label2": "1970年保时捷第一次拿下乐",
+   "underline": true
+  },
+  {
+   "id": "n103",
+   "start": 485.2,
+   "duration": 5.02,
+   "cast": {
+    "hero": "p917",
+    "scrap": "peugeot",
+    "mini": "panamera"
+   },
+   "label1": {
+    "big": "917",
+    "small": "917"
+   },
+   "label2": "那台车是917那是一个疯狂的"
+  },
+  {
+   "id": "n104",
+   "start": 490.22,
+   "duration": 4.08,
+   "cast": {
+    "hero": "p930_turbo",
+    "scrap": "beetle"
+   },
+   "label1": {
+    "big": "0104",
+    "small": "ARCHIVE"
+   },
+   "label2": "涡轮四驱十几缸的发动机启动地",
+   "stamp": "档案"
+  },
+  {
+   "id": "n105",
+   "start": 494.3,
+   "duration": 3.68,
+   "cast": {
+    "hero": "p956",
+    "scrap": "boxster"
+   },
+   "label1": {
+    "big": "1982",
+    "small": "1982"
+   },
+   "label2": "1982年956上场这台车赢",
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n106",
+   "start": 497.98,
+   "duration": 5.18,
+   "cast": {
+    "hero": "p919",
+    "scrap": "butzi",
+    "mini": "museum"
+   },
+   "label1": {
+    "big": "2015",
+    "small": "2015"
+   },
+   "label2": "它的空气动力学设计但是后来被"
+  },
+  {
+   "id": "n107",
+   "start": 503.16,
+   "duration": 3.54,
+   "cast": {
+    "hero": "carrera_gt",
+    "scrap": "carrera_gt"
+   },
+   "label1": {
+    "big": "2015",
+    "small": "2015"
+   },
+   "label2": "运动回到顶级组2015年到2",
+   "underline": true
+  },
+  {
+   "id": "n108",
+   "start": 506.7,
+   "duration": 4.42,
+   "cast": {
+    "hero": "factory",
+    "scrap": "factory"
+   },
+   "label1": {
+    "big": "0108",
+    "small": "ARCHIVE"
+   },
+   "label2": "连续三年拿下乐芒全场冠军到今",
+   "stamp": "档案"
+  },
+  {
+   "id": "n109",
+   "start": 511.12,
+   "duration": 3.44,
+   "cast": {
+    "hero": "factory2",
+    "scrap": "factory2",
+    "mini": "p919"
+   },
+   "label1": {
+    "big": "19",
+    "small": "19"
+   },
+   "label2": "19次全场冠军这个数字是所有"
+  },
+  {
+   "id": "n110",
+   "start": 514.56,
+   "duration": 4.16,
+   "cast": {
+    "hero": "lemans_map",
+    "scrap": "lemans_map"
+   },
+   "label1": {
+    "big": "0110",
+    "small": "ARCHIVE"
+   },
+   "label2": "而且短期内没人能追上赛车对民"
+  },
+  {
+   "id": "n111",
+   "start": 518.72,
+   "duration": 4.98,
+   "cast": {
+    "hero": "p930_turbo",
+    "scrap": "museum"
+   },
+   "label1": {
+    "big": "0111",
+    "small": "ARCHIVE"
+   },
+   "label2": "涡轮增压双离合四驱刹车都是先",
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n112",
+   "start": 523.7,
+   "duration": 4.72,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p356",
+    "mini": "peugeot"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "911身上那些看起来多余的东",
+   "stamp": "档案",
+   "underline": true
+  },
+  {
+   "id": "n113",
+   "start": 528.42,
+   "duration": 5.9,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p356_speedster"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "所以911不是一台为赛道造的"
+  },
+  {
+   "id": "n114",
+   "start": 534.32,
+   "duration": 4.58,
+   "cast": {
+    "hero": "p901_1963",
+    "scrap": "p901_1963"
+   },
+   "label1": {
+    "big": "60",
+    "small": "60"
+   },
+   "label2": "这也是它60年没变位的原因它"
+  },
+  {
+   "id": "n115",
+   "start": 538.9,
+   "duration": 5.34,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p911_1965",
+    "mini": "p356"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "只是骨架不肯动时间拉到今天9"
+  },
+  {
+   "id": "c116",
+   "start": 540.306,
+   "track": 2,
+   "duration": 3.0,
+   "chapter": {
+    "no": "08",
+    "title": "六十年的固执"
+   }
+  },
+  {
+   "id": "n117",
+   "start": 544.24,
+   "duration": 6.06,
+   "cast": {
+    "hero": "p911_sc",
+    "scrap": "p911_sc"
+   },
+   "label1": {
+    "big": "2019",
+    "small": "2019"
+   },
+   "label2": "2019年上市这一代最大的变",
+   "underline": true,
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n118",
+   "start": 550.3,
+   "duration": 3.46,
+   "cast": {
+    "hero": "p917",
+    "scrap": "p917",
+    "mini": "p930_turbo"
+   },
+   "label1": {
+    "big": "0118",
+    "small": "ARCHIVE"
+   },
+   "label2": "发动机还是那个位置还是六缸还"
+  },
+  {
+   "id": "n119",
+   "start": 553.76,
+   "duration": 3.84,
+   "cast": {
+    "hero": "p918",
+    "scrap": "p918"
+   },
+   "label1": {
+    "big": "0119",
+    "small": "ARCHIVE"
+   },
+   "label2": "只是多了一套电机和电池用来补"
+  },
+  {
+   "id": "n120",
+   "start": 557.6,
+   "duration": 3.44,
+   "cast": {
+    "hero": "p919",
+    "scrap": "p919"
+   },
+   "label1": {
+    "big": "0120",
+    "small": "ARCHIVE"
+   },
+   "label2": "电池不大纯电只能跑很短一段路",
+   "stamp": "档案"
+  },
+  {
+   "id": "n121",
+   "start": 561.04,
+   "duration": 4.76,
+   "cast": {
+    "hero": "p930_turbo",
+    "scrap": "p930_turbo",
+    "mini": "beetle"
+   },
+   "label1": {
+    "big": "0121",
+    "small": "ARCHIVE"
+   },
+   "label2": "电池不大纯电只能跑很短一段路"
+  },
+  {
+   "id": "n122",
+   "start": 565.8,
+   "duration": 4.48,
+   "cast": {
+    "hero": "p956",
+    "scrap": "p956"
+   },
+   "label1": {
+    "big": "1997",
+    "small": "1997"
+   },
+   "label2": "其实这种担心从1997年就开",
+   "underline": true
+  },
+  {
+   "id": "n123",
+   "start": 570.28,
+   "duration": 5.08,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p964"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "而911交出的答卷是这样的2",
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n124",
+   "start": 575.36,
+   "duration": 3.72,
+   "cast": {
+    "hero": "p992",
+    "scrap": "p992",
+    "mini": "p356_speedster"
+   },
+   "label1": {
+    "big": "60",
+    "small": "60"
+   },
+   "label2": "是一台致敬老款的绿色跑车60",
+   "stamp": "档案"
+  },
+  {
+   "id": "n125",
+   "start": 579.08,
+   "duration": 5.86,
+   "cast": {
+    "hero": "p993",
+    "scrap": "p993"
+   },
+   "label1": {
+    "big": "0125",
+    "small": "ARCHIVE"
+   },
+   "label2": "它的外形变过几次但轮廓一直在"
+  },
+  {
+   "id": "n126",
+   "start": 584.94,
+   "duration": 3.44,
+   "cast": {
+    "hero": "p993_turbo",
+    "scrap": "p993_turbo"
+   },
+   "label1": {
+    "big": "60",
+    "small": "60"
+   },
+   "label2": "60年没断前灯的圆后轮的宽"
+  },
+  {
+   "id": "n127",
+   "start": 588.38,
+   "duration": 3.6,
+   "cast": {
+    "hero": "p996",
+    "scrap": "p996",
+    "mini": "p956"
+   },
+   "label1": {
+    "big": "0127",
+    "small": "ARCHIVE"
+   },
+   "label2": "车尾那个发动机盖都还在价格也",
+   "underline": true
+  },
+  {
+   "id": "n128",
+   "start": 591.98,
+   "duration": 4.4,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "panamera"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "早期的风冷911这些年一直在",
+   "stamp": "档案"
+  },
+  {
+   "id": "n129",
+   "start": 596.38,
+   "duration": 5.36,
+   "cast": {
+    "hero": "peugeot",
+    "scrap": "peugeot"
+   },
+   "label1": {
+    "big": "0129",
+    "small": "ARCHIVE"
+   },
+   "label2": "现在卖的比新车还贵至于那些限",
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n130",
+   "start": 601.74,
+   "duration": 4.0,
+   "cast": {
+    "hero": "beetle",
+    "scrap": "beetle",
+    "mini": "boxster"
+   },
+   "label1": {
+    "big": "60",
+    "small": "60"
+   },
+   "label2": "为什么因为它是唯一一台60年"
+  },
+  {
+   "id": "n131",
+   "start": 605.74,
+   "duration": 4.42,
+   "cast": {
+    "hero": "boxster",
+    "scrap": "boxster"
+   },
+   "label1": {
+    "big": "0131",
+    "small": "ARCHIVE"
+   },
+   "label2": "它把后置发动机这个缺点做成了"
+  },
+  {
+   "id": "n132",
+   "start": 610.16,
+   "duration": 5.62,
+   "cast": {
+    "hero": "butzi",
+    "scrap": "butzi"
+   },
+   "label1": {
+    "big": "0132",
+    "small": "ARCHIVE"
+   },
+   "label2": "它追求的是一个味道观众买账的",
+   "stamp": "档案",
+   "underline": true
+  },
+  {
+   "id": "n133",
+   "start": 615.78,
+   "duration": 5.14,
+   "cast": {
+    "hero": "carrera_gt",
+    "scrap": "carrera_gt",
+    "mini": "p901_1963"
+   },
+   "label1": {
+    "big": "60",
+    "small": "60"
+   },
+   "label2": "也坚定的多最后说回那个问题6"
+  },
+  {
+   "id": "c134",
+   "start": 616.92,
+   "track": 2,
+   "duration": 3.0,
+   "chapter": {
+    "no": "09",
+    "title": "为什么不变反而值钱"
+   }
+  },
+  {
+   "id": "n135",
+   "start": 620.92,
+   "duration": 4.76,
+   "cast": {
+    "hero": "factory2",
+    "scrap": "factory2"
+   },
+   "label1": {
+    "big": "0135",
+    "small": "ARCHIVE"
+   },
+   "label2": "其实它改的很多从风冷到水冷从",
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n136",
+   "start": 625.68,
+   "duration": 4.0,
+   "cast": {
+    "hero": "p930_turbo",
+    "scrap": "lemans_map",
+    "mini": "p964"
+   },
+   "label1": {
+    "big": "0136",
+    "small": "ARCHIVE"
+   },
+   "label2": "从机械到电子从自然吸气到涡轮",
+   "stamp": "档案"
+  },
+  {
+   "id": "n137",
+   "start": 629.68,
+   "duration": 3.64,
+   "cast": {
+    "hero": "museum",
+    "scrap": "museum"
+   },
+   "label1": {
+    "big": "0137",
+    "small": "ARCHIVE"
+   },
+   "label2": "技术层面几乎全换过了但它守住",
+   "underline": true
+  },
+  {
+   "id": "n138",
+   "start": 633.32,
+   "duration": 3.7,
+   "cast": {
+    "hero": "p356",
+    "scrap": "p356"
+   },
+   "label1": {
+    "big": "0138",
+    "small": "ARCHIVE"
+   },
+   "label2": "后置发动机"
+  },
+  {
+   "id": "n139",
+   "start": 637.02,
+   "duration": 3.44,
+   "cast": {
+    "hero": "p356_speedster",
+    "scrap": "p356_speedster",
+    "mini": "butzi"
+   },
+   "label1": {
+    "big": "0139",
+    "small": "ARCHIVE"
+   },
+   "label2": "这不是偷懒这是它跟世界谈判的"
+  },
+  {
+   "id": "n140",
+   "start": 640.46,
+   "duration": 3.5,
+   "cast": {
+    "hero": "p901_1963",
+    "scrap": "p901_1963"
+   },
+   "label1": {
+    "big": "0140",
+    "small": "ARCHIVE"
+   },
+   "label2": "一家公司如果什么都能改最后就",
+   "stamp": "档案"
+  },
+  {
+   "id": "n141",
+   "start": 643.96,
+   "duration": 3.48,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p911_1965"
+   },
+   "label1": {
+    "big": "0141",
+    "small": "ARCHIVE"
+   },
+   "label2": "保时捷把这条线滑的很清楚剩下",
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n142",
+   "start": 647.44,
+   "duration": 4.06,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p911_1968",
+    "mini": "p911_1965"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "还有一个细节911的车主很多",
+   "underline": true
+  },
+  {
+   "id": "n143",
+   "start": 651.5,
+   "duration": 4.18,
+   "cast": {
+    "hero": "p911_sc",
+    "scrap": "p911_sc"
+   },
+   "label1": {
+    "big": "0143",
+    "small": "ARCHIVE"
+   },
+   "label2": "他们不是买不起别的车是换了别"
+  },
+  {
+   "id": "n144",
+   "start": 655.68,
+   "duration": 4.08,
+   "cast": {
+    "hero": "p917",
+    "scrap": "p917"
+   },
+   "label1": {
+    "big": "0144",
+    "small": "ARCHIVE"
+   },
+   "label2": "有人说是方向盘的手感有人说是",
+   "stamp": "档案"
+  },
+  {
+   "id": "n145",
+   "start": 659.76,
+   "duration": 4.34,
+   "cast": {
+    "hero": "p918",
+    "scrap": "p918",
+    "mini": "p992"
+   },
+   "label1": {
+    "big": "0145",
+    "small": "ARCHIVE"
+   },
+   "label2": "也有人说是坐进去之后那种熟悉"
+  },
+  {
+   "id": "n146",
+   "start": 664.1,
+   "duration": 4.12,
+   "cast": {
+    "hero": "p919",
+    "scrap": "p919"
+   },
+   "label1": {
+    "big": "60",
+    "small": "60"
+   },
+   "label2": "这大概就是60年攒下来的东西"
+  },
+  {
+   "id": "n147",
+   "start": 668.22,
+   "duration": 4.8,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p930_turbo"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "911的车主很多人一开就是十",
+   "underline": true,
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n148",
+   "start": 673.02,
+   "duration": 4.78,
+   "cast": {
+    "hero": "p956",
+    "scrap": "p956",
+    "mini": "carrera_gt"
+   },
+   "label1": {
+    "big": "0148",
+    "small": "ARCHIVE"
+   },
+   "label2": "是换了别的车总觉得少点什么有",
+   "stamp": "档案"
+  },
+  {
+   "id": "n149",
+   "start": 677.8,
+   "duration": 4.46,
+   "cast": {
+    "hero": "p964",
+    "scrap": "p964"
+   },
+   "label1": {
+    "big": "0149",
+    "small": "ARCHIVE"
+   },
+   "label2": "有人说是发动机的声音也有人说"
+  },
+  {
+   "id": "n150",
+   "start": 682.26,
+   "duration": 5.26,
+   "cast": {
+    "hero": "p911_1965",
+    "scrap": "p992"
+   },
+   "label1": {
+    "big": "911",
+    "small": "911"
+   },
+   "label2": "这种熟悉新东西给不了所以91"
+  },
+  {
+   "id": "n151",
+   "start": 687.52,
+   "duration": 4.02,
+   "cast": {
+    "hero": "p993",
+    "scrap": "p993",
+    "mini": "p911_1968"
+   },
+   "label1": {
+    "big": "60",
+    "small": "60"
+   },
+   "label2": "它是关于一个公司怎么在60年"
+  },
+  {
+   "id": "n152",
+   "start": 691.54,
+   "duration": 4.9,
+   "cast": {
+    "hero": "p993_turbo",
+    "scrap": "p993_turbo"
+   },
+   "label1": {
+    "big": "0152",
+    "small": "ARCHIVE"
+   },
+   "label2": "这个道理放到别处也成立一件事",
+   "stamp": "档案",
+   "underline": true
+  },
+  {
+   "id": "n153",
+   "start": 696.44,
+   "duration": 3.84,
+   "cast": {
+    "hero": "p996",
+    "scrap": "p996"
+   },
+   "label1": {
+    "big": "0153",
+    "small": "ARCHIVE"
+   },
+   "label2": "靠的是知道哪一样不能动好了今",
+   "string": [
+    "pinA",
+    "pinB",
+    "pinC"
+   ]
+  },
+  {
+   "id": "n154",
+   "start": 700.28,
+   "duration": 4.7,
+   "cast": {
+    "hero": "panamera",
+    "scrap": "panamera",
+    "mini": "p993"
+   },
+   "label1": {
+    "big": "0154",
+    "small": "ARCHIVE"
+   },
+   "label2": "我是颜同学我们下辆车再见对了"
+  },
+  {
+   "id": "n155",
+   "start": 704.98,
+   "duration": 0.98,
+   "cast": {
+    "hero": "peugeot",
+    "scrap": "peugeot"
+   },
+   "label1": {
+    "big": "0155",
+    "small": "ARCHIVE"
+   },
+   "label2": "评论区告诉我"
+  }
+ ]
+}

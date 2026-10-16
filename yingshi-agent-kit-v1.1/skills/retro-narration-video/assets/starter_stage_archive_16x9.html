@@ -1,0 +1,228 @@
+<!doctype html>
+<!-- 画风包 A（档案调查拼贴）分层舞台模板：1920×1080 / 14s / 30fps
+     复制到项目根目录后，需同时具备：assets/*.png（半调剪影元素）、assets/vendor/gsap.min.js、assets/plate_map.jpg -->
+<html lang="zh" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <style>
+      @font-face { font-family: "TypeCN"; src: local("Microsoft YaHei"); }
+      @font-face { font-family: "Deck"; src: local("Impact"); }
+      @font-face { font-family: "Mono"; src: local("Courier New"); }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #6b6152; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; }
+      .clip { position: absolute; inset: 0; overflow: hidden; }
+      .stage { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+
+      /* ---------- 底：档案纸 + 海图 ---------- */
+      .plate { position: absolute; inset: 0; background: #d9cfbb; }
+      .plate-map {
+        position: absolute; inset: 0;
+        background-image: url("assets/plate_map.jpg");
+        background-size: cover; background-position: 42% 46%;
+        opacity: .30; mix-blend-mode: multiply;
+        filter: sepia(.45) contrast(.92) brightness(1.06) saturate(.55);
+      }
+      .plate-stain { position: absolute; mix-blend-mode: multiply; }
+      .plate-stain.a {
+        left: -8%; top: 46%; width: 62%; height: 74%;
+        background: radial-gradient(closest-side, rgba(126,98,54,.30), rgba(126,98,54,0) 72%);
+      }
+      .plate-stain.b {
+        right: -10%; top: -14%; width: 58%; height: 70%;
+        background: radial-gradient(closest-side, rgba(104,84,48,.26), rgba(104,84,48,0) 70%);
+      }
+      .plate-vignette {
+        position: absolute; inset: 0;
+        box-shadow: inset 0 0 280px rgba(52, 38, 18, .42);
+      }
+      .plate-grain { position: absolute; inset: 0; pointer-events: none; opacity: .13; mix-blend-mode: multiply; }
+      .plate-grain::after {
+        content: ""; position: absolute; inset: 0;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='260' height='260' filter='url(%23n)' opacity='0.6'/></svg>");
+      }
+
+      /* ---------- 纸片元素 ---------- */
+      .el { position: absolute; display: block; filter: drop-shadow(7px 9px 11px rgba(42, 30, 14, .40)); }
+      .scrap-a  { left: -120px; top: 620px;  width: 600px; z-index: 2; }
+      .scrap-b  { left: 1420px; top: -180px; width: 520px; z-index: 2; }
+      .car2     { left: 520px;  top: 800px;  width: 560px; z-index: 4; }
+      .hero     { left: 820px;  top: 340px;  width: 940px; z-index: 6; }
+      .portrait { left: 130px;  top: 96px;   width: 320px; z-index: 5; }
+      .mini     { left: 200px;  top: 700px;  width: 300px; z-index: 7; }
+
+      /* ---------- 胶带 ---------- */
+      .tape {
+        position: absolute; width: 168px; height: 46px; z-index: 9;
+        background: rgba(238, 226, 194, .72);
+        border-left: 1px solid rgba(150, 130, 92, .45);
+        border-right: 1px solid rgba(150, 130, 92, .45);
+        box-shadow: 0 2px 6px rgba(48, 34, 16, .22);
+      }
+      .tape-a { left: 828px; top: 332px; }
+      .tape-b { left: 148px; top: 138px; }
+
+      /* ---------- 打字机标签 ---------- */
+      .label { position: absolute; z-index: 10; background: #efe7d6; padding: 14px 26px 18px; box-shadow: 0 6px 14px rgba(44, 30, 14, .34); }
+      .label-1 { left: 690px; top: 236px; border: 2px solid rgba(70, 56, 32, .45); }
+      .label-1 .big { font-family: "Mono", monospace; font-size: 96px; line-height: .96; letter-spacing: 6px; color: #211d16; }
+      .label-1 .small { font-family: "Deck", "TypeCN", sans-serif; font-size: 40px; letter-spacing: 3px; color: #8f2b1c; margin-top: 4px; }
+      .label-2 { left: 1064px; top: 958px; background: #e6dcc4; }
+      .label-2 .cn { font-family: "TypeCN", sans-serif; font-size: 46px; letter-spacing: 2px; color: #2a241a; }
+
+      /* ---------- 橡皮章 ---------- */
+      .stamp {
+        position: absolute; left: 1552px; top: 132px; z-index: 10;
+        border: 7px solid #a82a1c; color: #a82a1c; opacity: .84;
+        padding: 10px 20px 14px; text-align: center;
+      }
+      .stamp .cn { font-family: "TypeCN", sans-serif; font-size: 40px; line-height: 1.15; letter-spacing: 8px; font-weight: 700; }
+      .stamp .en { font-family: "Deck", sans-serif; font-size: 34px; letter-spacing: 7px; display: block; margin-top: 14px; }
+
+      /* ---------- 红绳与图钉 ---------- */
+      .string-wrap { position: absolute; inset: 0; z-index: 8; overflow: hidden; }
+      .string-wrap svg { display: block; width: 1920px; height: 1080px; }
+      .pin {
+        position: absolute; width: 30px; height: 30px; border-radius: 50%; z-index: 11;
+        background: radial-gradient(circle at 34% 30%, #d8564a, #8f1f14 70%);
+        box-shadow: 3px 5px 8px rgba(40, 26, 12, .45);
+      }
+      .pin-a { left: 326px; top: 596px; }
+      .pin-b { left: 852px; top: 418px; }
+      .pin-c { left: 1478px; top: 190px; }
+
+      /* ---------- 马克笔下划线 ---------- */
+      .underline {
+        position: absolute; left: 706px; top: 424px; width: 262px; height: 12px; z-index: 10;
+        background: #c0392b; opacity: .88; border-radius: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="14"
+      data-width="1920"
+      data-height="1080"
+    >
+      <section id="scene-collage" class="clip" data-start="0" data-duration="14" data-track-index="1">
+        <div class="stage" id="stage">
+          <div class="plate" id="plate">
+            <div class="plate-map"></div>
+            <div class="plate-stain a"></div>
+            <div class="plate-stain b"></div>
+            <div class="plate-vignette"></div>
+            <div class="plate-grain"></div>
+          </div>
+
+          <img class="el scrap-a" id="scrapA" src="assets/scrap_chart_a.png" alt="" />
+          <img class="el scrap-b" id="scrapB" src="assets/scrap_chart_b.png" alt="" />
+          <img class="el car2" id="car2" src="assets/saab96_side.png" alt="" />
+          <img class="el hero" id="hero" src="assets/saab96_rally_1962.png" alt="" />
+          <img class="el portrait" id="portrait" src="assets/erik_carlsson_sonett.png" alt="" />
+          <img class="el mini" id="mini" src="assets/simo_lampinen_1964.png" alt="" />
+
+          <div class="string-wrap" id="stringWrap">
+            <svg viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M 341 611 Q 600 494 867 433 Q 1150 372 1493 205"
+                fill="none"
+                stroke="#b3271c"
+                stroke-width="3.4"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+
+          <div class="pin pin-a" id="pinA"></div>
+          <div class="pin pin-b" id="pinB"></div>
+          <div class="pin pin-c" id="pinC"></div>
+
+          <div class="tape tape-a" id="tapeA"></div>
+          <div class="tape tape-b" id="tapeB"></div>
+
+          <div class="label label-1" id="label1">
+            <div class="big">1962</div>
+            <div class="small">SAAB 96</div>
+          </div>
+          <div class="label label-2" id="label2">
+            <div class="cn">蒙特卡洛 · 拉力赛</div>
+          </div>
+          <div class="stamp" id="stamp">
+            <div class="cn" data-layout-allow-overlap>档案</div>
+            <span class="en">ARCHIVE</span>
+          </div>
+          <div class="underline" id="underline"></div>
+        </div>
+      </section>
+    </div>
+
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+
+      // 定格节奏：全部入场用 steps() 缓动，做出「逐件落位、每两帧一变」的手感
+      const tl = gsap.timeline({ paused: true });
+
+      // 0.15 底纸落定
+      tl.fromTo("#plate", { autoAlpha: 0, scale: 1.05 },
+        { autoAlpha: 1, scale: 1, duration: .7, ease: "power2.out", transformOrigin: "50% 50%" }, 0.15);
+
+      // 0.90–2.2 衬底碎片先后入场
+      tl.fromTo("#scrapA", { autoAlpha: 0, x: -170, y: 60, rotation: -9 },
+        { autoAlpha: 1, x: 0, y: 0, rotation: -3.5, duration: .6, ease: "steps(7)" }, 0.90);
+      tl.fromTo("#scrapB", { autoAlpha: 0, y: -150, rotation: 6 },
+        { autoAlpha: 1, y: 0, rotation: 2.5, duration: .6, ease: "steps(7)" }, 1.50);
+      tl.fromTo("#car2", { autoAlpha: 0, x: -240 },
+        { autoAlpha: 1, x: 0, duration: .55, ease: "steps(6)" }, 2.20);
+
+      // 2.90 主图：1962 蒙特卡洛的 Saab 96
+      tl.fromTo("#hero", { autoAlpha: 0, x: 280, scale: 1.07 },
+        { autoAlpha: 1, x: 0, scale: 1, duration: .78, ease: "steps(9)" }, 2.90);
+
+      // 4.0–4.9 人物与副图
+      tl.fromTo("#portrait", { autoAlpha: 0, y: -170, rotation: -6 },
+        { autoAlpha: 1, y: 0, rotation: -1.5, duration: .65, ease: "steps(8)" }, 4.00);
+      tl.fromTo("#mini", { autoAlpha: 0, y: 150 },
+        { autoAlpha: 1, y: 0, duration: .55, ease: "steps(6)" }, 4.90);
+
+      // 5.8–6.2 胶带下压
+      tl.fromTo("#tapeA", { scaleY: 0, autoAlpha: 0 },
+        { scaleY: 1, autoAlpha: 1, duration: .30, ease: "steps(3)", transformOrigin: "50% 0%" }, 5.80);
+      tl.fromTo("#tapeB", { scaleY: 0, autoAlpha: 0 },
+        { scaleY: 1, autoAlpha: 1, duration: .30, ease: "steps(3)", transformOrigin: "50% 0%" }, 6.20);
+
+      // 6.7–7.8 标签与印章
+      tl.fromTo("#label1", { autoAlpha: 0, x: -150 },
+        { autoAlpha: 1, x: 0, duration: .50, ease: "steps(6)" }, 6.70);
+      tl.fromTo("#label2", { autoAlpha: 0, x: 130 },
+        { autoAlpha: 1, x: 0, duration: .50, ease: "steps(6)" }, 7.10);
+      tl.fromTo("#stamp", { autoAlpha: 0, scale: 1.7, rotation: -18 },
+        { autoAlpha: 1, scale: 1, rotation: -6, duration: .34, ease: "steps(4)", transformOrigin: "50% 50%" }, 7.80);
+
+      // 8.5–9.8 图钉落位，红绳从左到右拉过去
+      tl.fromTo("#pinA", { autoAlpha: 0, scale: 1.9 },
+        { autoAlpha: 1, scale: 1, duration: .22, ease: "steps(3)", transformOrigin: "50% 50%" }, 8.50);
+      tl.fromTo("#pinB", { autoAlpha: 0, scale: 1.9 },
+        { autoAlpha: 1, scale: 1, duration: .22, ease: "steps(3)", transformOrigin: "50% 50%" }, 8.85);
+      tl.fromTo("#pinC", { autoAlpha: 0, scale: 1.9 },
+        { autoAlpha: 1, scale: 1, duration: .22, ease: "steps(3)", transformOrigin: "50% 50%" }, 9.20);
+      tl.fromTo("#stringWrap", { scaleX: 0 },
+        { scaleX: 1, duration: 1.15, ease: "steps(7)", transformOrigin: "0% 50%" }, 8.60);
+
+      // 9.9 马克笔下划线
+      tl.fromTo("#underline", { scaleX: 0 },
+        { scaleX: 1, duration: .45, ease: "steps(5)", transformOrigin: "0% 50%" }, 9.90);
+
+      // 10.1–14 成型后只留一次极缓的推近（不是循环漂浮）
+      tl.fromTo("#stage", { scale: 1 },
+        { scale: 1.014, duration: 3.9, ease: "power1.inOut", transformOrigin: "52% 48%" }, 10.10);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

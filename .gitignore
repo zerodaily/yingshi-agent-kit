@@ -1,0 +1,12 @@
+# Python 临时产物
+__pycache__/
+*.py[cod]
+
+# 系统垃圾
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# 本地跑批产物
+*.log
+outputs/

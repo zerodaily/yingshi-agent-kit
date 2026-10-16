@@ -1,0 +1,38 @@
+{
+  "style": "collage-design",
+  "note": "设计拼贴的元素库。与包 A 共用同一套照片源，只换处理参数（裁切边 + 奶油白描边）。",
+  "elements": [
+    {
+      "name": "design_saab96",
+      "file": "library/design_saab96.png",
+      "size": [1061, 796],
+      "role": "hero",
+      "source": "Wikimedia Commons — Saab 96 Rally 1962 (UV31319)",
+      "license": "CC BY 2.0"
+    },
+    {
+      "name": "design_saab96_side",
+      "file": "library/design_saab96_side.png",
+      "size": [1200, 706],
+      "role": "wide",
+      "source": "Wikimedia Commons — DPR225C Saab 96",
+      "license": "CC BY 2.0"
+    },
+    {
+      "name": "design_portrait",
+      "file": "library/design_portrait.png",
+      "size": [552, 971],
+      "role": "portrait",
+      "source": "Wikimedia Commons — Erik Carlsson Sonett",
+      "license": "Public domain"
+    },
+    {
+      "name": "design_mini",
+      "file": "library/design_mini.png",
+      "size": [421, 291],
+      "role": "mini",
+      "source": "Wikimedia Commons — Erik Carlsson with his Saab 1962",
+      "license": "Public domain"
+    }
+  ]
+}

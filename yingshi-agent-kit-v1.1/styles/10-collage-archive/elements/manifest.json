@@ -1,0 +1,71 @@
+{
+  "style": "collage-archive",
+  "note": "元素库清单。licensed 字段只记录来源与授权，成片交付时按平台要求保留署名。",
+  "base_plates": [
+    {
+      "name": "plate_map",
+      "file": "library/plate_map.jpg",
+      "role": "底纸：老海图",
+      "source": "Wikimedia Commons — Carte de la mer Baltique (btv1b53121548k)",
+      "license": "Public domain"
+    }
+  ],
+  "elements": [
+    {
+      "name": "saab96_rally_1962",
+      "file": "library/saab96_rally_1962.png",
+      "size": [972, 730],
+      "role": "hero",
+      "source": "Wikimedia Commons — Saab 96 Rally 1962 (UV31319)",
+      "license": "CC BY 2.0"
+    },
+    {
+      "name": "saab96_side",
+      "file": "library/saab96_side.png",
+      "size": [1100, 647],
+      "role": "secondary",
+      "source": "Wikimedia Commons — DPR225C Saab 96",
+      "license": "CC BY 2.0"
+    },
+    {
+      "name": "erik_carlsson_sonett",
+      "file": "library/erik_carlsson_sonett.png",
+      "size": [507, 890],
+      "role": "portrait",
+      "source": "Wikimedia Commons — Erik Carlsson Sonett",
+      "license": "Public domain"
+    },
+    {
+      "name": "erik_carlsson_1962",
+      "file": "library/erik_carlsson_1962.png",
+      "size": [421, 291],
+      "role": "mini",
+      "source": "Wikimedia Commons — Erik Carlsson with his Saab 1962",
+      "license": "Public domain"
+    },
+    {
+      "name": "simo_lampinen_1964",
+      "file": "library/simo_lampinen_1964.png",
+      "size": [512, 404],
+      "role": "mini",
+      "source": "Wikimedia Commons — Simo Lampinen, 1964 Rally Finland",
+      "license": "Public domain"
+    },
+    {
+      "name": "scrap_chart_a",
+      "file": "library/scrap_chart_a.png",
+      "size": [749, 1100],
+      "role": "scrap",
+      "source": "Wikimedia Commons — Carte de la mer Baltique (btv1b53121548k)",
+      "license": "Public domain"
+    },
+    {
+      "name": "scrap_chart_b",
+      "file": "library/scrap_chart_b.png",
+      "size": [718, 1100],
+      "role": "scrap",
+      "source": "Wikimedia Commons — Carte de la mer Baltique (btv1b53121548k)",
+      "license": "Public domain"
+    }
+  ]
+}

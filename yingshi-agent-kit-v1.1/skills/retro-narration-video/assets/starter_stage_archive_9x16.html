@@ -1,0 +1,188 @@
+<!doctype html>
+<!-- 画风包 A（档案调查拼贴）竖屏派生模板：1080×1920 / 14s / 30fps
+     复制到 vertical_douyin/ 后，需同时具备：assets/*.png、assets/vendor/gsap.min.js、assets/plate_map.jpg
+     抖音安全区：核心内容放在高度 15%–70%，底部 25% 不放关键信息 -->
+<html lang="zh" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <style>
+      @font-face { font-family: "TypeCN"; src: local("Microsoft YaHei"); }
+      @font-face { font-family: "Deck"; src: local("Impact"); }
+      @font-face { font-family: "Mono"; src: local("Courier New"); }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #4b4335; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+      .clip { position: absolute; inset: 0; overflow: hidden; }
+      .stage { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+
+      .plate { position: absolute; inset: 0; background: #d9cfbb; }
+      .plate-map {
+        position: absolute; inset: 0;
+        background-image: url("assets/plate_map.jpg");
+        background-size: cover; background-position: 46% 40%;
+        opacity: .30; mix-blend-mode: multiply;
+        filter: sepia(.45) contrast(.92) brightness(1.06) saturate(.55);
+      }
+      .plate-stain { position: absolute; mix-blend-mode: multiply; }
+      .plate-stain.a {
+        left: -18%; top: 34%; width: 96%; height: 52%;
+        background: radial-gradient(closest-side, rgba(126,98,54,.30), rgba(126,98,54,0) 72%);
+      }
+      .plate-stain.b {
+        right: -16%; top: -8%; width: 90%; height: 42%;
+        background: radial-gradient(closest-side, rgba(104,84,48,.26), rgba(104,84,48,0) 70%);
+      }
+      .plate-vignette { position: absolute; inset: 0; box-shadow: inset 0 0 240px rgba(52, 38, 18, .44); }
+      .plate-grain { position: absolute; inset: 0; pointer-events: none; opacity: .13; mix-blend-mode: multiply; }
+      .plate-grain::after {
+        content: ""; position: absolute; inset: 0;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='260' height='260' filter='url(%23n)' opacity='0.6'/></svg>");
+      }
+
+      .el { position: absolute; display: block; filter: drop-shadow(6px 8px 12px rgba(42, 30, 14, .40)); }
+      .portrait { left: 70px;   top: 110px;  width: 330px; z-index: 5; }
+      .scrap-b  { left: 620px;  top: -140px; width: 480px; z-index: 2; }
+      .mini     { left: 150px;  top: 648px;  width: 280px; z-index: 7; }
+      .hero     { left: 30px;   top: 800px;  width: 1020px; z-index: 6; }
+      .scrap-a  { left: -150px; top: 1150px; width: 580px; z-index: 2; }
+
+      .tape {
+        position: absolute; width: 150px; height: 44px; z-index: 9;
+        background: rgba(238, 226, 194, .72);
+        border-left: 1px solid rgba(150, 130, 92, .45);
+        border-right: 1px solid rgba(150, 130, 92, .45);
+        box-shadow: 0 2px 6px rgba(48, 34, 16, .22);
+      }
+      .tape-a { left: 62px;  top: 792px; }
+      .tape-b { left: 88px;  top: 152px; }
+
+      .label { position: absolute; z-index: 10; background: #efe7d6; padding: 14px 24px 18px; box-shadow: 0 6px 14px rgba(44, 30, 14, .34); }
+      .label-1 { left: 392px; top: 300px; border: 2px solid rgba(70, 56, 32, .45); }
+      .label-1 .big { font-family: "Mono", monospace; font-size: 88px; line-height: 1.02; letter-spacing: 5px; color: #211d16; }
+      .label-1 .small { font-family: "Deck", "TypeCN", sans-serif; font-size: 38px; line-height: 1.2; letter-spacing: 3px; color: #8f2b1c; margin-top: 4px; }
+      .label-2 { left: 76px; top: 1620px; background: #e6dcc4; }
+      .label-2 .cn { font-family: "TypeCN", sans-serif; font-size: 44px; line-height: 1.2; letter-spacing: 2px; color: #2a241a; }
+
+      .stamp {
+        position: absolute; left: 700px; top: 1606px; z-index: 10;
+        border: 6px solid #a82a1c; color: #a82a1c; opacity: .84;
+        padding: 10px 18px 14px; text-align: center;
+      }
+      .stamp .cn { font-family: "TypeCN", sans-serif; font-size: 36px; line-height: 1.15; letter-spacing: 7px; font-weight: 700; }
+      .stamp .en { font-family: "Deck", sans-serif; font-size: 30px; letter-spacing: 6px; display: block; margin-top: 14px; }
+
+      .string-wrap { position: absolute; inset: 0; z-index: 8; overflow: hidden; }
+      .string-wrap svg { display: block; width: 1080px; height: 1920px; }
+      .pin {
+        position: absolute; width: 28px; height: 28px; border-radius: 50%; z-index: 11;
+        background: radial-gradient(circle at 34% 30%, #d8564a, #8f1f14 70%);
+        box-shadow: 3px 5px 8px rgba(40, 26, 12, .45);
+      }
+      .pin-a { left: 204px; top: 662px; }
+      .pin-b { left: 618px; top: 858px; }
+      .pin-c { left: 798px; top: 1572px; }
+
+      .underline { position: absolute; left: 400px; top: 502px; width: 244px; height: 11px; z-index: 10; background: #c0392b; opacity: .88; border-radius: 6px; }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="14"
+      data-width="1080"
+      data-height="1920"
+    >
+      <section id="scene-collage-9x16" class="clip" data-start="0" data-duration="14" data-track-index="1">
+        <div class="stage" id="stage">
+          <div class="plate" id="plate">
+            <div class="plate-map"></div>
+            <div class="plate-stain a"></div>
+            <div class="plate-stain b"></div>
+            <div class="plate-vignette"></div>
+            <div class="plate-grain"></div>
+          </div>
+
+          <img class="el scrap-a" id="scrapA" src="assets/scrap_chart_a.png" alt="" />
+          <img class="el scrap-b" id="scrapB" src="assets/scrap_chart_b.png" alt="" />
+          <img class="el hero" id="hero" src="assets/saab96_rally_1962.png" alt="" />
+          <img class="el portrait" id="portrait" src="assets/erik_carlsson_sonett.png" alt="" />
+          <img class="el mini" id="mini" src="assets/simo_lampinen_1964.png" alt="" />
+
+          <div class="string-wrap" id="stringWrap">
+            <svg viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M 218 676 Q 400 762 632 872 C 700 1050 790 1350 812 1572"
+                fill="none" stroke="#b3271c" stroke-width="3.2" stroke-linecap="round"
+              />
+            </svg>
+          </div>
+
+          <div class="pin pin-a" id="pinA"></div>
+          <div class="pin pin-b" id="pinB"></div>
+          <div class="pin pin-c" id="pinC"></div>
+
+          <div class="tape tape-a" id="tapeA"></div>
+          <div class="tape tape-b" id="tapeB"></div>
+
+          <div class="label label-1" id="label1">
+            <div class="big">1962</div>
+            <div class="small">SAAB 96</div>
+          </div>
+          <div class="label label-2" id="label2"><div class="cn">蒙特卡洛 · 拉力赛</div></div>
+          <div class="stamp" id="stamp">
+            <div class="cn" data-layout-allow-overlap>档案</div>
+            <span class="en">ARCHIVE</span>
+          </div>
+          <div class="underline" id="underline"></div>
+        </div>
+      </section>
+    </div>
+
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#plate", { autoAlpha: 0, scale: 1.04 },
+        { autoAlpha: 1, scale: 1, duration: .7, ease: "power2.out", transformOrigin: "50% 50%" }, 0.15);
+      tl.fromTo("#scrapB", { autoAlpha: 0, y: -150, rotation: 6 },
+        { autoAlpha: 1, y: 0, rotation: 2.5, duration: .6, ease: "steps(7)" }, 0.90);
+      tl.fromTo("#scrapA", { autoAlpha: 0, x: -160, y: 60, rotation: -9 },
+        { autoAlpha: 1, x: 0, y: 0, rotation: -3.5, duration: .6, ease: "steps(7)" }, 1.50);
+      tl.fromTo("#hero", { autoAlpha: 0, x: 220, scale: 1.06 },
+        { autoAlpha: 1, x: 0, scale: 1, duration: .78, ease: "steps(9)" }, 2.40);
+      tl.fromTo("#portrait", { autoAlpha: 0, y: -170, rotation: -6 },
+        { autoAlpha: 1, y: 0, rotation: -1.5, duration: .65, ease: "steps(8)" }, 3.80);
+      tl.fromTo("#mini", { autoAlpha: 0, y: 150 },
+        { autoAlpha: 1, y: 0, duration: .55, ease: "steps(6)" }, 4.70);
+      tl.fromTo("#tapeA", { scaleY: 0, autoAlpha: 0 },
+        { scaleY: 1, autoAlpha: 1, duration: .30, ease: "steps(3)", transformOrigin: "50% 0%" }, 5.60);
+      tl.fromTo("#tapeB", { scaleY: 0, autoAlpha: 0 },
+        { scaleY: 1, autoAlpha: 1, duration: .30, ease: "steps(3)", transformOrigin: "50% 0%" }, 6.00);
+      tl.fromTo("#label1", { autoAlpha: 0, x: -130 },
+        { autoAlpha: 1, x: 0, duration: .50, ease: "steps(6)" }, 6.50);
+      tl.fromTo("#label2", { autoAlpha: 0, x: 120 },
+        { autoAlpha: 1, x: 0, duration: .50, ease: "steps(6)" }, 6.95);
+      tl.fromTo("#stamp", { autoAlpha: 0, scale: 1.7, rotation: -18 },
+        { autoAlpha: 1, scale: 1, rotation: -6, duration: .34, ease: "steps(4)", transformOrigin: "50% 50%" }, 7.70);
+      tl.fromTo("#pinA", { autoAlpha: 0, scale: 1.9 },
+        { autoAlpha: 1, scale: 1, duration: .22, ease: "steps(3)", transformOrigin: "50% 50%" }, 8.40);
+      tl.fromTo("#pinB", { autoAlpha: 0, scale: 1.9 },
+        { autoAlpha: 1, scale: 1, duration: .22, ease: "steps(3)", transformOrigin: "50% 50%" }, 8.75);
+      tl.fromTo("#pinC", { autoAlpha: 0, scale: 1.9 },
+        { autoAlpha: 1, scale: 1, duration: .22, ease: "steps(3)", transformOrigin: "50% 50%" }, 9.10);
+      tl.fromTo("#stringWrap", { scaleX: 0 },
+        { scaleX: 1, duration: 1.15, ease: "steps(7)", transformOrigin: "0% 50%" }, 8.50);
+      tl.fromTo("#underline", { scaleX: 0 },
+        { scaleX: 1, duration: .45, ease: "steps(5)", transformOrigin: "0% 50%" }, 9.80);
+      tl.fromTo("#stage", { scale: 1 },
+        { scale: 1.012, duration: 4.0, ease: "power1.inOut", transformOrigin: "52% 44%" }, 10.00);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

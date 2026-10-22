@@ -24,7 +24,7 @@
   },
   "paths": {
     "projects_root": "D:\\yingshi-projects",
-    "indextts_dir_wsl": "~/j-indextts2",
+    "indextts_dir_wsl": "~/projects/j-indextts2",
     "zimage_dir_wsl": "~/Z-Image",
     "zimage_model_wsl": "~/models/Z-Image-Turbo",
     "esrgan_exe": "C:\\yingshi\\tools\\realesrgan-ncnn-vulkan.exe",
@@ -33,6 +33,6 @@
   },
   "fixed_copy": {
     "opening_line": "欢迎回来，我是言同学。",
-    "ending_line": "今天的故事先讲到这,你顺手点的一个关注赞,是对我极致的肯定,有更新你会第一时间收到提醒,我是认真讲故事的言同学,咱们下期再见~"
+    "ending_line": "好了，今天的故事就到这里。我是言同学，我们下辆车再见。"
   }
 }

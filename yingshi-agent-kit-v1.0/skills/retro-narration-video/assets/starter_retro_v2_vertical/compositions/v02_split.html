@@ -1,0 +1,48 @@
+<template>
+  <style>
+    @font-face { font-family: "PaperKai"; src: local("KaiTi"); }
+    @font-face { font-family: "PaperSerif"; src: local("SimSun"); }
+    @font-face { font-family: "PaperSans"; src: local("Microsoft YaHei"); }
+    #root { position: absolute; inset: 0; overflow: hidden; color: #1b1b1a; }
+    .v02-art {
+      position: absolute; left: -70px; right: -70px; top: 180px; height: 960px;
+      overflow: hidden; background: #d3bf98;
+    }
+    .v02-art::before {
+      content: ""; position: absolute; inset: 12% 8% auto auto; width: 44%; height: 48%;
+      background: #f2e8d3; clip-path: polygon(0 3%, 97% 0, 100% 91%, 4% 100%);
+    }
+    .v02-art::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 60%;
+      background: #345443; opacity: .8;
+      clip-path: polygon(0 100%, 0 66%, 15% 40%, 31% 61%, 49% 16%, 67% 54%, 85% 30%, 100% 66%, 100% 100%);
+    }
+    .v02-copy {
+      position: absolute; left: 54px; right: 54px; top: 1190px;
+      padding: 40px 44px 44px; background: rgba(242,232,211,.97);
+      border-right: 8px solid #2d5a3d;
+    }
+    .v02-kicker {
+      font-family: "PaperSans", sans-serif; font-size: 30px; font-weight: 700;
+      letter-spacing: 5px; color: #b8433f;
+    }
+    h1 { margin-top: 18px; font-family: "PaperKai", serif; font-size: 82px; line-height: 1.14; }
+    p { margin-top: 24px; font-family: "PaperSerif", serif; font-size: 42px; line-height: 1.55; }
+  </style>
+  <div id="root" data-composition-id="v02" data-width="1080" data-height="1920">
+    <div class="v02-art" id="v02-art"></div>
+    <div class="v02-copy" id="v02-copy">
+      <div class="v02-kicker">哥德堡 · 一九二七</div>
+      <h1>两个瑞典人，从零造车</h1>
+      <p>先回答怎样让人安全回家。</p>
+    </div>
+  </div>
+  <script>
+    const v02 = gsap.timeline({ paused: true });
+    v02.fromTo("#v02-art", { scale: 1.08 },
+      { scale: 1, duration: 6, ease: "power1.out" }, 0);
+    v02.fromTo("#v02-copy", { y: 80, autoAlpha: 0 },
+      { y: 0, autoAlpha: 1, duration: .42, ease: "power4.out" }, .3);
+    window.__timelines["v02"] = v02;
+  </script>
+</template>

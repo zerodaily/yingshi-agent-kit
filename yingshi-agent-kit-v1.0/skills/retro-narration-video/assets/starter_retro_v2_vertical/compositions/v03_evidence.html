@@ -1,0 +1,56 @@
+<template>
+  <style>
+    @font-face { font-family: "PaperKai"; src: local("KaiTi"); }
+    @font-face { font-family: "PaperSerif"; src: local("SimSun"); }
+    @font-face { font-family: "PaperSans"; src: local("Microsoft YaHei"); }
+    #root { position: absolute; inset: 0; overflow: hidden; color: #1b1b1a; }
+    .v03-art {
+      position: absolute; left: -72px; right: -72px; top: 210px; height: 900px;
+      overflow: hidden; background: #cdbb96;
+    }
+    .v03-art::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 58%;
+      background: #345443; opacity: .76;
+      clip-path: polygon(0 100%, 0 60%, 15% 36%, 31% 58%, 48% 12%, 65% 49%, 84% 27%, 100% 64%, 100% 100%);
+    }
+    .v03-copy {
+      position: absolute; left: 54px; right: 54px; top: 1180px;
+      padding: 40px 44px 44px; background: rgba(242,232,211,.97);
+      border-top: 7px solid #b8433f;
+    }
+    .v03-kicker {
+      font-family: "PaperSans", sans-serif; font-size: 30px; font-weight: 700;
+      letter-spacing: 5px; color: #b8433f;
+    }
+    h1 { margin-top: 18px; font-family: "PaperKai", serif; font-size: 82px; line-height: 1.14; }
+    p { margin-top: 24px; font-family: "PaperSerif", serif; font-size: 42px; line-height: 1.55; }
+    .v03-number {
+      position: absolute; left: 54px; top: 104px; z-index: 8;
+      font-family: "PaperSerif", serif; font-size: 238px; font-weight: 900;
+      line-height: .86; color: #b8433f;
+    }
+    .v03-unit {
+      display: block; margin-top: 22px; font-family: "PaperKai", serif;
+      font-size: 54px; color: #1b1b1a;
+    }
+  </style>
+  <div id="root" data-composition-id="v03" data-width="1080" data-height="1920">
+    <div class="v03-art" id="v03-art"></div>
+    <div class="v03-number" id="v03-number">28<span class="v03-unit">匹马力</span></div>
+    <div class="v03-copy" id="v03-copy">
+      <div class="v03-kicker">第一台车 · JAKOB</div>
+      <h1>慢，但先把结构做扎实</h1>
+      <p>车可以慢一点，人要能自己走下来。</p>
+    </div>
+  </div>
+  <script>
+    const v03 = gsap.timeline({ paused: true });
+    v03.fromTo("#v03-art", { scale: 1.08 },
+      { scale: 1, duration: 6, ease: "power1.out" }, 0);
+    v03.fromTo("#v03-number", { scale: 1.22, autoAlpha: 0 },
+      { scale: 1, autoAlpha: 1, duration: .4, ease: "power4.out" }, .14);
+    v03.fromTo("#v03-copy", { y: 80, autoAlpha: 0 },
+      { y: 0, autoAlpha: 1, duration: .42, ease: "power4.out" }, .32);
+    window.__timelines["v03"] = v03;
+  </script>
+</template>

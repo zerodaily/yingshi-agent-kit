@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="zh" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>动态纸墨 v2 Starter</title>
+    <style>
+      @font-face { font-family: "PaperKai"; src: local("KaiTi"); }
+      @font-face { font-family: "PaperSerif"; src: local("SimSun"); }
+      @font-face { font-family: "PaperSans"; src: local("Microsoft YaHei"); }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        width: 1920px; height: 1080px; overflow: hidden;
+        background: #e7d7b8; color: #1b1b1a;
+      }
+      #root {
+        position: relative; width: 1920px; height: 1080px; overflow: hidden;
+        background: #e7d7b8;
+      }
+      .stage-ground {
+        position: absolute; inset: 0; z-index: 0;
+        background:
+          radial-gradient(circle at 16% 18%, rgba(255,255,255,.38), rgba(255,255,255,0) 34%),
+          linear-gradient(90deg, #eadbbd, #e3d1af 52%, #efe3c8);
+      }
+      .stage-ground::after {
+        content: ""; position: absolute; inset: 0; opacity: .13;
+        mix-blend-mode: multiply;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='3'/></filter><rect width='280' height='280' filter='url(%23n)' opacity='.62'/></svg>");
+      }
+      .clip { position: absolute; inset: 0; overflow: hidden; }
+      .scene-shell { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+      .scene-art { position: absolute; overflow: hidden; background: #d8c6a4; }
+      .scene-art::after {
+        content: ""; position: absolute; inset: 0;
+        background: linear-gradient(180deg, rgba(242,232,211,.02), rgba(80,55,24,.18));
+      }
+      .scene-art .paper-cut {
+        position: absolute; inset: 8% 7% auto auto; width: 48%; height: 54%;
+        background: #f2e8d3; clip-path: polygon(0 3%, 97% 0, 100% 91%, 4% 100%);
+        box-shadow: 0 18px 40px rgba(54,37,15,.28);
+      }
+      .scene-art .ink-mountain {
+        position: absolute; left: 8%; bottom: 8%; width: 68%; height: 42%;
+        background: #345443;
+        clip-path: polygon(0 100%, 0 68%, 18% 44%, 30% 61%, 47% 18%, 61% 54%, 74% 34%, 100% 70%, 100% 100%);
+        opacity: .82;
+      }
+      .scene-art .ink-sun {
+        position: absolute; right: 13%; top: 13%; width: 168px; height: 168px;
+        border: 12px solid #b8433f; border-radius: 50%; opacity: .86;
+      }
+      .copy { position: absolute; z-index: 5; }
+      .copy-left {
+        left: 96px; bottom: 96px; width: 760px;
+        padding: 38px 42px 42px; background: rgba(242,232,211,.93);
+        border-left: 7px solid #b8433f; box-shadow: 0 18px 42px rgba(50,34,14,.22);
+      }
+      .copy-right {
+        right: 96px; top: 118px; width: 590px;
+        padding: 42px 46px; background: rgba(27,27,26,.92); color: #f2e8d3;
+      }
+      .copy-band {
+        left: 0; right: 0; bottom: 0; min-height: 268px;
+        padding: 44px 112px 54px; background: #f2e8d3;
+        border-top: 6px solid #2d5a3d;
+      }
+      .kicker {
+        font-family: "PaperSans", sans-serif; font-size: 25px; font-weight: 700;
+        letter-spacing: 7px; color: #b8433f; margin-bottom: 18px;
+      }
+      h1 {
+        font-family: "PaperKai", "PaperSerif", serif;
+        font-size: 88px; line-height: 1.08; letter-spacing: 1px;
+      }
+      h1.compact { font-size: 72px; }
+      p {
+        margin-top: 20px; font-family: "PaperSerif", serif;
+        font-size: 34px; line-height: 1.55;
+      }
+      .copy-right .kicker { color: #e28b75; }
+      .copy-right h1 { font-size: 78px; }
+      .copy-right p { color: #eadfc8; }
+      .big-number {
+        position: absolute; left: 84px; top: 62px; z-index: 6;
+        font-family: "PaperSerif", serif; font-size: 300px; font-weight: 900;
+        line-height: .82; color: #b8433f; letter-spacing: -10px;
+      }
+      .big-number .unit {
+        display: block; margin-top: 26px; font-family: "PaperKai", serif;
+        font-size: 54px; font-weight: 700; letter-spacing: 4px; color: #1b1b1a;
+      }
+      .red-rule {
+        position: absolute; z-index: 7; height: 8px; background: #b8433f;
+        transform-origin: left center;
+      }
+      .scene2 .scene-art { left: 0; top: 0; width: 100%; height: 100%; }
+      .scene2 .copy { left: 110px; top: 120px; width: 870px; padding: 44px 50px; background: rgba(242,232,211,.94); }
+      .scene3 .scene-art { right: 0; top: 0; width: 1160px; height: 1080px; }
+      .scene3 .copy { left: 90px; top: 154px; width: 690px; }
+      .scene3 .red-rule { left: 90px; top: 112px; width: 380px; }
+      .seal {
+        position: absolute; right: 62px; bottom: 52px; z-index: 20;
+        width: 92px; height: 92px; display: grid; place-items: center;
+        background: #b8341c; color: #f8f1de; font-family: "PaperKai", serif;
+        font-size: 27px; line-height: 1.05; text-align: center;
+        box-shadow: 2px 3px 8px rgba(0,0,0,.18);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0"
+         data-duration="18" data-width="1920" data-height="1080">
+      <div class="stage-ground"></div>
+
+      <section id="s1" class="clip scene1" data-start="0" data-duration="6" data-track-index="1">
+        <div class="scene-shell" id="s1-motion">
+          <div class="scene-art" style="left:48%;top:0;width:52%;height:100%">
+            <div class="ink-sun"></div>
+            <div class="ink-mountain"></div>
+            <div class="paper-cut"></div>
+          </div>
+          <div class="big-number" id="s1-number">0<span class="unit">元专利费</span></div>
+          <div class="copy copy-left" id="s1-copy">
+            <div class="kicker">一九五九 · 安全革命</div>
+            <h1>沃尔沃把最值钱的发明免费送人</h1>
+            <p>三点式安全带，救下的生命以百万计。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="s2" class="clip scene2" data-start="6" data-duration="6" data-track-index="1">
+        <div class="scene-shell" id="s2-motion">
+          <div class="scene-art">
+            <div class="ink-sun" style="right:8%;top:14%;width:300px;height:300px;border-width:18px"></div>
+            <div class="ink-mountain" style="width:82%;height:52%;left:12%"></div>
+          </div>
+          <div class="red-rule" id="s2-rule" style="left:110px;top:96px;width:980px"></div>
+          <div class="copy" id="s2-copy">
+            <div class="kicker">VOLVO · 一九二七</div>
+            <h1>先造一个能让人回家的东西</h1>
+            <p>性能不是唯一答案，活着抵达才是。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="s3" class="clip scene3" data-start="12" data-duration="6" data-track-index="1">
+        <div class="scene-shell" id="s3-motion">
+          <div class="scene-art" id="s3-art">
+            <div class="ink-sun" style="width:120px;height:120px;right:18%;top:18%;border-width:8px"></div>
+            <div class="ink-mountain" style="height:48%;opacity:.68"></div>
+            <div class="paper-cut"></div>
+          </div>
+          <div class="red-rule" id="s3-rule"></div>
+          <div class="copy" id="s3-copy">
+            <div class="kicker">哥德堡 · 小车厂</div>
+            <h1 class="compact">两个瑞典人，决定先解决一件事</h1>
+          </div>
+          <div class="copy copy-band" id="s3-band">
+            <p>车可以慢一点，但撞车以后，人得能自己走下来。</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="seal">言同学</div>
+    </div>
+
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#s1-motion", { x: 210, autoAlpha: .5 },
+        { x: 0, autoAlpha: 1, duration: .34, ease: "power4.out" }, 0);
+      tl.fromTo("#s1-number", { scale: 1.34, rotation: -3, autoAlpha: 0 },
+        { scale: 1, rotation: 0, autoAlpha: 1, duration: .42, ease: "power4.out" }, .08);
+      tl.fromTo("#s1-copy", { y: 70, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, duration: .38, ease: "power4.out" }, .26);
+
+      tl.fromTo("#s2-motion", { x: 210, autoAlpha: .5 },
+        { x: 0, autoAlpha: 1, duration: .34, ease: "power4.out" }, 6);
+      tl.fromTo("#s2-rule", { scaleX: 0 },
+        { scaleX: 1, duration: .34, ease: "power3.out" }, 6.18);
+      tl.fromTo("#s2-copy", { x: -110, autoAlpha: 0 },
+        { x: 0, autoAlpha: 1, duration: .42, ease: "power4.out" }, 6.28);
+      tl.fromTo("#s2 .ink-sun", { scale: .72, rotation: -8 },
+        { scale: 1, rotation: 0, duration: 1.2, ease: "power2.out" }, 6.3);
+
+      tl.fromTo("#s3-motion", { x: 210, autoAlpha: .5 },
+        { x: 0, autoAlpha: 1, duration: .34, ease: "power4.out" }, 12);
+      tl.fromTo("#s3-art", { scale: 1.09 },
+        { scale: 1, duration: .58, ease: "power4.out" }, 12);
+      tl.fromTo("#s3-rule", { scaleX: 0 },
+        { scaleX: 1, duration: .32, ease: "power3.out" }, 12.22);
+      tl.fromTo("#s3-copy", { y: -80, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, duration: .4, ease: "power4.out" }, 12.3);
+      tl.fromTo("#s3-band", { yPercent: 100 },
+        { yPercent: 0, duration: .46, ease: "power4.out" }, 12.64);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

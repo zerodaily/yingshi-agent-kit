@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>动态纸墨 · 原生竖屏 Starter</title>
+    <style>
+      @font-face { font-family: "PaperKai"; src: local("KaiTi"); }
+      @font-face { font-family: "PaperSerif"; src: local("SimSun"); }
+      @font-face { font-family: "PaperSans"; src: local("Microsoft YaHei"); }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #e7d7b8; }
+      #root {
+        position: relative; width: 1080px; height: 1920px; overflow: hidden;
+        background: #e7d7b8; color: #1b1b1a;
+      }
+      .ground {
+        position: absolute; inset: 0; z-index: 0;
+        background:
+          radial-gradient(circle at 18% 12%, rgba(255,255,255,.38), rgba(255,255,255,0) 31%),
+          linear-gradient(180deg, #eadbbd, #dfcda9 58%, #efe3c8);
+      }
+      .clip { position: absolute; inset: 0; overflow: hidden; }
+      .scene { position: absolute; inset: 0; }
+      .art {
+        position: absolute; left: -84px; right: -84px; top: 250px; height: 820px;
+        background: #d3bf98; overflow: hidden;
+      }
+      .art::after {
+        content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 62%;
+        background: #345443; opacity: .82;
+        clip-path: polygon(0 100%, 0 62%, 16% 38%, 31% 59%, 48% 13%, 66% 50%, 84% 28%, 100% 66%, 100% 100%);
+      }
+      .copy {
+        position: absolute; left: 54px; right: 54px; top: 1080px;
+        padding: 42px 44px 46px; background: rgba(242,232,211,.97);
+        border-left: 8px solid #b8433f;
+      }
+      .kicker {
+        font-family: "PaperSans", sans-serif; font-size: 30px; font-weight: 700;
+        letter-spacing: 5px; color: #b8433f;
+      }
+      h1 { margin-top: 18px; font-family: "PaperKai", serif; font-size: 82px; line-height: 1.14; }
+      p { margin-top: 24px; font-family: "PaperSerif", serif; font-size: 42px; line-height: 1.55; }
+      .number {
+        position: absolute; left: 54px; top: 112px; z-index: 8;
+        font-family: "PaperSerif", serif; font-size: 240px; font-weight: 900;
+        line-height: .86; color: #b8433f;
+      }
+      .number .unit {
+        display: block; margin-top: 22px; font-family: "PaperKai", serif;
+        font-size: 54px; color: #1b1b1a;
+      }
+      .scene2 .art { top: 180px; height: 960px; }
+      .scene2 .copy { top: 1190px; }
+      .scene3 .art { top: 210px; height: 900px; }
+      .scene3 .copy { top: 1180px; }
+      .seal {
+        position: absolute; right: 42px; bottom: 64px; z-index: 20;
+        width: 90px; height: 90px; display: grid; place-items: center;
+        background: #b8341c; color: #f8f1de; font-family: "PaperKai", serif;
+        font-size: 30px; line-height: 1.05; text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0"
+         data-duration="18" data-width="1080" data-height="1920">
+      <div class="ground"></div>
+
+      <section class="clip scene1" data-start="0" data-duration="6" data-track-index="1">
+        <div class="scene" id="v1-motion">
+          <div class="art" id="v1-art"></div>
+          <div class="number" id="v1-number">0<span class="unit">元专利费</span></div>
+          <div class="copy" id="v1-copy">
+            <div class="kicker">一九五九 · 安全革命</div>
+            <h1>最值钱的发明，免费送人</h1>
+            <p>三项受力，把事故中的生存率抬上去。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="clip scene2" data-start="6" data-duration="6" data-track-index="1">
+        <div class="scene" id="v2-motion">
+          <div class="art" id="v2-art"></div>
+          <div class="copy" id="v2-copy">
+            <div class="kicker">哥德堡 · 一九二七</div>
+            <h1>两个瑞典人，从零造车</h1>
+            <p>先回答怎样让人安全回家。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="clip scene3" data-start="12" data-duration="6" data-track-index="1">
+        <div class="scene" id="v3-motion">
+          <div class="art" id="v3-art"></div>
+          <div class="number" id="v3-number">28<span class="unit">匹马力</span></div>
+          <div class="copy" id="v3-copy">
+            <div class="kicker">第一台车 · JAKOB</div>
+            <h1>慢，但先把结构做扎实</h1>
+            <p>车可以慢一点，人要能自己走下来。</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="seal">言同学</div>
+    </div>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const scenes = [
+        ["#v1-motion", "#v1-art", "#v1-number", "#v1-copy", 0],
+        ["#v2-motion", "#v2-art", null, "#v2-copy", 6],
+        ["#v3-motion", "#v3-art", "#v3-number", "#v3-copy", 12],
+      ];
+      scenes.forEach(([shell, art, number, copy, t]) => {
+        tl.fromTo(shell, { x: 90, autoAlpha: .55 },
+          { x: 0, autoAlpha: 1, duration: .34, ease: "power4.out" }, t);
+        tl.fromTo(art, { scale: 1.08 },
+          { scale: 1, duration: .58, ease: "power4.out" }, t);
+        if (number) {
+          tl.fromTo(number, { scale: 1.22, autoAlpha: 0 },
+            { scale: 1, autoAlpha: 1, duration: .4, ease: "power4.out" }, t + .14);
+        }
+        tl.fromTo(copy, { y: 80, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: .42, ease: "power4.out" }, t + .32);
+      });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

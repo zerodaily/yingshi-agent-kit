@@ -1,0 +1,56 @@
+<template>
+  <style>
+    @font-face { font-family: "PaperKai"; src: local("KaiTi"); }
+    @font-face { font-family: "PaperSerif"; src: local("SimSun"); }
+    @font-face { font-family: "PaperSans"; src: local("Microsoft YaHei"); }
+    #root { position: absolute; inset: 0; overflow: hidden; color: #1b1b1a; }
+    .v01-art {
+      position: absolute; left: -84px; right: -84px; top: 250px; height: 820px;
+      overflow: hidden; background: #d3bf98;
+    }
+    .v01-art::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 62%;
+      background: #345443; opacity: .82;
+      clip-path: polygon(0 100%, 0 62%, 16% 38%, 31% 59%, 48% 13%, 66% 50%, 84% 28%, 100% 66%, 100% 100%);
+    }
+    .v01-copy {
+      position: absolute; left: 54px; right: 54px; top: 1080px;
+      padding: 42px 44px 46px; background: rgba(242,232,211,.97);
+      border-left: 8px solid #b8433f;
+    }
+    .v01-kicker {
+      font-family: "PaperSans", sans-serif; font-size: 30px; font-weight: 700;
+      letter-spacing: 5px; color: #b8433f;
+    }
+    h1 { margin-top: 18px; font-family: "PaperKai", serif; font-size: 82px; line-height: 1.14; }
+    p { margin-top: 24px; font-family: "PaperSerif", serif; font-size: 42px; line-height: 1.55; }
+    .v01-number {
+      position: absolute; left: 54px; top: 112px; z-index: 8;
+      font-family: "PaperSerif", serif; font-size: 240px; font-weight: 900;
+      line-height: .86; color: #b8433f;
+    }
+    .v01-unit {
+      display: block; margin-top: 22px; font-family: "PaperKai", serif;
+      font-size: 54px; color: #1b1b1a;
+    }
+  </style>
+  <div id="root" data-composition-id="v01" data-width="1080" data-height="1920">
+    <div class="v01-art" id="v01-art"></div>
+    <div class="v01-number" id="v01-number">0<span class="v01-unit">元专利费</span></div>
+    <div class="v01-copy" id="v01-copy">
+      <div class="v01-kicker">一九五九 · 安全革命</div>
+      <h1>最值钱的发明，免费送人</h1>
+      <p>三项受力，把事故中的生存率抬上去。</p>
+    </div>
+  </div>
+  <script>
+    const v01 = gsap.timeline({ paused: true });
+    v01.fromTo("#v01-art", { scale: 1.08 },
+      { scale: 1, duration: 6, ease: "power1.out" }, 0);
+    v01.fromTo("#v01-number", { scale: 1.22, autoAlpha: 0 },
+      { scale: 1, autoAlpha: 1, duration: .4, ease: "power4.out" }, .14);
+    v01.fromTo("#v01-copy", { y: 80, autoAlpha: 0 },
+      { y: 0, autoAlpha: 1, duration: .42, ease: "power4.out" }, .32);
+    window.__timelines["v01"] = v01;
+  </script>
+</template>

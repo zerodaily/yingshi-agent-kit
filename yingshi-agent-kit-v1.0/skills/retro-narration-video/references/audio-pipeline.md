@@ -2,20 +2,22 @@
 
 ## IndexTTS2 服务
 
-部署目录（WSL）：`~/projects/j-indextts2`。服务没起就启动，不问用户：
+部署目录（WSL）：`~/projects/j-indextts2`。服务没起就启动，不问用户。**只用前台
+exec 交给宿主后台任务**，不要用已经验证会随会话退出的 `nohup`：
 
 ```bash
-wsl -d Ubuntu -e bash -lc 'cd ~/projects/j-indextts2 && nohup ./run_optimized.sh > webui_run.log 2>&1 &'
+wsl -d Ubuntu -e bash -lc 'cd ~/projects/j-indextts2 && exec ./run_optimized.sh'
 ```
 
 健康检查：`http://127.0.0.1:7860/` 返回 200。加载约 2–3 分钟。
-如果日志混入上一次推理内容，先 `mv webui_run.log webui_run_old.log` 再启动。
-
-> 启动方式坑（实测）：`wsl -d Ubuntu -e bash -lc 'nohup ... &'` 的后台进程会随会话退出被杀
-> （日志为空、进程消失）。改用 **exec 前台方式挂宿主后台任务**：
-> `wsl -d Ubuntu -e bash -lc 'cd ~/projects/j-indextts2 && exec ./run_optimized.sh'`（run_in_background）。
 > 另外 TTS 刚才还 200 不代表现在活着——`indextts2_speak.py` 开头已内置健康检查与
 > 自动拉起（`--no-auto-start` 可关闭），无需每次手动 curl。
+
+需要手动停止时，使用不会匹配当前 shell 本身的安全形式：
+
+```bash
+wsl -d Ubuntu -e bash -lc "pkill -f '[w]ebui.py'"
+```
 
 ## 分章生成
 
@@ -52,7 +54,7 @@ python <skill>\scripts\transcribe_wsl.py <项目目录>
 
 脚本会用 WSL faster-whisper（`~/miniconda3/envs/whisper`，medium/cuda）写
 `audio/transcript.json`。GPU 与 IndexTTS2 共用时内存会高，必要时先停 TTS：
-`wsl -d Ubuntu -e bash -lc 'pkill -f webui.py'`。
+`wsl -d Ubuntu -e bash -lc "pkill -f '[w]ebui.py'"`。
 
 ## 时间轴注意
 
@@ -74,8 +76,10 @@ Y:\Projects\自媒体\_BGM库\Select-BGM.ps1 -ProjectDir "<项目目录>"
 
 ## 混音电平硬标准（最高优先级，违反即返工）
 
-- **人声**：响度基准 `-6dB ~ -12dB`，人声是绝对主角，必须听得清清楚楚。
-- **BGM 全程固定平稳音量：比人声低 12–15dB**（约人声的 15–20% 音量），稳定铺在背景里当情绪底色。
+- **人声**：成片综合响度 `-16 ± 1 LUFS`，真峰值不高于 `-1.5 dBTP`，人声是绝对主角。
+- **BGM 全程固定平稳音量：比人声低 12–15 LU**，稳定铺在背景里当情绪底色。
 - **禁止动态侧链闪避 / ducking**：不要一说话就压 BGM、人停就升 BGM；BGM 全程音量平稳不跳变。
 - 禁止 BGM 和人声一样大、禁止 BGM 盖过人声、禁止用太炸的鼓点盖过旁白。
 - 「关键数字加重」只允许做成**一次性重音**（该处 BGM 短暂停顿或加重一下后立刻回平稳），不允许做成持续的音量起伏或闪避。
+- 混音完成必须检测 `integrated LUFS / true peak / clipping`；检测命令可用
+  `npx --yes hyperframes@latest audio <成片.mp4> --json` 或 `ffmpeg loudnorm print_format=json`。

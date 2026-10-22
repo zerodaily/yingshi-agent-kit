@@ -1,0 +1,64 @@
+<template>
+  <style>
+    @font-face { font-family: "PaperKai"; src: local("KaiTi"); }
+    @font-face { font-family: "PaperSerif"; src: local("SimSun"); }
+    @font-face { font-family: "PaperSans"; src: local("Microsoft YaHei"); }
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      color: #1b1b1a; font-family: "PaperSerif", serif;
+    }
+    .s02-copy {
+      position: absolute; left: 0; top: 0; width: 760px; height: 1080px;
+      z-index: 6; padding: 118px 74px 90px; background: rgba(242,232,211,.97);
+      border-right: 8px solid #b8433f;
+    }
+    .s02-copy h1 {
+      margin-top: 26px; font-family: "PaperKai", serif;
+      font-size: 84px; line-height: 1.12;
+    }
+    .s02-copy p {
+      margin-top: 28px; font-size: 32px; line-height: 1.6;
+    }
+    .s02-kicker {
+      font-family: "PaperSans", sans-serif; font-size: 30px; font-weight: 700;
+      letter-spacing: 7px; color: #b8433f;
+    }
+    .s02-art {
+      position: absolute; right: 0; top: 0; width: 1160px; height: 1080px;
+      overflow: hidden; background: #d8c6a4;
+    }
+    .s02-art::before {
+      content: ""; position: absolute; inset: 10% 7% auto auto; width: 48%; height: 54%;
+      background: #f2e8d3; clip-path: polygon(0 3%, 97% 0, 100% 91%, 4% 100%);
+      box-shadow: 0 18px 40px rgba(54,37,15,.28);
+    }
+    .s02-art::after {
+      content: ""; position: absolute; left: 8%; bottom: 8%; width: 68%; height: 42%;
+      background: #345443; opacity: .82;
+      clip-path: polygon(0 100%, 0 68%, 18% 44%, 30% 61%, 47% 18%, 61% 54%, 74% 34%, 100% 70%, 100% 100%);
+    }
+    .s02-year {
+      position: absolute; left: 56px; bottom: 44px; z-index: 7;
+      font-size: 112px; font-weight: 900; color: #66775f; letter-spacing: 8px;
+    }
+  </style>
+  <div id="root" data-composition-id="s02" data-width="1920" data-height="1080">
+    <div class="s02-art" id="s02-art"></div>
+    <div class="s02-copy" id="s02-copy">
+      <div class="s02-kicker">哥德堡 · 一九二七</div>
+      <h1>两个瑞典人，决定从零造车</h1>
+      <p>他们先问的不是能跑多快，而是一辆车怎样让人安全回家。</p>
+    </div>
+    <div class="s02-year" id="s02-year">1927</div>
+  </div>
+  <script>
+    const s02 = gsap.timeline({ paused: true });
+    s02.fromTo("#s02-art", { scale: 1.08 },
+      { scale: 1, duration: 6, ease: "power1.out" }, 0);
+    s02.fromTo("#s02-copy", { x: -90, autoAlpha: 0 },
+      { x: 0, autoAlpha: 1, duration: .42, ease: "power4.out" }, .12);
+    s02.fromTo("#s02-year", { y: 70, autoAlpha: 0 },
+      { y: 0, autoAlpha: 1, duration: .36, ease: "power4.out" }, .5);
+    window.__timelines["s02"] = s02;
+  </script>
+</template>

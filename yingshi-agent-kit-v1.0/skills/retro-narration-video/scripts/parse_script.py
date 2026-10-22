@@ -6,8 +6,9 @@ Outputs:
   audio/chapters.json             (TTS input; headings excluded from body)
 
 Usage:
-  python parse_script.py <project-dir>
+  python parse_script.py <project-dir> [--platform bilibili|douyin]
 """
+import argparse
 import json, os, re, sys
 
 HEADING = re.compile(
@@ -35,7 +36,11 @@ def clean_line(line: str) -> str:
 
 
 def main() -> None:
-    project = sys.argv[1] if len(sys.argv) > 1 else "."
+    ap = argparse.ArgumentParser()
+    ap.add_argument("project", nargs="?", default=".")
+    ap.add_argument("--platform", choices=["bilibili", "douyin"], default="bilibili")
+    args = ap.parse_args()
+    project = args.project
     raw_path = os.path.join(project, "scripts", "视频脚本_版本A.md")
     with open(raw_path, encoding="utf-8") as f:
         raw = f.read()
@@ -76,7 +81,7 @@ def main() -> None:
     # TTS 前硬校验：有硬错误直接失败，逼停流程
     try:
         from validate_script import validate
-        errors, warnings = validate(chapters)
+        errors, warnings = validate(chapters, platform=args.platform)
         for w in warnings:
             print("WARN " + w)
         for e in errors:

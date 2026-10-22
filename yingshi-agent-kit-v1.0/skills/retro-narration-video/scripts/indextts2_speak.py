@@ -14,7 +14,7 @@ import argparse, json, os, shutil, subprocess, sys, time
 import urllib.request
 
 try:
-    from yingshi_config import load_config, cfg_get, expand
+    from yingshi_config import load_config, cfg_get
     _CFG = load_config()
 except Exception:
     _CFG = {}
@@ -35,7 +35,9 @@ def ensure_tts_alive(host, timeout=240):
         return True
     except Exception as e:
         print("TTS not responding (%s), trying to start it..." % e, flush=True)
-    tts_dir = expand(_cf("tts.dir", "~/projects/j-indextts2"))
+    # This path is consumed inside WSL; expanding "~" on Windows would turn it
+    # into C:\Users\... and point at a non-existent WSL directory.
+    tts_dir = _cf("tts.dir", "~/projects/j-indextts2")
     run_sh = _cf("tts.run_script", "./run_optimized.sh")
     start_cmd = (
         "wsl -d Ubuntu -e bash -lc 'cd %s && exec %s'" % (tts_dir, run_sh)

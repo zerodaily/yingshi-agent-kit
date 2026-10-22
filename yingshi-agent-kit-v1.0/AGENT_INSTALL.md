@@ -2,13 +2,16 @@
 
 > **本文件写给 AI Agent 阅读。** 用户把本套件交给你，你的任务是：在这台电脑上完成「硬视」AI 视频工厂的全套本地部署，并通过末尾的冒烟测试。
 >
-> 你是执行者，不是提问者——除了 `config/onboarding.md` 里列出的必填项需要问用户，其余一切自行判断、自行安装、自行排错。排错资料见 `skills/retro-narration-video/references/` 下的四份文档（含已踩过的坑）。
+> 你是执行者，不是提问者——除了 `config/onboarding.md` 里列出的必填项需要问用户，其余一切自行判断、自行安装、自行排错。排错资料见 `skills/retro-narration-video/references/` 下的分册（含已踩过的坑）。
 
 ---
 
 ## 阶段 0 · 用户访谈（先做这个）
 
-逐项询问 `config/onboarding.md` 中的问题，把答案写入 `config/config.json`（模板见 `config/config.template.json`）。**必填项没有收集完之前，不要进入阶段 1。**
+逐项询问 `config/onboarding.md` 中的问题，把答案写入
+`skills/retro-narration-video/config.json`（模板见该目录 `config.template.json`）。
+仓库 `config/config.json` 只作为安装种子；也可让 `YINGSHI_CONFIG` 明确指向唯一运行配置。
+**必填项没有收集完之前，不要进入阶段 1。**
 
 用户自备素材（音色样本、风格参考图）应放入 `assets-customer/` 目录。如果用户暂时拿不出，标记为待补，冒烟测试改用临时公开素材（见阶段 7）。
 
@@ -84,7 +87,7 @@ wsl -d Ubuntu -e bash -lc 'pip install modelscope -y 2>/dev/null; modelscope dow
 mkdir 渲染测试目录 && cd 渲染测试目录 && npx hyperframes --version
 ```
 
-- 渲染统一参数（不要改）：`npx hyperframes render --quality draft --low-memory-mode`
+- 渲染统一使用当前 CLI：`npx --yes hyperframes@latest render --quality draft --gpu`
 - **禁用 `--workers 2`**：多 worker 会导致长视频帧存储爆盘（10 分钟视频约 205GB）
 - 渲染临时目录默认写系统 TEMP，C 盘紧张时先 `set TEMP/TMP` 到大盘
 
@@ -100,8 +103,9 @@ mkdir 渲染测试目录 && cd 渲染测试目录 && npx hyperframes --version
 2. `parse_script.py` 切分校验 → `audio/chapters.json`
 3. 启动 IndexTTS2 → `indextts2_speak.py` 合成 → filter 直拼 → `ffprobe` 验证时长
 4. 写 2 个测试 prompt → `zimage_gen.py` 出图 → ESRGAN ×4 放大
-5. 用 skill 的 `assets/starter_index_16x9.html` 模板合成 index.html → `npx hyperframes check`
-6. `npx hyperframes render --quality draft --low-memory-mode` → 成片
+5. 用 `scripts/new_project.py` 生成模块化临时项目，默认包含横屏主壳、场景子合成和
+   原生竖屏模板；替换一个场景素材后 → `npx --yes hyperframes@latest check --json`
+6. `npx --yes hyperframes@latest render --quality draft --gpu` → 成片
 7. **质检（不可跳过）**：`ffprobe` 验证时长；每 15 秒抽帧 `scale=160:90`，文件体积 < 1KB 的帧即黑屏 → 必须为 0；渲染前校验 index.html 引用的所有图片在磁盘上真实存在（缺图会静默渲染成黑屏，这是最高频事故）
 
 ## 阶段 8 · 交付与验收
@@ -112,7 +116,7 @@ mkdir 渲染测试目录 && cd 渲染测试目录 && npx hyperframes --version
 - [ ] Z-Image 出图成功、风格与参考图一致
 - [ ] ESRGAN 放大正常
 - [ ] HyperFrames 渲染出片、无黑屏帧
-- [ ] `config/config.json` 已保存全部配置（含各服务路径）
+- [ ] `<skill>/config.json` 已保存全部配置（含各服务路径），且脚本实际读取的就是这份
 - [ ] 用户已知悉：日常使用只需对 agent 说「用硬视产线做一期XX的视频」
 
 ## 排错索引

@@ -30,12 +30,26 @@ def _deep_merge(base, over):
     return out
 
 
+def config_source(path=None):
+    """Return the active config path; an explicit env path must exist."""
+    if path:
+        return path
+    env_path = os.environ.get("YINGSHI_CONFIG")
+    if env_path:
+        if not os.path.exists(env_path):
+            raise FileNotFoundError("YINGSHI_CONFIG 指向的文件不存在：%s" % env_path)
+        return env_path
+    if os.path.exists(_CONFIG):
+        return _CONFIG
+    return _TEMPLATE
+
+
 def load_config(path=None):
     """返回合并后的配置 dict（含模板默认值）。"""
     with open(_TEMPLATE, encoding="utf-8") as f:
         cfg = json.load(f)
-    cfg_path = path or os.environ.get("YINGSHI_CONFIG") or _CONFIG
-    if cfg_path and os.path.exists(cfg_path):
+    cfg_path = config_source(path)
+    if cfg_path and cfg_path != _TEMPLATE and os.path.exists(cfg_path):
         with open(cfg_path, encoding="utf-8") as f:
             cfg = _deep_merge(cfg, json.load(f))
     return cfg

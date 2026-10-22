@@ -1,0 +1,69 @@
+<template>
+  <style>
+    @font-face { font-family: "PaperKai"; src: local("KaiTi"); }
+    @font-face { font-family: "PaperSerif"; src: local("SimSun"); }
+    @font-face { font-family: "PaperSans"; src: local("Microsoft YaHei"); }
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      color: #1b1b1a; font-family: "PaperSerif", serif;
+    }
+    .s03-art {
+      position: absolute; inset: 0; overflow: hidden; background: #c9b892;
+    }
+    .s03-art::before {
+      content: ""; position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 76% 26%, rgba(184,67,63,.22), rgba(184,67,63,0) 28%),
+        linear-gradient(90deg, rgba(34,58,45,.42), rgba(34,58,45,0) 53%);
+    }
+    .s03-art::after {
+      content: ""; position: absolute; left: 44%; bottom: 4%; width: 52%; height: 57%;
+      background: #345443; opacity: .78;
+      clip-path: polygon(0 100%, 0 60%, 15% 36%, 31% 58%, 48% 12%, 65% 49%, 84% 27%, 100% 64%, 100% 100%);
+    }
+    .s03-data {
+      position: absolute; left: 88px; top: 116px; width: 560px;
+      z-index: 6; padding: 34px 38px 42px; background: rgba(242,232,211,.95);
+      border-top: 7px solid #b8433f;
+    }
+    .s03-kicker {
+      font-family: "PaperSans", sans-serif; font-size: 30px; font-weight: 700;
+      letter-spacing: 7px; color: #b8433f;
+    }
+    .s03-num {
+      margin-top: 16px; font-size: 168px; font-weight: 900;
+      line-height: .9; color: #b8433f;
+    }
+    .s03-unit {
+      margin-left: 12px; font-family: "PaperKai", serif;
+      font-size: 38px; color: #1b1b1a;
+    }
+    .s03-data h1 {
+      margin-top: 18px; font-family: "PaperKai", serif;
+      font-size: 48px; line-height: 1.25;
+    }
+    .s03-ring {
+      position: absolute; right: 132px; top: 146px; width: 510px; height: 410px;
+      z-index: 7; border: 10px solid rgba(184,67,63,.92); border-radius: 50%;
+    }
+  </style>
+  <div id="root" data-composition-id="s03" data-width="1920" data-height="1080">
+    <div class="s03-art" id="s03-art"></div>
+    <div class="s03-data" id="s03-data">
+      <div class="s03-kicker">第一台车 · JAKOB</div>
+      <div class="s03-num">28<span class="s03-unit">匹马力</span></div>
+      <h1>慢，但先把结构做扎实</h1>
+    </div>
+    <div class="s03-ring" id="s03-ring"></div>
+  </div>
+  <script>
+    const s03 = gsap.timeline({ paused: true });
+    s03.fromTo("#s03-art", { scale: 1.08 },
+      { scale: 1, duration: 6, ease: "power1.out" }, 0);
+    s03.fromTo("#s03-data", { x: -100, autoAlpha: 0 },
+      { x: 0, autoAlpha: 1, duration: .42, ease: "power4.out" }, .14);
+    s03.fromTo("#s03-ring", { scale: .72, rotation: -16, autoAlpha: 0 },
+      { scale: 1, rotation: -9, autoAlpha: 1, duration: .48, ease: "power3.out" }, .64);
+    window.__timelines["s03"] = s03;
+  </script>
+</template>

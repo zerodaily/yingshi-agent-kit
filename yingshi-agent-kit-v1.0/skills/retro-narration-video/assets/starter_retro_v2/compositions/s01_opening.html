@@ -1,0 +1,77 @@
+<template>
+  <style>
+    @font-face { font-family: "PaperKai"; src: local("KaiTi"); }
+    @font-face { font-family: "PaperSerif"; src: local("SimSun"); }
+    @font-face { font-family: "PaperSans"; src: local("Microsoft YaHei"); }
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      color: #1b1b1a; font-family: "PaperSerif", serif;
+    }
+    .s01-visual {
+      position: absolute; inset: 0; overflow: hidden;
+      background:
+        radial-gradient(circle at 78% 24%, rgba(184,67,63,.24), rgba(184,67,63,0) 27%),
+        linear-gradient(118deg, rgba(45,90,61,.20), rgba(231,215,184,.15));
+    }
+    .s01-visual::before {
+      content: ""; position: absolute; left: 61%; top: -8%; width: 54%; height: 116%;
+      background: #d7c39e; clip-path: polygon(9% 0, 100% 6%, 88% 100%, 0 92%);
+      box-shadow: -20px 18px 46px rgba(54,37,15,.22);
+    }
+    .s01-visual::after {
+      content: ""; position: absolute; left: 68%; bottom: 8%; width: 31%; height: 48%;
+      background: #345443; opacity: .86;
+      clip-path: polygon(0 100%, 0 67%, 17% 42%, 30% 60%, 48% 14%, 65% 53%, 82% 31%, 100% 70%, 100% 100%);
+    }
+    .s01-kicker {
+      position: absolute; left: 92px; top: 86px;
+      font-family: "PaperSans", sans-serif; font-size: 30px; font-weight: 700;
+      letter-spacing: 7px; color: #b8433f;
+    }
+    .s01-number {
+      position: absolute; left: 82px; top: 166px;
+      font-size: 330px; font-weight: 900; line-height: .82;
+      letter-spacing: -12px; color: #b8433f;
+    }
+    .s01-unit {
+      display: block; margin-top: 30px; margin-left: 8px;
+      font-family: "PaperKai", serif; font-size: 58px;
+      letter-spacing: 5px; color: #1b1b1a;
+    }
+    .s01-copy {
+      position: absolute; right: 92px; bottom: 92px; width: 760px;
+      padding: 34px 40px 38px; background: rgba(242,232,211,.95);
+      border-right: 8px solid #2d5a3d;
+      box-shadow: 0 20px 48px rgba(51,35,15,.24);
+    }
+    .s01-copy h1 {
+      margin-top: 14px; font-family: "PaperKai", serif;
+      font-size: 66px; line-height: 1.16;
+    }
+    .s01-copy p {
+      margin-top: 18px; font-size: 30px; line-height: 1.5;
+    }
+  </style>
+  <div id="root" data-composition-id="s01" data-width="1920" data-height="1080">
+    <div class="s01-visual"></div>
+    <div class="s01-kicker" id="s01-kicker">一九五九 · 安全革命</div>
+    <div class="s01-number" id="s01-number">0<span class="s01-unit">元专利费</span></div>
+    <div class="s01-copy" id="s01-copy">
+      <div class="s01-kicker" style="position:static;margin:0 0 10px 0">VOLVO SAFETY</div>
+      <h1>最值钱的发明，免费送给所有人</h1>
+      <p>三项受力，把事故中的生存率抬上去。</p>
+    </div>
+  </div>
+  <script>
+    const s01 = gsap.timeline({ paused: true });
+    s01.fromTo(".s01-visual", { scale: 1.012 },
+      { scale: 1, duration: 6, ease: "power1.out" }, 0);
+    s01.fromTo("#s01-number", { scale: 1.24, rotation: -3, autoAlpha: 0 },
+      { scale: 1, rotation: 0, autoAlpha: 1, duration: .42, ease: "power4.out" }, .12);
+    s01.fromTo("#s01-copy", { y: 70, autoAlpha: 0 },
+      { y: 0, autoAlpha: 1, duration: .42, ease: "power4.out" }, .34);
+    s01.fromTo("#s01-kicker", { x: -80, autoAlpha: 0 },
+      { x: 0, autoAlpha: 1, duration: .32, ease: "power4.out" }, .2);
+    window.__timelines["s01"] = s01;
+  </script>
+</template>

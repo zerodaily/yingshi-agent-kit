@@ -93,6 +93,8 @@ def main():
     ap.add_argument("project", help="项目根目录（含横屏 index.html）")
     ap.add_argument("--src", default="index.html")
     ap.add_argument("--dst", default=os.path.join("vertical_douyin", "index.html"))
+    ap.add_argument("--allow-scaled-dynamic", action="store_true",
+                    help="允许把多层动态横屏机械缩放成竖屏，仅用于临时检查")
     args = ap.parse_args()
 
     src = os.path.join(args.project, args.src)
@@ -103,13 +105,23 @@ def main():
 
     with open(src, encoding="utf-8") as f:
         html = f.read()
+    if not args.allow_scaled_dynamic and (
+        "scene-shell" in html or "broll-wrap" in html or "data-composition-src" in html
+    ):
+        print(
+            "拒绝自动缩放：检测到动态纸墨/场景子合成。"
+            "请从 assets/starter_retro_v2_vertical/ 建立原生竖屏工程；"
+            "仅临时检查时才加 --allow-scaled-dynamic。",
+            file=sys.stderr,
+        )
+        sys.exit(3)
     out = transform(html)
     os.makedirs(os.path.dirname(dst), exist_ok=True)
     with open(dst, "w", encoding="utf-8") as f:
         f.write(out)
 
     # 复制配图与音频
-    for rel in ["assets/illustrations", "口播拼接.wav"]:
+    for rel in ["assets/illustrations", "口播拼接.wav", "口播混音.wav"]:
         s, d = os.path.join(args.project, rel), os.path.join(args.project, "vertical_douyin", rel)
         if os.path.exists(s):
             if os.path.isdir(s):

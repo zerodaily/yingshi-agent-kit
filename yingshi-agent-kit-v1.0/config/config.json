@@ -24,7 +24,7 @@
   },
   "paths": {
     "projects_root": "Y:\\Projects\\自媒体",
-    "indextts_dir_wsl": "~/projects/j-indexctts2",
+    "indextts_dir_wsl": "~/projects/j-indextts2",
     "zimage_dir_wsl": "~/projects/Z-Image",
     "zimage_model_wsl": "/mnt/e/ai-models/ltxdesktop/Z-Image-Turbo",
     "esrgan_exe": "Y:\\Projects\\自媒体\\_本地出图实验\\tools\\realesrgan-ncnn-vulkan.exe",
@@ -35,13 +35,13 @@
   },
   "fixed_copy": {
     "opening_line": "欢迎回来，我是言同学。",
-    "ending_line": "今天的故事先讲到这,你顺手点的一个关注赞,是对我极致的肯定,有更新你会第一时间收到提醒,我是认真讲故事的言同学,咱们下期再见~"
+    "ending_line": "好了，今天的故事就到这里。我是言同学，我们下辆车再见。"
   },
   "render": {
     "horizontal_res": "1920x1080",
     "vertical_res": "1080x1920",
     "fps": 30,
-    "quality": "draft",
-    "extra_args": "--low-memory-mode --gpu"
+    "quality": "looks",
+    "extra_args": "--gpu"
   }
 }

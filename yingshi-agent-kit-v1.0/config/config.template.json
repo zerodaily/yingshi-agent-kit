@@ -24,7 +24,7 @@
   },
   "paths": {
     "projects_root": "D:\\yingshi-projects",
-    "indextts_dir_wsl": "~/projects/j-indextts2",
+    "indextts_dir_wsl": "~/projects/j-indexctts2",
     "zimage_dir_wsl": "~/Z-Image",
     "zimage_model_wsl": "~/models/Z-Image-Turbo",
     "esrgan_exe": "C:\\yingshi\\tools\\realesrgan-ncnn-vulkan.exe",

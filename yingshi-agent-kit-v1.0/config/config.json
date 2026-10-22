@@ -24,7 +24,7 @@
   },
   "paths": {
     "projects_root": "Y:\\Projects\\自媒体",
-    "indextts_dir_wsl": "~/projects/j-indextts2",
+    "indextts_dir_wsl": "~/projects/j-indexctts2",
     "zimage_dir_wsl": "~/projects/Z-Image",
     "zimage_model_wsl": "/mnt/e/ai-models/ltxdesktop/Z-Image-Turbo",
     "esrgan_exe": "Y:\\Projects\\自媒体\\_本地出图实验\\tools\\realesrgan-ncnn-vulkan.exe",

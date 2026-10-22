@@ -2,11 +2,11 @@
 
 ## IndexTTS2 服务
 
-部署目录（WSL）：`~/projects/j-indextts2`。服务没起就启动，不问用户。**只用前台
+部署目录（WSL）：`~/projects/j-indexctts2`。服务没起就启动，不问用户。**只用前台
 exec 交给宿主后台任务**，不要用已经验证会随会话退出的 `nohup`：
 
 ```bash
-wsl -d Ubuntu -e bash -lc 'cd ~/projects/j-indextts2 && exec ./run_optimized.sh'
+wsl -d Ubuntu -e bash -lc 'cd ~/projects/j-indexctts2 && exec ./run_optimized.sh'
 ```
 
 健康检查：`http://127.0.0.1:7860/` 返回 200。加载约 2–3 分钟。

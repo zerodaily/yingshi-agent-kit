@@ -10,7 +10,7 @@
   "illustration_library": "Y:/Projects/自媒体/_配图库",
   "projects_root": "Y:/Projects/自媒体",
   "tts": {
-    "dir": "~/projects/j-indextts2",
+    "dir": "~/projects/j-indexctts2",
     "health_url": "http://127.0.0.1:7860/",
     "port": 7860,
     "run_script": "./run_optimized.sh"

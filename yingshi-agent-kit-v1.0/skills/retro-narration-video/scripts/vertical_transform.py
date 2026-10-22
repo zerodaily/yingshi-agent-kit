@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """横屏 index.html -> 抖音竖屏工程（一键转换，不手改）。
 
-规则来源：references/composition-and-render.md 竖屏工程 + SKILL.md 抖音安全区排版。
+规则来源：references/composition-and-render.md 竖屏工程 + references/cover-and-layout.md §6 竖屏安全区排版。
   - root/meta/body 1920x1080 -> 1080x1920
   - 所有 font-size x 0.62（round）
   - 横向宽容器（>=1200px 的 width/max-width）压到 950px

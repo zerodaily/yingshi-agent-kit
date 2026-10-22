@@ -1,9 +1,21 @@
 # HyperFrames 合成与渲染
 
+## 新建项目脚手架
+
+优先用脚手架一键搭目录，替代手动复制已验收工程：
+
+```powershell
+python <skill>\scripts\new_project.py "20261005-丰田-第一集" [--brief "目标时长8分钟，5章"]
+```
+
+目录落在 config 的 projects_root 下，自动建好 `BRIEF.md`、`notes/`、`scripts/`、`audio/`、
+`assets/illustrations/`、`renders/`、`vertical_douyin/`、图集目录，并从 starter 模板复制
+`index.html` 起点。要沿用某个已验收工程的具体排版时，再复制该工程再改（结构范本参照
+`Y:\Projects\自媒体\在外互助父母协议_试片`，风格范本参照日产 / 凯迪拉克工程）。
+
 ## 合成结构
 
-参照已验收的 `Y:\Projects\自媒体\在外互助父母协议_试片`。每个画面是一个
-`section.clip`（直接挂 root），内部结构：
+每个画面是一个 `section.clip`（直接挂 root），内部结构：
 
 ```html
 <section id="s03-title" class="clip" data-start="17.903" data-duration="11.307" data-track-index="1">
@@ -21,6 +33,8 @@
 - `.clip` 必须是 root 直接子元素；不要在它外面再包带时序的容器。
 - 视频若存在：`muted playsinline`、自带 `data-start/duration`、直接放 root；
   不要包进带 `data-start` 的 section（会 frozen）。
+- B-roll 空镜打底的层级、scrim 浓度、预循环烘焙、选片与节奏口径，见
+  `visual-craft.md` 第 2、3 节，本文件只规定合成结构。
 - 中文字体声明：`@font-face { font-family:"ChineseSans"; src: local("Microsoft YaHei"); }`
   KaiTi/SimSun 同理，否则 lint 报 font-family 未声明。
 - 正文不要用 `<br>`；用 max-width 让文本自然换行。

@@ -1,5 +1,5 @@
 /* B站投稿页发布前一键校验（粘贴到浏览器控制台运行）。
- * 按 SKILL.md 里的 placeholder 定位法检查所有必填项，全部通过再点"存草稿"。
+ * 按 references/publish.md 的 placeholder 定位法检查所有必填项，全部通过再点"存草稿"。
  * 有任何一项 FAIL 就先修，不要强行提交。
  */
 (function () {

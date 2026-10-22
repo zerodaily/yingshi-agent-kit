@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """口播稿硬规则校验（TTS 之前的最后一道闸）。
 
-检查 audio/chapters.json，规则来源：SKILL.md 关键规则 + 脚本去AI味规则。
+检查 audio/chapters.json，规则来源：references/script-rules.md（结构、标点、去 AI 味、字数口径）。
 硬错误 -> exit 1（必须修完才能进 TTS）；警告 -> exit 0（建议修）。
 
 用法：
@@ -28,7 +28,7 @@ AI_CLICHES = [
 
 GREETING = "欢迎回来，我是言同学。"
 ENDING_1 = "好了，今天的故事就到这里。我是言同学，我们下辆车再见。"
-ENDING_2 = "对了，你最想让我讲哪台车？评论区告诉我。"
+ENGAGE_RE = r"评论区|聊聊|你觉得|说说|评论"
 
 
 def sentences(text):
@@ -53,9 +53,9 @@ def validate(chapters):
             errors.append("[第1章] hook 之后必须一字不差出现：" + GREETING)
         tail = chapters[-1]["text"].replace(" ", "")
         if ENDING_1.replace(" ", "") not in tail:
-            warnings.append("[结尾] 建议以固定话术收尾：" + ENDING_1)
-        if ENDING_2.replace(" ", "") not in tail:
-            warnings.append("[结尾] 建议加一句互动引导：" + ENDING_2)
+            errors.append("[结尾] 必须一字不差以固定句收尾：" + ENDING_1)
+        if not re.search(ENGAGE_RE, tail):
+            warnings.append("[结尾] 固定句后建议加一句本集专属互动引导（评论区 / 聊聊 / 你觉得）")
     for c in chapters:
         for s in sentences(c["text"]):
             if len(s) > 15:

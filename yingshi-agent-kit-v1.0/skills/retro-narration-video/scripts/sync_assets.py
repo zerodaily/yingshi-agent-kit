@@ -38,7 +38,8 @@ def _cf(key, default):
 
 def wsl_run(cmd):
     r = subprocess.run(["wsl", "-d", "Ubuntu", "-e", "bash", "-lc", cmd],
-                       capture_output=True, text=True)
+                       capture_output=True, text=True,
+                       encoding="utf-8", errors="replace")
     return r
 
 
@@ -98,15 +99,22 @@ def cmd_verify(project, html_name="index.html"):
     if not os.path.exists(html_path):
         print(f"找不到 {html_path}", file=sys.stderr)
         sys.exit(1)
-    with open(html_path, encoding="utf-8") as f:
-        html = f.read()
-    refs = sorted(set(re.findall(r'<img[^>]+src="([^"]+)"', html)))
+    html_files = [html_path]
+    comp_dir = os.path.join(os.path.dirname(html_path), "compositions")
+    if os.path.isdir(comp_dir):
+        html_files.extend(sorted(glob.glob(os.path.join(comp_dir, "**", "*.html"), recursive=True)))
+    refs = set()
+    for file_path in html_files:
+        with open(file_path, encoding="utf-8") as f:
+            html = f.read()
+        refs.update(re.findall(r'<img[^>]+src="([^"]+)"', html))
+    refs = sorted(refs)
     missing = [s for s in refs
                if s.startswith(("http", "data:"))
                or not os.path.exists(os.path.join(project, s))]
     # data: 与 http 视为外部资源，不判缺失
     missing = [s for s in missing if not s.startswith(("http", "data:"))]
-    print(f"index.html 引用图片 {len(refs)} 张，缺失 {len(missing)} 张")
+    print(f"检查 {len(html_files)} 个 HTML，引用图片 {len(refs)} 张，缺失 {len(missing)} 张")
     for s in missing:
         print("  MISSING:", s)
     if missing:

@@ -55,6 +55,9 @@ description: >-
 B 站 5–8 分钟长片默认只用“动态纸墨”。Vox / huashu 不替代长片主流程；需要长解释
 内容时先用动态纸墨完成长片，再单独剪一条 60–180 秒实验短片。
 
+`MG Styles 15` 等新增来源目前只登记在 `references/future-style-references.md`，
+属于候选参考，不属于以上三种已生效风格，不参与当前选型、分镜、出图或渲染。
+
 ## 开工前必读（跑哪步读哪份，细节以下册为准）
 
 - [references/script-rules.md](references/script-rules.md)：口播稿结构、开场结尾、
@@ -73,6 +76,9 @@ B 站 5–8 分钟长片默认只用“动态纸墨”。Vox / huashu 不替代�
   （照片原型 · 黑色钢笔线稿）的封面生图提示词、同框互动要求和动作示例。
 - [references/publish.md](references/publish.md)：B 站 Browser Use 发布步骤、
   发布说明模板、抖音物料、标题标签简介规范、草稿箱限制。
+- [references/future-style-references.md](references/future-style-references.md)：
+  `MG Styles 15` 候选风格库。**尚未整合**；只有用户明确要求研究或扩展风格时才读取，
+  不得影响当前动态纸墨主流程。
 
 ## 全局不可变硬规则（跨册，违反即返工；细则在对应分册）
 

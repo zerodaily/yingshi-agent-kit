@@ -3,8 +3,8 @@
 4 套排版轮换使用，保证系列感但不单调。三层权威：封面**风格/落位/模板**规则见
 `references/cover-and-layout.md`；人物 **IP 外貌与生图提示词**见
 `references/cover-ip-prompt.md`；**出图技术参数**见 `references/image-pipeline.md`。
-视觉基准见 `style-reference-modern-16x9.jpg` 与
-`style-reference-modern-9x16.jpg`。
+视觉基准见 `style-reference-retro-clipping-16x9.jpg` 与
+`style-reference-retro-clipping-9x16.jpg`，均取自日产复古剪报定稿。
 
 | 模板 | 文件 | 适用 |
 |---|---|---|

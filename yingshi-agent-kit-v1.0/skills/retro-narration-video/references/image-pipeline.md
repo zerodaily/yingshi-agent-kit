@@ -104,5 +104,6 @@ verify 逐张检查引用，缺图直接失败——**缺图会静默渲染成�
 - **生图不写字**：标题、品牌、年份、数字、标签和「言同学」印章全部由 HTML/CSS 叠加。
 - **落位比例与顶部留白**：人物占比、标题区留白规则见 `cover-and-layout.md` §4，本册不复述。
 - **无参考图**：Z-Image 不接受参考图，IP 一致性靠 `cover-ip-prompt.md` 固定提示词、统一墨线
-  和固定几何识别点锁定。视觉校准图 `assets/covers/style-reference-modern-16x9.jpg`、
-  `style-reference-modern-9x16.jpg` 待下次出新封面时按旧风重出校准图。
+  和固定几何识别点锁定。视觉校准图
+  `assets/covers/style-reference-retro-clipping-16x9.jpg`、
+  `style-reference-retro-clipping-9x16.jpg` 取自日产定稿。

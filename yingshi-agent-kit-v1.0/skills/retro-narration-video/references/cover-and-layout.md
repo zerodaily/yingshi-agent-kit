@@ -11,8 +11,8 @@
 > **封面基准（2026-10-23 回归已验收旧风）**：以五菱、大众、日产、凯迪拉克四张定稿为准的
 > 复古剪报线稿风——米黄旧纸底 + 撕边毛边纸卡 + 黑白半调/木刻排线车图 + 黑色钢笔线稿人物
 > + 磨损做旧超大标题 + 朱红印章。废弃此前「深墨绿充墨扁平插画 + 黄肤扁平人物 + 硬黑矩形框」
-> 的跑偏口径。视觉校准见 `assets/covers/style-reference-modern-16x9.jpg` 与
-> `assets/covers/style-reference-modern-9x16.jpg`（校准图待下次出新封面时一并更新）。
+> 的跑偏口径。视觉校准见 `assets/covers/style-reference-retro-clipping-16x9.jpg` 与
+> `assets/covers/style-reference-retro-clipping-9x16.jpg`（取自日产定稿）。
 
 ## 1. 动手前先定 token（frontend-design 纪律）
 

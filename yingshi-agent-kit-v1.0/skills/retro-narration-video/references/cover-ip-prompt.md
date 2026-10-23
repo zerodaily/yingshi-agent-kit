@@ -12,8 +12,8 @@
 
 视觉校准文件：
 
-- `assets/covers/style-reference-modern-16x9.jpg`
-- `assets/covers/style-reference-modern-9x16.jpg`
+- `assets/covers/style-reference-retro-clipping-16x9.jpg`
+- `assets/covers/style-reference-retro-clipping-9x16.jpg`
 
 ## 使用边界
 

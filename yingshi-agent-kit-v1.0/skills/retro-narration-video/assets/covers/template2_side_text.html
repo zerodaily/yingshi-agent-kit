@@ -1,24 +1,23 @@
 <!doctype html>
-<!-- 封面模板2 · 左图右文款：左侧2/3 深墨绿场景与言同学，右侧1/3 竖排中文品牌名+英文副标 -->
+<!-- 封面模板2 · 左图右文款：左侧2/3 撕边纸卡内黑白半调车与黑线稿言同学，右侧1/3 竖排品牌名+英文副标 -->
 <html lang="zh">
 <head><meta charset="UTF-8"><link rel="stylesheet" href="common.css">
 <style>
-  .left { position: absolute; top: 70px; bottom: 70px; left: 70px; width: 990px; }
-  .left img { width: 100%; height: 100%; object-fit: cover; display: block;
-              border: 6px solid #1b1b1a; }
+  .left { position: absolute; top: 70px; bottom: 70px; left: 70px; width: 990px; z-index: 2; }
+  .left img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .right { position: absolute; top: 70px; bottom: 70px; right: 70px; width: 400px;
-           display: flex; flex-direction: row-reverse; gap: 30px; justify-content: center; }
-  .brand-v { writing-mode: vertical-rl; font-size: 150px; font-weight: bold; letter-spacing: 24px; }
-  .sub-v { writing-mode: vertical-rl; font-size: 44px; letter-spacing: 10px; color: #5a6b52;
+           display: flex; flex-direction: row-reverse; gap: 30px; justify-content: center; z-index: 5; }
+  .brand-v { writing-mode: vertical-rl; font-size: 150px; font-weight: bold; letter-spacing: 24px; color: #1c3a32; }
+  .sub-v { writing-mode: vertical-rl; font-size: 44px; letter-spacing: 10px; color: #1b1b1a;
            padding-top: 30px; }
 </style></head>
 <body>
 <div class="cover">
-  <div class="left">
-    <div class="ph">米黄纸底 + 深墨绿车 + 言同学同框互动<br>cover_hero.png</div>
+  <div class="left paper-card">
+    <div class="ph">撕边纸卡内：黑白半调车 + 黑线稿言同学同框互动<br>cover_hero.png</div>
   </div>
   <div class="right">
-    <div class="brand-v">本田</div>
+    <div class="brand-v title-worn">本田</div>
     <div class="sub-v">HONDA · 技研魂</div>
   </div>
   <div class="seal bl">言同学</div>

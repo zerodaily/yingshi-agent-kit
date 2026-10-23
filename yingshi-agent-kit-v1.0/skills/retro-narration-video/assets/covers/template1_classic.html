@@ -1,27 +1,26 @@
 <!doctype html>
-<!-- 封面模板1 · 经典款：顶部超大中文品牌名 → 小号英文/钩子 → 米黄纸底与深墨绿车+言同学 → 右下角红印章 -->
+<!-- 封面模板1 · 经典款：顶部超大磨损品牌名 → 小号英文/钩子+贯穿细线 → 撕边纸卡内黑白半调车与黑线稿言同学 → 右下角朱红印章 -->
 <html lang="zh">
 <head><meta charset="UTF-8"><link rel="stylesheet" href="common.css">
 <style>
   .brand { position: absolute; top: 40px; left: 0; right: 0; text-align: center;
-           font-size: 200px; font-weight: bold; letter-spacing: 30px; }
-  .sub { position: absolute; top: 330px; left: 0; right: 0; text-align: center; }
-  .sub .en { font-size: 54px; letter-spacing: 12px; margin-bottom: 18px; }
+           font-size: 200px; font-weight: bold; letter-spacing: 30px; color: #1c3a32; z-index: 5; }
+  .sub { position: absolute; top: 330px; left: 0; right: 0; text-align: center; z-index: 5; }
+  .sub .en { font-size: 54px; letter-spacing: 12px; margin-bottom: 18px; color: #1b1b1a; }
   .sub .rule-double { width: 1100px; margin: 0 auto; }
-  .hero { position: absolute; top: 470px; left: 130px; right: 130px; bottom: 120px; }
-  .hero img { width: 100%; height: 100%; object-fit: cover; display: block;
-              border: 6px solid #1b1b1a; }
+  .hero { position: absolute; top: 470px; left: 130px; right: 130px; bottom: 120px; z-index: 2; }
+  .hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
 </style></head>
 <body>
 <div class="cover">
-  <div class="brand">丰田</div>
+  <div class="brand title-worn">丰田</div>
   <div class="sub">
     <div class="en">TOYOTA · 汽车帝国</div>
     <div class="rule-double"></div>
   </div>
-  <div class="hero">
+  <div class="hero paper-card">
     <!-- 一整车与人物同框互动的场景；prompt 见 references/cover-ip-prompt.md -->
-    <div class="ph">米黄纸底 + 深墨绿车 + 言同学同框互动<br>cover_hero.png</div>
+    <div class="ph">撕边纸卡内：黑白半调车 + 黑线稿言同学同框互动<br>cover_hero.png</div>
   </div>
   <div class="seal br">言同学</div>
 </div>

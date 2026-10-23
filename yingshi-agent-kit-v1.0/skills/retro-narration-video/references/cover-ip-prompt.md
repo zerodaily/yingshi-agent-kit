@@ -1,9 +1,13 @@
-# 封面人物 IP 提示词（言同学 · 照片原型定稿 · 黑色钢笔线稿版）
+# 封面人物 IP 提示词（言同学 · 照片原型定稿 · 黑色钢笔线稿版 · 形象层唯一权威）
 
-> 这是硬视封面中固定人物 IP 的唯一生图提示词。人物识别点以照片原型定稿为准
-> （`Y:\Projects\自媒体\言同学IP形象描述_照片原型.md`），封面整体回归已验收的
-> 复古剪报线稿风：米黄旧纸底、撕边毛边纸卡、黑白半调/木刻排线车图、黑色钢笔线稿人物、
-> 磨损做旧超大标题和朱红印章。不再使用大头卡通、写实肖像、整张纯白线稿封面，也不再使用
+> 本册是封面固定人物 IP 的**唯一权威**：外貌、穿戴、神态、英文生图段、动作示例都以本册为准，
+> 其他分册只写指针、不复述特征。人物识别点以照片原型定稿为准
+> （`Y:\Projects\自媒体\言同学IP形象描述_照片原型.md`）。
+>
+> 分层归属：**形象层（本册）** = 人物特征与画风实现；**风格层**（纸底、撕边纸卡、黑白半调、
+> 配色 token、标题、印章、四模板、禁止项）唯一权威在 `references/cover-and-layout.md`；
+> **技术层**（出图参数、同步、放大）唯一权威在 `references/image-pipeline.md`。
+> 封面整体回归已验收的复古剪报线稿风，不再使用大头卡通、写实肖像、整张纯白线稿封面，也不再使用
 > 此前跑偏的「深墨绿充墨扁平插画 + 黄肤扁平人物」口径。
 
 视觉校准文件：
@@ -13,13 +17,12 @@
 
 ## 使用边界
 
-- **封面路线（2026-10-23 拍板）**：车人同框一张出——人物和车必须在同一张生成场景里互动；
-  车单独出图、再用 PIL 代码贴人的拆层路线已废弃，新封面禁止使用。
+- **封面路线**：车人同框一张出、拆层贴人路线废弃；路线与落位规则见 `cover-and-layout.md` §4。
 - 生图只负责画面，不负责标题、品牌名、年份、标签和印章；这些文字全部由 HTML/CSS 叠加。
 - 一个尺寸一张原生构图。不得先生成 4:3 再机械裁切成六个尺寸。
 - 只要画面出现真实五官、写实照片感、可爱大头、Q 版吉祥物，直接重生成。
-- 封面主体放在撕边毛边纸卡内，纸外是米黄旧纸；禁止 6px 硬黑矩形边框的 PPT 画框。
-- 车/机械以黑白半调、旧照片颗粒、木刻排线为主；禁止整台车涂成单一主色平块。
+- 纸底、撕边纸卡、半调质感、配色、印章、模板等**风格细则**权威在 `cover-and-layout.md`；
+  本册生图段为可执行自包含成品，禁止项与其保持一致。
 
 ## 固定 IP：言同学（定稿，不得擅自改特征）
 
@@ -46,8 +49,8 @@ character drawn in black pen-and-ink line art.
 Canvas:
 {宽高比与像素尺寸}
 
-Visual DNA:
-Warm cream aged-paper background with fine paper grain, faint stains and
+Visual DNA（风格细则权威在 cover-and-layout.md；本段为生图自包含成品，口径与其一致）:
+Warm cream aged-paper background #efe2c1 with fine paper grain, faint stains and
 soft creases. The subject sits inside a torn deckle-edge paper card with a
 cream keylight edge and a soft drop shadow; no hard rectangular frame.
 The car, engine or scene is rendered in black-and-white halftone, old-photo
@@ -89,9 +92,9 @@ Composition:
 {主视觉主体与占画比例；人物约占画面 1/4–1/3；保留标题和数字的干净负空间。}
 
 Color accents:
-Black ink for the character, car outline and hatching. One restrained
-accent color (vermilion / deep green / navy blue) for a title patch or one
-local area only. Keep at least 35% of the canvas visually quiet cream paper.
+Black ink #1b1b1a for the character, car outline and hatching. One restrained
+accent color (vermilion #c0392b / deep green #1c3a32 / navy blue) for a title
+patch or one local area only. Keep at least 35% of the canvas visually quiet cream paper.
 
 Text:
 No text, no letters, no numbers, no logos and no fake typography anywhere in

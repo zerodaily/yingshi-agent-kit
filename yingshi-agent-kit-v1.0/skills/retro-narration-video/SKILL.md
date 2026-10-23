@@ -65,15 +65,15 @@ B 站 5–8 分钟长片默认只用“动态纸墨”。Vox / huashu 不替代�
 - [references/audio-pipeline.md](references/audio-pipeline.md)：IndexTTS2、拼接、
   转写、BGM 选曲、混音电平硬标准。
 - [references/image-pipeline.md](references/image-pipeline.md)：Z-Image +
-  Real-ESRGAN 本地出图、风格锁定、言同学 IP 唯一标准。
+  Real-ESRGAN 本地出图、风格前缀、放大归位、文件同步（出图技术唯一权威）。
 - [references/composition-and-render.md](references/composition-and-render.md)：
   HyperFrames 横/竖结构、校验、渲染、抽帧套图。
 - [references/visual-craft.md](references/visual-craft.md)：镜头节奏口径、真实
   B-roll 空镜层、揭示动作、转场、三风格镜头语法（反 PPT 感唯一权威）。
-- [references/cover-and-layout.md](references/cover-and-layout.md)：封面 4 模板、
-  配色 token、IP 落位、静态卡片排版、反 AI 模板套路。
-- [references/cover-ip-prompt.md](references/cover-ip-prompt.md)：言同学定稿人物
-  （照片原型 · 黑色钢笔线稿）的封面生图提示词、同框互动要求和动作示例。
+- [references/cover-and-layout.md](references/cover-and-layout.md)：封面风格层唯一权威——
+  配色 token、纸卡/标题/印章落位、4 模板、静态卡片排版、反 AI 模板套路。
+- [references/cover-ip-prompt.md](references/cover-ip-prompt.md)：封面形象层唯一权威——
+  言同学定稿人物（照片原型 · 黑色钢笔线稿）外貌特征、英文生图提示词、同框互动与动作示例。
 - [references/publish.md](references/publish.md)：B 站 Browser Use 发布步骤、
   发布说明模板、抖音物料、标题标签简介规范、草稿箱限制。
 - [references/future-style-references.md](references/future-style-references.md)：
@@ -112,10 +112,9 @@ B 站 5–8 分钟长片默认只用“动态纸墨”。Vox / huashu 不替代�
     比人声低 12–15 LU、平稳不跳变，禁止侧链闪避 / ducking。成片必须用响度检测验证，
     不能只看播放器音量。细则见 `audio-pipeline.md`「混音电平硬标准」。
 11. **封面统一语言**：回归已验收旧风——米黄旧纸底 + 撕边毛边纸卡 + 黑白半调/木刻排线车图，
-    人物为黑色钢笔线稿「言同学」（保留照片原型辨识特征：上唇小髭 + 下巴山羊胡、细框矩形眼镜、
-    黑色乱发、中等略壮），顶部超大磨损品牌名，白底朱红印章。禁止深墨绿充墨扁平插画、黄肤扁平
-    色块人物和硬黑矩形画框。标准定义唯一权威在 `image-pipeline.md`，完整生图提示词在
-    `cover-ip-prompt.md`，封面落位与模板在 `cover-and-layout.md`。
+    人物为黑色钢笔线稿「言同学」，顶部超大磨损品牌名，白底朱红印章；禁止深墨绿充墨扁平插画、
+    黄肤扁平色块人物和硬黑矩形画框。三层权威：形象外貌与生图段见 `cover-ip-prompt.md`，
+    风格/配色/落位/模板见 `cover-and-layout.md`，出图技术见 `image-pipeline.md`。
 
 ## 工作流闸门
 

@@ -74,7 +74,7 @@ B 站 5–8 分钟长片默认只用“动态纸墨”。Vox / huashu 不替代�
 - [references/visual-craft.md](references/visual-craft.md)：镜头节奏口径、真实
   B-roll 空镜层、揭示动作、转场、三风格镜头语法（反 PPT 感唯一权威）。
 - [references/cover-and-layout.md](references/cover-and-layout.md)：封面风格层唯一权威——
-  配色 token、纸卡/标题/印章落位、4 模板、静态卡片排版、反 AI 模板套路。
+  配色 token、纸卡/标题/印章落位、6 模板、静态卡片排版、反 AI 模板套路。
 - [references/cover-ip-prompt.md](references/cover-ip-prompt.md)：封面形象层唯一权威——
   言同学定稿人物（照片原型 · 黑色钢笔线稿）外貌特征、英文生图提示词、同框互动与动作示例。
 - [references/publish.md](references/publish.md)：B 站 Browser Use 发布步骤、

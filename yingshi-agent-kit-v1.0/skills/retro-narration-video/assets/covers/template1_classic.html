@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- 封面模板1 · 经典款（日产模板）：顶部巨字品牌名 → 横线+英文副标题 → 车+言同学互动 → 右下角红印章 -->
+<!-- 封面模板1 · 经典款：顶部品牌名 → 横线+中文钩子 → 车与小黑风 IP「他」同框互动 → 右下角红印章 -->
 <html lang="zh">
 <head><meta charset="UTF-8"><link rel="stylesheet" href="common.css">
 <style>
@@ -8,12 +8,9 @@
   .sub { position: absolute; top: 330px; left: 0; right: 0; text-align: center; }
   .sub .en { font-size: 54px; letter-spacing: 12px; margin-bottom: 18px; }
   .sub .rule-double { width: 1100px; margin: 0 auto; }
-  .hero { position: absolute; top: 470px; left: 130px; right: 130px; bottom: 120px;
-          display: flex; gap: 40px; align-items: stretch; }
-  .hero .car { flex: 3; }
-  .hero .yctx { flex: 1; }
+  .hero { position: absolute; top: 470px; left: 130px; right: 130px; bottom: 120px; }
   .hero img { width: 100%; height: 100%; object-fit: cover; display: block;
-              border: 6px solid #2d5a3d; }
+              border: 6px solid #1b1b1a; }
 </style></head>
 <body>
 <div class="cover">
@@ -23,10 +20,8 @@
     <div class="rule-double"></div>
   </div>
   <div class="hero">
-    <!-- 主车图：换成 cover_car.png（言同学与车互动：坐车上看书 / 靠车门 / 蹲车头修车） -->
-    <div class="car ph">主车图<br>cover_car.png</div>
-    <!-- 言同学 IP 外貌标准见 references/image-pipeline.md，封面落位见 references/cover-and-layout.md，占画面约1/4 -->
-    <div class="yctx ph">言同学IP<br>cover_yantongxue.png</div>
+    <!-- 一整车与人物同框互动的场景；prompt 见 references/cover-ip-prompt.md -->
+    <div class="ph">车 + 小黑风 IP「他」同框互动<br>cover_hero.png</div>
   </div>
   <div class="seal br">言同学</div>
 </div>

@@ -1,8 +1,15 @@
 # 封面人物 IP 提示词（小黑风「他」）
 
-> 这是硬视封面中固定人物 IP 的唯一生图提示词。视觉源来自
+> 这是硬视封面中固定人物 IP 的唯一生图提示词。人物视觉源来自
 > `ian-xiaohei-illustrations` 的小黑风格，IP 使用其 fork
-> `jonny-illustrations` 的「他」。不再使用大头卡通、写实肖像、小胡子人物或圆眼镜人物。
+> `jonny-illustrations` 的「他」。封面整体则采用已验证的现代项目风格：
+> 米黄纸底、深墨绿充墨插画、顶部超大中文品牌名、小号英文副标题和朱红印章。
+> 不再使用大头卡通、写实肖像、小胡子人物或整张纯白线稿封面。
+
+视觉校准文件：
+
+- `assets/covers/style-reference-modern-16x9.jpg`
+- `assets/covers/style-reference-modern-9x16.jpg`
 
 ## 使用边界
 
@@ -10,6 +17,7 @@
 - 生图只负责画面，不负责标题、品牌名、年份、标签和印章；这些文字全部由 HTML/CSS 叠加。
 - 一个尺寸一张原生构图。不得先生成 4:3 再机械裁切成六个尺寸。
 - 只要画面出现真实五官、写实照片感、可爱大头、Q 版吉祥物，直接重生成。
+- 封面必须是“彩底充墨插画”，不是纯白正文配图；字体区保留大块米黄纸面。
 
 ## 固定 IP：他
 
@@ -26,18 +34,21 @@
 ## 可复制提示词
 
 ```text
-Generate one standalone Chinese knowledge-video cover illustration in the same
-minimal black hand-drawn visual language as Ian Xiaohei illustrations.
+Generate one standalone Chinese knowledge-video cover illustration that combines
+the fixed Ian Xiaohei character language with the approved dense retro-green
+cover style.
 
 Canvas:
 {宽高比与像素尺寸}
 
 Visual DNA:
-Pure white background. Minimalist black hand-drawn line art with slightly wobbly
-pen strokes. Lots of clean white space. A few restrained red, orange and blue
-handwritten accents are allowed, but no paper texture, no warm beige background,
-no gradients, no shadows, no commercial vector style, no PPT infographic look,
-no cute mascot poster, no children's illustration, no realistic portrait.
+Warm cream paper background, deep pine-green filled ink illustration and
+near-black hand-drawn outlines. Dense editorial screenprint with subtle paper
+grain and strong dark-green silhouette masses. Leave a large clean cream band at
+the top for future large Chinese typography. One restrained vermilion accent.
+No pure-white background, no glossy 3D render, no commercial vector style, no PPT
+infographic look, no cute mascot poster, no children's illustration, no realistic
+portrait.
 
 Recurring character required:
 "他", a lean medium-height black solid silhouette humanoid in geometric
@@ -71,7 +82,8 @@ Constraints:
 One cover tells one clear story. The character must perform an essential action,
 not stand beside the car as decoration. Keep the vehicle recognizable. Do not
 copy an existing cover composition. No realistic face, no mascot proportions, no
-commercial polish, no dense diagram, no decorative frame, no paper grain.
+commercial polish, no dense diagram, no decorative frame, no all-white line-art
+cover, no flat infographic.
 ```
 
 ## 沃尔沃封面动作示例
@@ -81,8 +93,10 @@ commercial polish, no dense diagram, no decorative frame, no paper grain.
 ```text
 The fixed-character IP crouches beside the front wheel of a vintage Volvo,
 pulling one hand along the three-point seatbelt and pointing with the other at
-the buckle. The car fills the middle-right of the frame in a bold three-quarter
-view. Keep the left and top areas open for the HTML headline and year.
+the buckle. The car and industrial background fill the lower two-thirds with
+deep pine-green ink masses and black outlines. The character stands on a cream
+paper cutout so his black geometric silhouette remains readable. Keep the top
+third as a quiet warm-cream band for the HTML headline and year.
 ```
 
 不要生成「一个写实男人站在车边」的画面。人物必须是黑色几何剪影「他」，并且动作直接说明

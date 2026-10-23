@@ -1,12 +1,12 @@
-/* 言同学封面公共样式：小黑风纯白底 / 黑色手绘线稿 / 红色印章 */
+/* 言同学封面公共样式：米黄纸底 / 深墨绿插画 / 小黑风人物 / 朱红印章 */
 @font-face { font-family: "ChineseKai"; src: local("KaiTi"); }
 @font-face { font-family: "ChineseSerif"; src: local("SimSun"); }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { width: 1600px; height: 1200px; overflow: hidden; background: #101010; }
 .cover {
   position: relative; width: 1600px; height: 1200px; overflow: hidden;
-  background: #ffffff;
-  font-family: "ChineseKai", "ChineseSerif", serif; color: #1b1b1a;
+  background: #fbf3d8;
+  font-family: "ChineseKai", "ChineseSerif", serif; color: #123c23;
 }
 /* 朱红印章"言同学"：右下角默认位置，可用 .seal.bl 等改位置 */
 .seal {
@@ -21,7 +21,7 @@ html, body { width: 1600px; height: 1200px; overflow: hidden; background: #10101
 .seal.br { right: 70px; bottom: 70px; }
 .seal.bl { left: 70px; bottom: 70px; }
 /* 双线装饰 */
-.rule-double { border-top: 6px solid #1b1b1a; border-bottom: 2px solid #1b1b1a; height: 14px; }
+.rule-double { border-top: 6px solid #123c23; border-bottom: 2px solid #123c23; height: 14px; }
 /* 图片占位：替换为实际出图 */
-.ph { background: #ffffff; border: 3px dashed #1b1b1a; display: flex; align-items: center; justify-content: center;
-      color: #1b1b1a; font-size: 30px; text-align: center; }
+.ph { background: #fbf3d8; border: 3px dashed #123c23; display: flex; align-items: center; justify-content: center;
+      color: #123c23; font-size: 30px; text-align: center; }

@@ -20,6 +20,8 @@ html, body { width: 1600px; height: 1200px; overflow: hidden; background: #10101
 .paper-card {
   position: relative; background: #f8f1de; padding: 18px;
   box-shadow: 0 18px 44px rgba(52, 37, 16, 0.30);
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
   -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='t'><feTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='2' seed='7'/><feDisplacementMap in='SourceGraphic' scale='22'/></filter><rect width='100%25' height='100%25' fill='white' filter='url(%23t)'/></svg>");
   mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='t'><feTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='2' seed='7'/><feDisplacementMap in='SourceGraphic' scale='22'/></filter><rect width='100%25' height='100%25' fill='white' filter='url(%23t)'/></svg>");
 }
@@ -27,20 +29,24 @@ html, body { width: 1600px; height: 1200px; overflow: hidden; background: #10101
 
 /* 磨损做旧标题：油墨颗粒斑驳，不要光滑电脑字体铺满 */
 .title-worn {
-  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150'><filter id='w'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 6 -2.4'/></filter><rect width='150' height='150' filter='url(%23w)'/></svg>");
-  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150'><filter id='w'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 6 -2.4'/></filter><rect width='150' height='150' filter='url(%23w)'/></svg>");
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150'><filter id='w'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 2.4 -0.35'/></filter><rect width='150' height='150' filter='url(%23w)'/></svg>");
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150'><filter id='w'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 2.4 -0.35'/></filter><rect width='150' height='150' filter='url(%23w)'/></svg>");
 }
 
 /* 朱红印章"言同学"：白底朱红边框朱红字，磨损颗粒；右下角默认位置，.seal.bl 移左下 */
 .seal {
-  position: absolute; width: 150px; height: 150px; z-index: 10;
+  position: absolute; width: 160px; height: 160px; z-index: 10;
   background: #f8f1de; color: #c0392b;
   border: 7px solid #c0392b; border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 44px; line-height: 1.25; text-align: center; font-weight: bold;
+  font-size: 48px; line-height: 1.2; text-align: center; font-weight: bold;
   transform: rotate(-8deg);
-  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150'><filter id='w'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 6 -2.4'/></filter><rect width='150' height='150' filter='url(%23w)'/></svg>");
-  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150'><filter id='w'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 6 -2.4'/></filter><rect width='150' height='150' filter='url(%23w)'/></svg>");
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150'><filter id='w'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 2.4 -0.35'/></filter><rect width='150' height='150' filter='url(%23w)'/></svg>");
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150'><filter id='w'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 2.4 -0.35'/></filter><rect width='150' height='150' filter='url(%23w)'/></svg>");
 }
 .seal.br { right: 70px; bottom: 70px; }
 .seal.bl { left: 70px; bottom: 70px; }

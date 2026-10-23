@@ -69,8 +69,8 @@ B 站 5–8 分钟长片默认只用“动态纸墨”。Vox / huashu 不替代�
   B-roll 空镜层、揭示动作、转场、三风格镜头语法（反 PPT 感唯一权威）。
 - [references/cover-and-layout.md](references/cover-and-layout.md)：封面 4 模板、
   配色 token、IP 落位、静态卡片排版、反 AI 模板套路。
-- [references/cover-ip-prompt.md](references/cover-ip-prompt.md)：小黑风固定人物
-  「他」的封面生图提示词、同框互动要求和沃尔沃动作示例。
+- [references/cover-ip-prompt.md](references/cover-ip-prompt.md)：言同学定稿人物
+  （照片原型 · 扁平卡通）的封面生图提示词、同框互动要求和沃尔沃动作示例。
 - [references/publish.md](references/publish.md)：B 站 Browser Use 发布步骤、
   发布说明模板、抖音物料、标题标签简介规范、草稿箱限制。
 
@@ -105,9 +105,10 @@ B 站 5–8 分钟长片默认只用“动态纸墨”。Vox / huashu 不替代�
 10. **音频电平**：人声目标 `-16 ± 1 LUFS`、真峰值不高于 `-1.5 dBTP`；BGM 全程固定
     比人声低 12–15 LU、平稳不跳变，禁止侧链闪避 / ducking。成片必须用响度检测验证，
     不能只看播放器音量。细则见 `audio-pipeline.md`「混音电平硬标准」。
-11. **封面统一语言**：人物使用小黑线条语言、米色皮肤的可识别「他」，整体使用米黄纸底、深墨绿
-    充墨插画、顶部超大中文品牌名和朱红印章。标准定义唯一权威在 `image-pipeline.md`，
-    完整生图提示词在 `cover-ip-prompt.md`，封面落位与模板在 `cover-and-layout.md`。
+11. **封面统一语言**：人物为照片原型定稿的扁平卡通「言同学」（自然黄肤、上唇小髭 + 下巴山羊胡、
+    细框矩形眼镜、黑色乱发、中等略壮），整体使用米黄纸底、深墨绿充墨插画、顶部超大中文品牌名
+    和朱红印章。标准定义唯一权威在 `image-pipeline.md`，完整生图提示词在
+    `cover-ip-prompt.md`，封面落位与模板在 `cover-and-layout.md`。
 
 ## 工作流闸门
 

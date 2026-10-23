@@ -1,10 +1,9 @@
-# 封面人物 IP 提示词（小黑线描「他」·露肤版）
+# 封面人物 IP 提示词（言同学 · 照片原型定稿 · 扁平卡通版）
 
-> 这是硬视封面中固定人物 IP 的唯一生图提示词。人物视觉源来自
-> `ian-xiaohei-illustrations` 的小黑风格，IP 使用其 fork
-> `jonny-illustrations` 的「他」。封面整体则采用已验证的现代项目风格：
-> 米黄纸底、深墨绿充墨插画、顶部超大中文品牌名、小号英文副标题和朱红印章。
-> 不再使用大头卡通、写实肖像、小胡子人物或整张纯白线稿封面。
+> 这是硬视封面中固定人物 IP 的唯一生图提示词。人物识别点以照片原型定稿为准
+> （`Y:\Projects\自媒体\言同学IP形象描述_照片原型.md`），封面整体仍采用已验证的
+> 现代项目风格：米黄纸底、深墨绿充墨插画、顶部超大中文品牌名、小号英文副标题和
+> 朱红印章。不再使用大头卡通、写实肖像或整张纯白线稿封面。
 
 视觉校准文件：
 
@@ -19,50 +18,54 @@
 - 只要画面出现真实五官、写实照片感、可爱大头、Q 版吉祥物，直接重生成。
 - 封面必须是“彩底充墨插画”，不是纯白正文配图；字体区保留大块米黄纸面。
 
-## 固定 IP：他
+## 固定 IP：言同学（定稿，不得擅自改特征）
 
-- 瘦高、中等身高的极简手绘人类卡通，比例自然，不是黑色剪影。
-- 脸、耳朵和手使用浅米色皮肤；五官只用最少线条表达。
-- 鹅蛋脸，短黑发用整块实心形状表现，不画发丝。
-- 细黑框眼镜，镜片内两个小而清楚的深色点状眼睛。
-- 下半脸保留肤色，嘴只用一条冷静的平线；不画胡须。
-- 黑色短袖 T 恤，左胸一个极小图标作为识别点。
-- 一条细窄斜挎带，从右肩连到左胯。
-- 深色长裤和黑色帆布鞋；手仍保持简化，不画真实五指细节。
-- 默认不拿口罩；只有叙事需要时，可出现一只淡蓝色一次性口罩，频率不超过三成。
-- 表情始终冷静、认真、略带笨拙，不卖萌。
-- 严禁整个人涂成黑色、做成阴影人、无脸人或纯剪影。
+- **整体**：成年男性，四十岁上下，中等偏壮实体型；扁平卡通，比例自然，不是黑色剪影。
+- **发型**：短黑发，两侧剪短，黑色乱发，画出发丝细节；不要整块实心黑发、不要炸毛蓬松。
+- **脸型与肤色**：方圆脸，脸颊略丰满，下巴圆润，自然黄肤色。
+- **眼镜与眼睛**：黑色细框矩形眼镜；圆形眼睛略睁大平视镜头，眼神平和略带好奇；黑色平直浓眉。
+- **胡须**：上唇一小撮短髭，下巴一小撮山羊胡，两颊无须；嘴唇抿着，嘴角轻微上扬，似笑非笑；双耳可见。
+- **穿着**：黑色圆领短袖 T 恤，左胸白色圆形小 logo（圆圈内两道闪电状折线），下方极小白色字样；黑色斜挎包肩带从右肩斜向左胯；黑色长裤。
+- **配饰**：左手腕黑色手表，右手腕黑色细腕带。**不画口罩**。
+- **神态**：平静、认真，略带笨拙和一点笑意；不卖萌。
+- 严禁整个人涂成黑色、做成阴影人、无脸人或纯剪影；严禁写实人脸、大头 Q 版吉祥物。
 
 ## 可复制提示词
 
 ```text
-Generate one standalone Chinese knowledge-video cover illustration that combines
-the fixed Ian Xiaohei character language with the approved dense retro-green
-cover style.
+Generate one standalone Chinese knowledge-video cover illustration using the
+fixed Yan Tongxue character with the approved dense retro-green cover style.
 
 Canvas:
 {宽高比与像素尺寸}
 
 Visual DNA:
 Warm cream paper background, deep pine-green filled ink illustration and
-near-black hand-drawn outlines. Dense editorial screenprint with subtle paper
-grain and strong dark-green silhouette masses. Leave a large clean cream band at
-the top for future large Chinese typography. One restrained vermilion accent.
-No pure-white background, no glossy 3D render, no commercial vector style, no PPT
-infographic look, no cute mascot poster, no children's illustration, no realistic
-portrait.
+near-black hand-drawn outlines. Flat cartoon character on a dense editorial
+screenprint with subtle paper grain and strong dark-green silhouette masses.
+Leave a large clean cream band at the top for future large Chinese typography.
+One restrained vermilion accent. No pure-white background, no glossy 3D render,
+no commercial vector style, no PPT infographic look, no cute mascot poster, no
+children's illustration, no realistic portrait.
 
 Recurring character required:
-"他", a lean medium-height minimalist hand-drawn human cartoon, NOT a solid-black
-silhouette. Warm light-beige skin on the face, ears, arms and hands. Oval head.
-Short solid-black hair without individual strands. Thin dark rectangular glasses
-with two small dark dot eyes. Clear jawline and light lower face with one calm
-flat mouth line. No beard, no exaggerated expression. Solid-black short-sleeve
-T-shirt with one tiny simple icon at the left chest. A thin diagonal crossbody
-strap from the right shoulder to the left hip. Dark slim trousers and simple
-black canvas shoes. Simplified hands, but the skin colour must remain visible.
-Deadpan, serious and slightly awkward; never cute and never resembling a real
-person's face. He must remain a readable cartoon man, not an all-black figure.
+Yan Tongxue, a flat cartoon adult man in his early forties, medium stocky
+build, not slim, NOT a solid-black silhouette. Short black hair cropped short
+on the sides, slightly messy black strands with individual hair strands drawn.
+Round-square face, slightly full cheeks, rounded chin, natural yellow skin
+tone. Thin black rectangular glasses, horizontal rectangle with a thin frame.
+Round eyes slightly wide open, looking straight at the camera, calm and faintly
+curious. Straight dark-black eyebrows of medium thickness. A small mustache on
+the upper lip and a small goatee on the chin, clean-shaven on both cheeks.
+Lips pressed together, mouth corners slightly raised, a quiet half-smile. Ears
+visible. He wears a black crew-neck short-sleeve T-shirt with a small white
+circular logo on the left chest: a circle outline containing two lightning-like
+zigzag marks, with tiny white lettering beneath the logo. A black crossbody bag
+strap runs from his right shoulder to his left hip. Black trousers. A black
+watch on the left wrist and a thin black wristband on the right wrist. No face
+mask. Neutral, serious yet slightly awkward expression with a faint smile.
+Keep him a readable flat cartoon man, not an all-black figure and not a
+realistic photo face.
 
 Scene and action:
 {人物必须与车或核心物件发生物理互动：靠车门、指发动机、蹲在车轮边量尺寸、
@@ -72,20 +75,21 @@ Composition:
 {主视觉主体与占画比例；人物约占画面 1/4–1/3；保留标题和数字的干净负空间。}
 
 Color accents:
-Black for the character, car outline and structure. Red only for one key warning
-or result. Orange only for one movement/path accent. Blue only for one secondary
-note. Keep at least 35% of the canvas visually quiet.
+Black for the character, car outline and structure. Red only for one key
+warning or result. Orange only for one movement/path accent. Blue only for one
+secondary note. Keep at least 35% of the canvas visually quiet.
 
 Text:
-No text, no letters, no numbers, no logos and no fake typography anywhere in the
-generated image. Leave clean negative space for HTML/CSS typography.
+No text, no letters, no numbers, no logos and no fake typography anywhere in
+the generated image. Leave clean negative space for HTML/CSS typography.
 
 Constraints:
-One cover tells one clear story. The character must perform an essential action,
-not stand beside the car as decoration. Keep the vehicle recognizable. Do not
-copy an existing cover composition. No realistic face, no mascot proportions, no
-commercial polish, no dense diagram, no decorative frame, no all-white line-art
-cover, no all-black character, no faceless shadow figure, no flat infographic.
+One cover tells one clear story. The character must perform an essential
+action, not stand beside the car as decoration. Keep the vehicle recognizable.
+Do not copy an existing cover composition. No realistic face, no mascot
+proportions, no commercial polish, no dense diagram, no decorative frame, no
+all-white line-art cover, no all-black character, no faceless shadow figure,
+no flat infographic.
 ```
 
 ## 沃尔沃封面动作示例
@@ -93,13 +97,14 @@ cover, no all-black character, no faceless shadow figure, no flat infographic.
 把 Scene and action 替换为：
 
 ```text
-The fixed-character IP crouches beside the front wheel of a vintage Volvo,
-pulling one hand along the three-point seatbelt and pointing with the other at
-the buckle. His warm beige face and hands must remain clearly visible against
-the deep green scene. The car and industrial background fill the lower two-thirds
-with deep pine-green ink masses and black outlines. Keep the top third as a
-quiet warm-cream band for the HTML headline and year.
+Yan Tongxue crouches beside the front wheel of a vintage Volvo, pulling one
+hand along the three-point seatbelt and pointing with the other at the red
+buckle. His natural-yellow face and hands, mustache and goatee must remain
+clearly visible against the deep green scene. The car and industrial
+background fill the lower two-thirds with deep pine-green ink masses and black
+outlines. Keep the top third as a quiet warm-cream band for the HTML headline
+and year.
 ```
 
-不要生成写实人脸，也不要生成全黑人形。人物必须是米色皮肤的小黑线描人类卡通「他」，
-并且动作直接说明安全带或安全结构。
+不要生成写实人脸，也不要生成全黑人形。人物必须是自然黄肤、留上唇小髭和下巴山羊胡
+的扁平卡通男性，并且动作直接说明安全带或安全结构。

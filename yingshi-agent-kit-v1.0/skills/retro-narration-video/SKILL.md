@@ -7,9 +7,10 @@ description: >-
   optional real B-roll background layer, Bilibili 1920×1080 long version and
   Douyin 1080×1920 short version → check/render → vertical stills. Use when a
   topic or script needs the approved 老报纸/纸墨 illustration style. In-line real
-  B-roll loops are allowed as a motion background; this skill does NOT cover
-  editing external finished footage, AI video-model motion graphics, or
-  slide-only content without voiceover.
+  B-roll loops are allowed as a motion background; also covers a no-voiceover,
+  music-driven branch (documentary paper style / 3D science explainer, see
+  references/style-library.md). This skill does NOT cover editing external
+  finished footage, AI video-model motion graphics, or slide-only static content.
 ---
 
 # Retro Narration Video（复古口播讲解视频）
@@ -25,17 +26,22 @@ description: >-
 
 - **适用**：言同学账号的知识 / 人物 / 社会话题口播；已有口播稿需要出片；把旧题材重做成
   「每个画面都有一张复古配图」的版本。允许在本产线内用真实 B-roll 空镜循环打底（见
-  `references/visual-craft.md`）。
-- **不适用**：外部成片剪辑；AI 视频模型生成的镜头动画；纯 PPT 幻灯片且无口播。
+  `references/visual-craft.md`）。无口播、音乐驱动的纪录片 / 3D 科普短片走
+  `references/style-library.md` 路线 2（风格 B / C），不经本产线 8 步，按各自模板产线执行。
+- **不适用**：外部成片剪辑；AI 视频模型生成的镜头动画；纯 PPT 幻灯片（静态翻页、无动画叙事）。
 
 ## 产线总览
 
 ```text
-① 选题研究(web/笔记) → ② 口播稿(硬规则校验) → ③ IndexTTS2 分章配音
+⓪ 风格选择 → ① 选题研究(web/笔记) → ② 口播稿(硬规则校验) → ③ IndexTTS2 分章配音
 → ④ 词级转写 → ⑤ Z-Image 批量出图 + Real-ESRGAN 放大
 → ⑥ HyperFrames 复古合成(横/竖, 可叠加 B-roll 空镜层)
 → ⑦ check + 渲染 → ⑧ 竖屏套图 / 发布物料
 ```
+
+⓪ 风格选择：默认路线 1（口播产线）走 ①–⑧；路线 2（无口播音乐驱动，
+风格 B 人文纪录片 / 风格 C 3D 科普电影）直接按 `references/style-library.md`
+§B / §C 自带产线执行，不经 ①–⑧。
 
 ## 配置来源
 
@@ -47,7 +53,12 @@ description: >-
 制作前把风格、平台、目标时长和章节结构写进 BRIEF。先完成口播稿与 6 尺寸封面，
 一起交用户确认；确认前不进入 TTS、出图或渲染，确认后不再先出图再改文案。
 
-## 风格三选一（开工前在 BRIEF 定死，全片不混）
+## 风格选择（开工第一件事，写进 BRIEF 顶部，全片不混）
+
+风格分两条路线：**路线 1 口播产线**（IndexTTS2 配音，走本产线 8 步）与
+**路线 2 无口播音乐驱动**（字幕承担叙事，走 `references/style-library.md` 自带产线）。
+
+### 路线 1：口播产线（默认，言同学主产线）
 
 | 风格 | 适用 | 镜头基调 | 镜头语法 |
 |---|---|---|---|
@@ -58,11 +69,25 @@ description: >-
 B 站 5–8 分钟长片默认只用“动态纸墨”。Vox / huashu 不替代长片主流程；需要长解释
 内容时先用动态纸墨完成长片，再单独剪一条 60–180 秒实验短片。
 
+### 路线 2：无口播音乐驱动短片（完整模板见 `references/style-library.md`）
+
+| 风格 | 适用 | 节奏 | 产线 |
+|---|---|---|---|
+| B 人文纪录片（纸面 2D） | 抽象概念、心理学 / 社会原理类科普 | 锚词驱动，音乐第一个重拍（第 17 秒）砸出锚词 | HTML/CSS 动画 + ffmpeg，片长跟随音乐（默认《千年之后》≈2:38） |
+| C 3D 科普电影 | 技术 / 产品 / 平台科普，要电影感 | 音乐驱动，第 17 秒揭晓核心拆解 | three.js + puppeteer 逐帧 + ffmpeg，片长跟随音乐（默认 ≈2:39） |
+
+路线 2 的完整提示词模板、填空位、自查清单与交付要求在 `style-library.md` §B / §C。
+无口播、片长跟随音乐；**不适用**路线 1 的 8 步产线、时长 / 镜头 / 封面硬规则与
+抖音竖屏套图。用户点名「vibe 风格」「纪录片短片」「3D 科普」或给音乐做片时走路线 2。
+
 `MG Styles 15` 等新增来源目前只登记在 `references/future-style-references.md`，
-属于候选参考，不属于以上三种已生效风格，不参与当前选型、分镜、出图或渲染。
+属于候选参考，不属于以上已生效风格，不参与当前选型、分镜、出图或渲染。
 
 ## 开工前必读（跑哪步读哪份，细节以下册为准）
 
+- [references/style-library.md](references/style-library.md)：**风格选择唯一权威**——
+  路线 2（无口播音乐驱动：B 人文纪录片纸面风 / C 3D 科普电影风）的完整提示词模板、
+  填空位、自查与交付要求；路线 1 的镜头风格细则见下方 `visual-craft.md`。
 - [references/script-rules.md](references/script-rules.md)：口播稿结构、开场结尾、
   数字标点、去 AI 味、钩子与涨粉、平台脚本差异、字数口径。
 - [references/audio-pipeline.md](references/audio-pipeline.md)：IndexTTS2、拼接、

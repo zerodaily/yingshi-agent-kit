@@ -22,6 +22,7 @@
 import argparse
 import datetime
 import os
+import re
 import shutil
 import sys
 
@@ -64,6 +65,9 @@ BRIEF_ROUTE2 = """# {name} · BRIEF
 - 主题：{topic}
 - **锚词（2–4 字）**：{anchor}
   > 写任何文案之前先定。标准：有代入感 / 能概括整个原理 / 结尾可被重新定义。
+- **质感档位**：{look}
+  > parchment（羊皮纸·默片，默认）/ linen（宣纸·单墨，字幕偏左）/ archive（旧报·档案）。
+  > 档位只改纸色墨色与字幕位置，不改结构与高潮时序；也可只覆盖其中某一项。
 - 背景音乐：{music}
 - **高潮点（第一个重拍）**：{beat} 秒 = 第 {beat_frame} 帧
   > 换曲必须先用 ffmpeg 实测「换气 + 重拍」，误差 ≤2 帧，不许照抄 17.0。
@@ -164,6 +168,25 @@ def build_route2(proj, args, code, spec):
         src = os.path.join(starter, fn)
         if os.path.isfile(src):
             shutil.copy2(src, os.path.join(proj, fn))
+
+    # 档位与锚词直接写进模板，建完就是选中的那一种纸、那一句锚词
+    film = os.path.join(proj, "film.html")
+    look = getattr(args, "look", "parchment") or "parchment"
+    if os.path.exists(film):
+        with open(film, encoding="utf-8") as f:
+            html = f.read()
+        if look in ("parchment", "linen", "archive"):
+            html = html.replace('look: "parchment",', f'look: "{look}",', 1)
+        if args.anchor:
+            html = re.sub(r'anchor: "[^"]*",', f'anchor: "{args.anchor}",', html, count=1)
+        if getattr(args, "term_zh", ""):
+            html = re.sub(r'termZh: "[^"]*",', f'termZh: "{args.term_zh}",', html, count=1)
+        if getattr(args, "term_en", ""):
+            html = re.sub(r'termEn: "[^"]*",', f'termEn: "{args.term_en}",', html, count=1)
+        if args.beat:
+            html = re.sub(r'beat: [0-9.]+,', f'beat: {args.beat:g},', html, count=1)
+        with open(film, "w", encoding="utf-8") as f:
+            f.write(html)
     return True
 
 
@@ -179,6 +202,10 @@ def main():
     ap.add_argument("--anchor", default="", help="路线 2：锚词 2–4 字（写文案前必填）")
     ap.add_argument("--music", default="《千年之后》氛围版（约 2:38）", help="路线 2：背景音乐")
     ap.add_argument("--beat", type=float, default=17.0, help="路线 2：第一个重拍秒数")
+    ap.add_argument("--look", default="parchment",
+                    help="路线 2 质感档位：parchment / linen / archive")
+    ap.add_argument("--term-zh", default="", help="路线 2：术语中文（高潮后浮现）")
+    ap.add_argument("--term-en", default="", help="路线 2：术语英文（高潮后浮现）")
     ap.add_argument("--root", default=None, help="覆盖 projects_root")
     args = ap.parse_args()
 
@@ -213,6 +240,7 @@ def main():
             platform=platform,
             topic=args.topic or "（填主题）",
             anchor=args.anchor or "（填 2–4 字锚词）",
+            look=args.look,
             music=args.music,
             beat=f"{args.beat:g}",
             beat_frame=int(round(args.beat * 30)),
@@ -230,7 +258,7 @@ def main():
     elif ok:
         print("下一步：")
         print("  1. 填 BRIEF.md 的锚词（写文案之前先定）")
-        print("  2. 改 film.html 顶部 CONFIG（字幕表 / 锚词 / 术语 / 高潮秒）")
+        print("  2. 改 film.html 顶部 CONFIG（字幕表 / 锚词 / 术语 / 高潮秒 / look 档位）")
         print("  3. python render.py        逐帧渲染到 frames/")
         print("  4. powershell build.ps1    合成 MP4（BGM + 冲击音）")
 

@@ -1,17 +1,30 @@
 # 风格 B 模板 · 人文纪录片（纸面 2D · 锚词法 · 音乐驱动）
 
-规则原文见 `references/style-library.md` §B。本目录是可运行骨架，**不是成品片**。
+规则原文见 `references/style-library.md` §B；调性与档位见 `references/vibe-style-spec.md`。
+本目录是可运行骨架，**不是成品片**。
 
 ## 三步出片
 
 ```powershell
-# 1. 改 film.html 顶部 CONFIG：锚词 / 术语 / 字幕表 / 高潮秒 / 片长
+# 1. 改 film.html 顶部 CONFIG：锚词 / 术语 / 字幕表 / 高潮秒 / 片长 / look 档位
 # 2. 逐帧渲染（约 1 秒/帧，20 秒片约 10 分钟）
 python render.py
 
 # 3. 合成（BGM + 17 秒冲击音）
 powershell -ExecutionPolicy Bypass -File build.ps1 -Bgm "D:\music\千年之后.wav" -Beat 17.0
 ```
+
+## 质感档位（同一套 vibe，三种纸）
+
+`CONFIG.look` 改一个词就换：
+
+| look | 纸 | 墨 | 字幕 |
+|---|---|---|---|
+| `parchment`（默认） | 暖黄羊皮纸 | 深褐 | 居中 |
+| `linen` | 近白宣纸 | 乌黑 + 一点朱红 | 偏左 |
+| `archive` | 灰绿旧报 | 墨绿黑 + 暗红 | 居中 |
+
+档位只改质感，不改结构、锚词法和高潮时序。`CONFIG.camZoom` 单独控制镜头推进（0 = 完全静止，0.05 = 极缓推）。
 
 ## 硬规矩（踩过的）
 
@@ -41,6 +54,6 @@ powershell -ExecutionPolicy Bypass -File build.ps1 -Bgm "..."
 
 | 位置 | 改什么 |
 |---|---|
-| `film.html` CONFIG | 锚词、术语中英、字幕表、`beat`、`total` |
+| `film.html` CONFIG | 锚词、术语中英、字幕表、`beat`、`total`、`look`、`camZoom` |
 | `film.html` setState | 三幕画面元素（跑者 / 追逐 / 人群 → 换成新主题的意象） |
 | `build.ps1 -Bgm -Beat` | 音乐文件与重拍秒数 |

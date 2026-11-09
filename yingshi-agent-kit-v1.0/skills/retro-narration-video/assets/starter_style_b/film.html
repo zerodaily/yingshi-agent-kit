@@ -5,65 +5,77 @@
 <!--
   硬视 · 风格 B 模板（人文纪录片 · 纸面 2D · 锚词法 · 音乐驱动）
   ─────────────────────────────────────────────────────────────
-  只改下面 CONFIG 这一段就能换主题；三幕画面元素在 setState 里改。
+  CONFIG 换主题；LOOK 换质感档位（parchment / linen / archive）。
   渲染：python render.py    合成：powershell build.ps1
-  规则原文：references/style-library.md §B
+  规则与档位说明：references/style-library.md §B、references/vibe-style-spec.md
 -->
 <style>
   @font-face { font-family:"KaiTiF"; src: local("KaiTi"), local("STKaiti"); }
   @font-face { font-family:"SongF"; src: local("SimSun"), local("NSimSun"); }
   * { margin:0; padding:0; box-sizing:border-box; }
-  html,body { width:1920px; height:1080px; overflow:hidden; background:#e9ddc2; }
+  :root{
+    --paper-a:#efe4c8; --paper-b:#e6d8b8; --paper-c:#dcc9a4;
+    --paper-glow:rgba(255,248,228,.55); --paper-shade:rgba(120,90,50,.18);
+    --ink:#2c241a; --ink-2:#3a2f22; --accent:#6b4a2a;
+    --dim:#14100a; --zh:#1f1810; --en:#4a3d2a; --term:#2c2318;
+    --grain:.5; --vig-alpha:.42;
+    --sub-align:center; --sub-pad:0px; --sub-bottom:120px;
+    --boom-size:300px; --boom-track:24px;
+  }
+  html,body { width:1920px; height:1080px; overflow:hidden; background:var(--paper-b); }
   #stage { position:absolute; inset:0; transform-origin:50% 50%; }
 
-  /* 羊皮纸底 */
+  /* 纸底 */
   #paper { position:absolute; inset:0;
     background:
-      radial-gradient(ellipse at 30% 20%, rgba(255,248,228,.55), transparent 55%),
-      radial-gradient(ellipse at 75% 85%, rgba(120,90,50,.18), transparent 60%),
-      linear-gradient(160deg, #efe4c8 0%, #e6d8b8 45%, #dcc9a4 100%);
+      radial-gradient(ellipse at 30% 20%, var(--paper-glow), transparent 55%),
+      radial-gradient(ellipse at 75% 85%, var(--paper-shade), transparent 60%),
+      linear-gradient(160deg, var(--paper-a) 0%, var(--paper-b) 45%, var(--paper-c) 100%);
   }
   /* 纸纹颗粒 */
-  #grain { position:absolute; inset:0; opacity:.5; mix-blend-mode:multiply;
+  #grain { position:absolute; inset:0; opacity:var(--grain); mix-blend-mode:multiply;
     background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.28'/></svg>");
   }
   /* 暗角 */
   #vig { position:absolute; inset:0;
-    background: radial-gradient(ellipse at center, transparent 55%, rgba(40,28,12,.42) 100%);
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(40,28,12,var(--vig-alpha)) 100%);
   }
   /* 暗场遮罩（高潮前收黑） */
-  #dimmer { position:absolute; inset:0; background:#14100a; opacity:0; }
+  #dimmer { position:absolute; inset:0; background:var(--dim); opacity:0; }
 
   /* 地面线（贯穿转场） */
   #ground { position:absolute; left:0; top:700px; width:1920px; height:3px;
-    background:#3a2f22; transform-origin:0 50%;
+    background:var(--ink-2); transform-origin:0 50%;
   }
 
   /* 跑者小人（SVG） */
   #runner { position:absolute; left:760px; top:560px; width:120px; height:150px; opacity:0; }
+  #runner circle { fill: var(--ink); }
+  #runner path { stroke: var(--ink); }
   /* 追逐双点 */
-  .dot { position:absolute; border-radius:50%; background:#2c241a; }
+  .dot { position:absolute; border-radius:50%; background:var(--ink); }
   #hare { width:26px; height:26px; left:1100px; top:640px; opacity:0; }
-  #fox  { width:34px; height:34px; left:820px;  top:640px; opacity:0; background:#6b4a2a; }
+  #fox  { width:34px; height:34px; left:820px;  top:640px; opacity:0; background:var(--accent); }
   /* 人群方块 */
-  .crowd { position:absolute; width:22px; height:30px; background:#33291c; opacity:0; }
+  .crowd { position:absolute; width:22px; height:30px; background:var(--ink); opacity:0; }
 
   /* 字幕 */
-  #sub { position:absolute; left:0; right:0; bottom:120px; text-align:center; opacity:0; }
-  #sub .zh { font-family:"KaiTiF", serif; font-size:52px; color:#1f1810; letter-spacing:2px;
+  #sub { position:absolute; left:0; right:0; bottom:var(--sub-bottom);
+    text-align:var(--sub-align); padding-left:var(--sub-pad); opacity:0; }
+  #sub .zh { font-family:"KaiTiF", serif; font-size:52px; color:var(--zh); letter-spacing:2px;
     text-shadow:0 1px 0 rgba(255,250,235,.55); }
-  #sub .en { font-family:Georgia, serif; font-style:italic; font-size:26px; color:#4a3d2a;
+  #sub .en { font-family:Georgia, serif; font-style:italic; font-size:26px; color:var(--en);
     margin-top:10px; }
 
   /* 高潮大字 */
   #boom { position:absolute; left:50%; top:44%; transform:translate(-50%,-50%);
-    font-family:"KaiTiF", serif; font-size:300px; color:#241d13; letter-spacing:24px;
-    opacity:0; white-space:nowrap; }
-  #ring { position:absolute; left:50%; top:44%; border:5px solid #4a3a24; border-radius:50%;
+    font-family:"KaiTiF", serif; font-size:var(--boom-size); color:var(--ink);
+    letter-spacing:var(--boom-track); opacity:0; white-space:nowrap; }
+  #ring { position:absolute; left:50%; top:44%; border:5px solid var(--accent); border-radius:50%;
     opacity:0; transform:translate(-50%,-50%); }
   #term { position:absolute; left:0; right:0; top:62%; text-align:center; opacity:0; }
-  #term .zh { font-family:"SongF", serif; font-size:40px; color:#2c2318; letter-spacing:6px; }
-  #term .en { font-family:Georgia, serif; font-style:italic; font-size:24px; color:#5a4a32; margin-top:8px; }
+  #term .zh { font-family:"SongF", serif; font-size:40px; color:var(--term); letter-spacing:6px; }
+  #term .en { font-family:Georgia, serif; font-style:italic; font-size:24px; color:var(--en); margin-top:8px; }
 </style>
 </head>
 <body>
@@ -73,9 +85,9 @@
   <div id="ground"></div>
 
   <svg id="runner" viewBox="0 0 120 150">
-    <circle cx="60" cy="26" r="16" fill="#2c241a"/>
+    <circle cx="60" cy="26" r="16"/>
     <path d="M60 44 L56 92 M56 92 L38 128 M56 92 L78 120 M60 58 L34 74 M60 58 L88 70"
-          stroke="#2c241a" stroke-width="9" stroke-linecap="round" fill="none"/>
+          stroke-width="9" stroke-linecap="round" fill="none"/>
   </svg>
 
   <div id="hare" class="dot"></div>
@@ -93,10 +105,45 @@
 </div>
 
 <script>
-/* ══════════════════ CONFIG：换主题只改这一段 ══════════════════ */
+/* ══════════ LOOK：质感档位（不只一种 vibe，可切） ══════════
+   parchment 羊皮纸暖褐（默认）｜linen 宣纸单墨朱红｜archive 旧报纸冷灰
+   档位只改「质感」，不改片子结构；想改细项直接覆盖某一项即可。 */
+const LOOKS = {
+  parchment: {
+    paperA:"#efe4c8", paperB:"#e6d8b8", paperC:"#dcc9a4",
+    glow:"rgba(255,248,228,.55)", shade:"rgba(120,90,50,.18)",
+    ink:"#2c241a", ink2:"#3a2f22", accent:"#6b4a2a",
+    dim:"#14100a", zh:"#1f1810", en:"#4a3d2a", term:"#2c2318",
+    grain:".5", vigAlpha:".42",
+    subAlign:"center", subPad:"0px", subBottom:"120px",
+    boomSize:"300px", boomTrack:"24px",
+  },
+  linen: {
+    paperA:"#f3efdf", paperB:"#ece7d4", paperC:"#e0dac4",
+    glow:"rgba(255,252,240,.62)", shade:"rgba(110,96,70,.14)",
+    ink:"#1e1a14", ink2:"#2e261c", accent:"#93403c",
+    dim:"#171310", zh:"#181410", en:"#4a4238", term:"#241f18",
+    grain:".38", vigAlpha:".34",
+    subAlign:"left", subPad:"180px", subBottom:"108px",
+    boomSize:"280px", boomTrack:"18px",
+  },
+  archive: {
+    paperA:"#e6e4d8", paperB:"#dcdbcd", paperC:"#cdcec0",
+    glow:"rgba(248,250,238,.5)", shade:"rgba(74,80,64,.2)",
+    ink:"#23261f", ink2:"#34382c", accent:"#7d3b34",
+    dim:"#12140f", zh:"#1c1f18", en:"#43473b", term:"#262a21",
+    grain:".66", vigAlpha:".5",
+    subAlign:"center", subPad:"0px", subBottom:"118px",
+    boomSize:"316px", boomTrack:"30px",
+  },
+};
+
+/* ══════════════ CONFIG：换主题只改这一段 ══════════════════ */
 const CONFIG = {
   total: 20.0,          // 片长（秒）；跟音乐时改成音乐时长
   beat: 17.0,           // 第一个重拍（秒）。换曲必须实测，误差 ≤2 帧
+  look: "parchment",    // 质感档位：parchment / linen / archive
+  camZoom: 0.05,        // 镜头推进幅度：0 = 完全静止，0.03 很轻，0.08 明显
   anchor: "原地",        // 锚词 2–4 字，高潮砸出
   termZh: "红皇后效应",
   termEn: "The Red Queen Effect · 拼命跑，只为留在原地",
@@ -122,7 +169,28 @@ const boom=el('boom'), ring=el('ring'), term=el('term');
 const dimmer=el('dimmer'), ground=el('ground');
 const crowds=[el('c1'),el('c2'),el('c3'),el('c4'),el('c5'),el('c6')];
 
+function applyLook(name){
+  const L = LOOKS[name] || LOOKS.parchment;
+  const r = document.documentElement.style;
+  r.setProperty('--paper-a', L.paperA);   r.setProperty('--paper-b', L.paperB);
+  r.setProperty('--paper-c', L.paperC);   r.setProperty('--paper-glow', L.glow);
+  r.setProperty('--paper-shade', L.shade);
+  r.setProperty('--ink', L.ink);          r.setProperty('--ink-2', L.ink2);
+  r.setProperty('--accent', L.accent);    r.setProperty('--dim', L.dim);
+  r.setProperty('--zh', L.zh);            r.setProperty('--en', L.en);
+  r.setProperty('--term', L.term);
+  r.setProperty('--grain', L.grain);      r.setProperty('--vig-alpha', L.vigAlpha);
+  r.setProperty('--sub-align', L.subAlign); r.setProperty('--sub-pad', L.subPad);
+  r.setProperty('--sub-bottom', L.subBottom);
+  r.setProperty('--boom-size', L.boomSize); r.setProperty('--boom-track', L.boomTrack);
+}
+applyLook(CONFIG.look);
+
 boom.textContent = CONFIG.anchor;
+// 锚词 2–4 字：4 字要自动缩字号，否则贴边出画
+const _an = CONFIG.anchor.length;
+if (_an >= 4)      boom.style.fontSize = "calc(var(--boom-size) * 0.74)";
+else if (_an === 3) boom.style.fontSize = "calc(var(--boom-size) * 0.88)";
 term.querySelector('.zh').textContent = CONFIG.termZh;
 term.querySelector('.en').textContent = CONFIG.termEn;
 
@@ -136,8 +204,8 @@ function setState(t){
   const [p2a,p2b] = CONFIG.scenes.p2;
   const [p3a,p3b] = CONFIG.scenes.p3;
 
-  // 相机极缓推
-  stage.style.transform = `scale(${1.0 + 0.05*(t/CONFIG.total)})`;
+  // 相机极缓推（幅度由 CONFIG.camZoom 决定，0 就是静止）
+  stage.style.transform = `scale(${1.0 + CONFIG.camZoom*(t/CONFIG.total)})`;
 
   // 字幕
   let subOp=0, zhTxt="", enTxt="";

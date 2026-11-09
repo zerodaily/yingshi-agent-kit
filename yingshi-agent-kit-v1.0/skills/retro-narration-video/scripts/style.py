@@ -196,6 +196,14 @@ def cmd_show(code):
         ref = "visual-craft.md §6.2/§6.3" if code in ("A2", "A3") else "SKILL.md 路线 1"
         print(f"\n完整细则见 {ref}")
 
+    if code == "B":
+        print("\n" + "-" * 40 + " 质感档位（vibe-style-spec.md）" + "-" * 40)
+        print("  P1 parchment  羊皮纸·默片  暖黄纸 / 深褐墨 / 字幕居中（默认）")
+        print("  P2 linen      宣纸·单墨    近白纸 / 乌黑墨 / 一点朱红 / 字幕偏左")
+        print("  P3 archive    旧报·档案    灰绿纸 / 重颗粒 / 深暗角 / 暗红点睛")
+        print("  用法：film.html 里 CONFIG.look 改成档位名；CONFIG.camZoom 控制镜头推进（0 = 静止）")
+        print("  说清一支 vibe 的公式：[档位] + [节奏] + [图形语言] + [一条特殊要求]")
+
 
 def cmd_detect(args):
     src = args.text

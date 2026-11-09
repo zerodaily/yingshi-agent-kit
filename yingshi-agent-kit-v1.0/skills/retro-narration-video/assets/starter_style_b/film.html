@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<!--
+  硬视 · 风格 B 模板（人文纪录片 · 纸面 2D · 锚词法 · 音乐驱动）
+  ─────────────────────────────────────────────────────────────
+  只改下面 CONFIG 这一段就能换主题；三幕画面元素在 setState 里改。
+  渲染：python render.py    合成：powershell build.ps1
+  规则原文：references/style-library.md §B
+-->
+<style>
+  @font-face { font-family:"KaiTiF"; src: local("KaiTi"), local("STKaiti"); }
+  @font-face { font-family:"SongF"; src: local("SimSun"), local("NSimSun"); }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1920px; height:1080px; overflow:hidden; background:#e9ddc2; }
+  #stage { position:absolute; inset:0; transform-origin:50% 50%; }
+
+  /* 羊皮纸底 */
+  #paper { position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(255,248,228,.55), transparent 55%),
+      radial-gradient(ellipse at 75% 85%, rgba(120,90,50,.18), transparent 60%),
+      linear-gradient(160deg, #efe4c8 0%, #e6d8b8 45%, #dcc9a4 100%);
+  }
+  /* 纸纹颗粒 */
+  #grain { position:absolute; inset:0; opacity:.5; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.28'/></svg>");
+  }
+  /* 暗角 */
+  #vig { position:absolute; inset:0;
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(40,28,12,.42) 100%);
+  }
+  /* 暗场遮罩（高潮前收黑） */
+  #dimmer { position:absolute; inset:0; background:#14100a; opacity:0; }
+
+  /* 地面线（贯穿转场） */
+  #ground { position:absolute; left:0; top:700px; width:1920px; height:3px;
+    background:#3a2f22; transform-origin:0 50%;
+  }
+
+  /* 跑者小人（SVG） */
+  #runner { position:absolute; left:760px; top:560px; width:120px; height:150px; opacity:0; }
+  /* 追逐双点 */
+  .dot { position:absolute; border-radius:50%; background:#2c241a; }
+  #hare { width:26px; height:26px; left:1100px; top:640px; opacity:0; }
+  #fox  { width:34px; height:34px; left:820px;  top:640px; opacity:0; background:#6b4a2a; }
+  /* 人群方块 */
+  .crowd { position:absolute; width:22px; height:30px; background:#33291c; opacity:0; }
+
+  /* 字幕 */
+  #sub { position:absolute; left:0; right:0; bottom:120px; text-align:center; opacity:0; }
+  #sub .zh { font-family:"KaiTiF", serif; font-size:52px; color:#1f1810; letter-spacing:2px;
+    text-shadow:0 1px 0 rgba(255,250,235,.55); }
+  #sub .en { font-family:Georgia, serif; font-style:italic; font-size:26px; color:#4a3d2a;
+    margin-top:10px; }
+
+  /* 高潮大字 */
+  #boom { position:absolute; left:50%; top:44%; transform:translate(-50%,-50%);
+    font-family:"KaiTiF", serif; font-size:300px; color:#241d13; letter-spacing:24px;
+    opacity:0; white-space:nowrap; }
+  #ring { position:absolute; left:50%; top:44%; border:5px solid #4a3a24; border-radius:50%;
+    opacity:0; transform:translate(-50%,-50%); }
+  #term { position:absolute; left:0; right:0; top:62%; text-align:center; opacity:0; }
+  #term .zh { font-family:"SongF", serif; font-size:40px; color:#2c2318; letter-spacing:6px; }
+  #term .en { font-family:Georgia, serif; font-style:italic; font-size:24px; color:#5a4a32; margin-top:8px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="paper"></div>
+  <div id="grain"></div>
+  <div id="ground"></div>
+
+  <svg id="runner" viewBox="0 0 120 150">
+    <circle cx="60" cy="26" r="16" fill="#2c241a"/>
+    <path d="M60 44 L56 92 M56 92 L38 128 M56 92 L78 120 M60 58 L34 74 M60 58 L88 70"
+          stroke="#2c241a" stroke-width="9" stroke-linecap="round" fill="none"/>
+  </svg>
+
+  <div id="hare" class="dot"></div>
+  <div id="fox" class="dot"></div>
+  <div id="c1" class="crowd"></div><div id="c2" class="crowd"></div><div id="c3" class="crowd"></div>
+  <div id="c4" class="crowd"></div><div id="c5" class="crowd"></div><div id="c6" class="crowd"></div>
+
+  <div id="sub"><div class="zh"></div><div class="en"></div></div>
+  <div id="ring"></div>
+  <div id="boom"></div>
+  <div id="term"><div class="zh"></div><div class="en"></div></div>
+
+  <div id="vig"></div>
+  <div id="dimmer"></div>
+</div>
+
+<script>
+/* ══════════════════ CONFIG：换主题只改这一段 ══════════════════ */
+const CONFIG = {
+  total: 20.0,          // 片长（秒）；跟音乐时改成音乐时长
+  beat: 17.0,           // 第一个重拍（秒）。换曲必须实测，误差 ≤2 帧
+  anchor: "原地",        // 锚词 2–4 字，高潮砸出
+  termZh: "红皇后效应",
+  termEn: "The Red Queen Effect · 拼命跑，只为留在原地",
+  // 三幕（个人 / 自然 / 群体），留出钩子与蓄力时间
+  scenes: { p1:[3.2,6.4], p2:[6.4,9.6], p3:[9.6,12.8], out:15.2 },
+  // 字幕：[起, 止, 中文, 英文]；中文 ≤18 字
+  subs: [
+    [0.30, 3.20, "你已经跑得够快了，为什么一切还没变？", "You run faster than ever — why has nothing changed?"],
+    [3.30, 6.40, "你每天加班到深夜，存款却没怎么变。",   "You work late every night, your savings barely move."],
+    [6.50, 9.60, "猎豹拼命追，瞪羚拼命跑，谁也没赢。",   "The cheetah chases, the gazelle runs — neither wins."],
+    [9.70,12.80, "所有人都在往前跑，位置却没变过。",     "Everyone runs forward, yet no one moves."],
+    [12.90,14.60,"所以，大家其实都在原地。",            "So we are all staying in place."],
+    [14.70,16.40,"这不是错觉——",                       "This is no illusion —"],
+  ],
+};
+/* ═══════════════════════════════════════════════════════════ */
+
+const FPS = 30;
+const el = id => document.getElementById(id);
+const stage=el('stage'), sub=el('sub'), subZh=sub.querySelector('.zh'), subEn=sub.querySelector('.en');
+const runner=el('runner'), hare=el('hare'), fox=el('fox');
+const boom=el('boom'), ring=el('ring'), term=el('term');
+const dimmer=el('dimmer'), ground=el('ground');
+const crowds=[el('c1'),el('c2'),el('c3'),el('c4'),el('c5'),el('c6')];
+
+boom.textContent = CONFIG.anchor;
+term.querySelector('.zh').textContent = CONFIG.termZh;
+term.querySelector('.en').textContent = CONFIG.termEn;
+
+function clamp01(x){ return Math.max(0, Math.min(1, x)); }
+function easeOut(x){ return 1-Math.pow(1-x,3); }
+
+/* 纯帧号驱动：任意 t 都算出唯一画面，不许有累加状态 */
+function setState(t){
+  const B = CONFIG.beat;
+  const [p1a,p1b] = CONFIG.scenes.p1;
+  const [p2a,p2b] = CONFIG.scenes.p2;
+  const [p3a,p3b] = CONFIG.scenes.p3;
+
+  // 相机极缓推
+  stage.style.transform = `scale(${1.0 + 0.05*(t/CONFIG.total)})`;
+
+  // 字幕
+  let subOp=0, zhTxt="", enTxt="";
+  for(const [a,b,z,e] of CONFIG.subs){
+    if(t>=a && t<=b){ subOp = clamp01((t-a)/0.35) * clamp01((b-t)/0.35); zhTxt=z; enTxt=e; }
+  }
+  sub.style.opacity = subOp; subZh.textContent=zhTxt; subEn.textContent=enTxt;
+
+  // 第一幕：一个人原地跑
+  const runP = clamp01((t-p1a)/0.4) * (1 - clamp01((t-(p1b-0.4))/0.4));
+  runner.style.opacity = runP;
+  runner.style.transform = `translate(${60*Math.sin(t*10)}px,${Math.abs(Math.sin(t*10))*-10}px)`;
+
+  // 第二幕：追与被追，间距不变
+  const chaseP = clamp01((t-p2a)/0.4) * (1 - clamp01((t-(p2b-0.4))/0.4));
+  hare.style.opacity = chaseP; fox.style.opacity = chaseP;
+  if(t>=p2a){
+    const prog = clamp01((t-p2a)/(p2b-p2a));
+    fox.style.left  = (820 + prog*520) + "px";
+    hare.style.left = (900 + prog*560) + "px";
+  }
+
+  // 第三幕：人群都在跑，相对位置不动
+  const crowdP = clamp01((t-p3a)/0.4) * (1 - clamp01((t-(p3b-0.4))/0.4));
+  const baseX=[400,620,840,1080,1300,1520], baseY=[660,690,640,680,650,695];
+  crowds.forEach((c,i)=>{
+    c.style.opacity = crowdP;
+    c.style.left = baseX[i]+"px";
+    c.style.top  = (baseY[i] + (t<p3a?0:Math.sin(t*12+i)*4))+"px";
+  });
+
+  // 地面线贯穿，蓄力段淡出（别留到高潮切字）
+  ground.style.opacity = clamp01((t-p1a)/0.5) * (1 - clamp01((t-CONFIG.scenes.out)/1.0));
+  ground.style.transform = (t>=p2a && t<p2b) ? "scaleX(0.94) skewX(-3deg)" : "scaleX(1)";
+
+  // 高潮：收暗 0.5s → 静止 3 帧 → 骤然亮起
+  let dim=0;
+  if(t < B-0.6)      dim = 0;
+  else if(t < B-0.1) dim = easeOut(clamp01((t-(B-0.6))/0.5));
+  else if(t < B)     dim = 1;
+  else               dim = clamp01(1-(t-B)/0.18);
+  dimmer.style.opacity = dim;
+
+  // 锚词：重拍那一帧直接满不透明砸出（不淡入）
+  if(t >= B){
+    boom.style.opacity = 1;
+    boom.style.transform = `translate(-50%,-50%) scale(${1.28 - 0.28*easeOut(clamp01((t-B)/0.25))})`;
+    const rk = clamp01((t-B)/1.4);
+    ring.style.width  = (120 + rk*900)+"px";
+    ring.style.height = (120 + rk*900)+"px";
+    ring.style.opacity = (1-rk)*0.8;
+  } else {
+    boom.style.opacity = 0; ring.style.opacity = 0;
+  }
+
+  // 术语：重拍后 0.6s 浮现
+  term.style.opacity = t >= B+0.6 ? clamp01((t-B-0.6)/0.8) : 0;
+}
+</script>
+</body>
+</html>

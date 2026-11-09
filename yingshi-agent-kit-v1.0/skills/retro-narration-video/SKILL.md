@@ -83,8 +83,49 @@ B 站 5–8 分钟长片默认只用“动态纸墨”。Vox / huashu 不替代�
 `MG Styles 15` 等新增来源目前只登记在 `references/future-style-references.md`，
 属于候选参考，不属于以上已生效风格，不参与当前选型、分镜、出图或渲染。
 
+### 风格口令与命令（机器路由，唯一入口）
+
+风格关键词与代号**只在一处定义**：`scripts/style.py` 的 `STYLES`。下表是常用口令，
+冲突时以 `style.py` 为准，不要在别处维护第二套关键词。
+
+| 你说 | 代号 | 路线 | 脚手架 |
+|---|---|---|---|
+| vox / vox 风格 / 拼贴 / 剪报 | A2 | 1 口播 | `starter_retro_v2` |
+| vibe / 人文纪录片 / 锚词 / 羊皮纸 / 心理学 / 幸存者偏差 | B | 2 无口播 | `starter_style_b` |
+| 3D 科普 / three.js / 电影感 / 粒子 / 辉光 | C | 2 无口播 | 未落地（只有规则） |
+| huashu / 花叔 / 艺术动态 | A3 | 1 口播 | `starter_retro_v2` |
+| 动态纸墨 / 口播 / 品牌史 / 人物传记 / 汽车历史 | A1 | 1 口播 | `starter_retro_v2` |
+
+```powershell
+python <skill>\scripts\style.py list                      # 全部风格 + 路线 + 脚手架
+python <skill>\scripts\style.py show B                    # 该风格规格正文（实时取自 style-library.md）
+python <skill>\scripts\style.py detect "做个 vox 风格短片"   # 一句话 → 代号
+python <skill>\scripts\style.py detect --file BRIEF.md    # 从需求文件 / BRIEF 识别
+
+python <skill>\scripts\new_project.py "<项目名>" --style vibe --anchor "原地" --topic "红皇后效应"
+python <skill>\scripts\new_project.py "<项目名>" --style vox  --brief "90秒，3章"
+```
+
+`--style` 接受代号（A1/A2/A3/B/C）或关键词（vox / vibe / huashu / 3d科普），
+也可改用 `--need "需求原话"` 或 `--need-file 需求.md` 自动识别。
+路线 2 的项目只建 `notes/ frames/ renders/` 并铺 `film.html + render.py + build.ps1`，
+**不建** `vertical_douyin`、不出 6 尺寸封面。
+
+**开工铁律（不许跳）**：
+
+1. 用户一提到风格词，先跑 `style.py detect`，把代号写进 BRIEF 顶部（`风格：B`），全片不混。
+2. **识别不到、或两个风格同等具体地命中时，必须问用户，不许默认 A1。**
+   `new_project.py` 在无风格时回落 A1 只是脚本兜底（会打印警告），
+   不代表 agent 可以不问就开工。只有用户明确说「按默认/口播」或题材明显是
+   汽车品牌长故事时，才走 A1。
+3. 定完风格再建目录；路线 1 用 `starter_retro_v2`，路线 2 用 `starter_style_b`，不许拿错脚手架。
+4. 路线 2 不走 8 步、不套口播稿硬规则、默认不产出抖音竖屏套图与封面。
+5. 用户中途改风格 = 重建项目，不在原工程上混搭两套镜头语法。
+
 ## 开工前必读（跑哪步读哪份，细节以下册为准）
 
+- [scripts/style.py](scripts/style.py)：**风格口令唯一权威**——`list` 列全部风格、`show` 实时抽该风格
+  规格正文、`detect` 从一句话 / 需求文件 / BRIEF 识别代号。开工第一件事先跑它。
 - [references/style-library.md](references/style-library.md)：**风格选择唯一权威**——
   路线 2（无口播音乐驱动：B 人文纪录片纸面风 / C 3D 科普电影风）的完整提示词模板、
   填空位、自查与交付要求；路线 1 的镜头风格细则见下方 `visual-craft.md`。

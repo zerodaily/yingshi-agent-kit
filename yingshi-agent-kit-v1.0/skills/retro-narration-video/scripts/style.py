@@ -77,6 +77,10 @@ STYLES = {
 
 ORDER = ["A1", "A2", "A3", "B", "C"]
 
+# 「不要口播 / 无口播」里的「口播」不能当成 A1 的正面命中
+NEG_VOICE = ("不要口播", "无口播", "不用口播", "没有口播", "不带口播",
+             "不配音", "不配旁白", "不用配音")
+
 
 def _norm(s):
     s = s.lower()
@@ -87,9 +91,13 @@ def _norm(s):
 def detect(text):
     """返回 (code, hits)。hits 为 [(alias_len, code, alias)] 降序。"""
     t = _norm(text)
+    no_voice = any(_norm(n) in t for n in NEG_VOICE)
     hits = []
     for code, spec in STYLES.items():
         for alias in spec["aliases"]:
+            # 用户明确说「不要口播」时，口播类关键词不参与匹配
+            if code == "A1" and no_voice and "口播" in _norm(alias):
+                continue
             if _norm(alias) in t:
                 hits.append((len(_norm(alias)), code, alias))
     if not hits:
@@ -100,6 +108,12 @@ def detect(text):
     if len(winners) > 1:
         return None, hits            # 歧义
     return hits[0][1], hits
+
+
+def wants_no_voice(text):
+    """需求里是否明确「不要口播」——用来拦住误回落 A1。"""
+    t = _norm(text or "")
+    return any(_norm(n) in t for n in NEG_VOICE)
 
 
 def resolve(value=None, text=None, path=None):

@@ -77,6 +77,18 @@ BRIEF_ROUTE2 = """# {name} · BRIEF
 """
 
 
+def _need_text(args):
+    """拼出用于判断否定口播的原始需求文本。"""
+    parts = [args.need or ""]
+    if args.need_file:
+        try:
+            with open(args.need_file, encoding="utf-8") as f:
+                parts.append(f.read())
+        except Exception:
+            pass
+    return "\n".join(parts)
+
+
 def _choose_style(args):
     """返回 (code, 来源说明)。识别不到 → A1 + 警告标记。"""
     code, hits, err = styler.resolve(value=args.style, text=args.need,
@@ -93,6 +105,13 @@ def _choose_style(args):
     code, hits = styler.detect(args.name)
     if code:
         return code, f"自动识别（项目名命中：{hits[0][2]}）"
+
+    # 需求明说不要口播，却回落 A1 = 方向性错误，必须让用户显式指定
+    if styler.wants_no_voice(_need_text(args) or args.name):
+        print("[!] 需求写了「不要口播」，但没识别出具体风格。\n"
+              "    请用 --style B（人文纪录片）或 --style C（3D 科普）重建，"
+              "不要落到口播产线。", file=sys.stderr)
+        sys.exit(1)
 
     print("[!] 未识别到风格关键词，按默认 A1 动态纸墨建项目。"
           "如果这不是口播片，请用 --style B/C/vox/huashu 重建。", file=sys.stderr)
